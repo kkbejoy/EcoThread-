@@ -1,0 +1,35 @@
+
+<section>
+<div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h1>Add new products here </h1>
+                        <form  action="/admin/addproducts" method="post">
+
+                            <div class="col-md-12">
+                               <input class="form-control" type="text" name="brand" placeholder=" Brand name" required>
+                               <input class="form-control" type="text" name="description" placeholder=" Product details" required>
+                               <input class="form-control" type="number" name="price" placeholder=" Price" required> 
+                               <input class="form-control" type="text" name="category" placeholder=" Category" required>  
+                               <input class="form-control" type="text" name="size" placeholder=" Sizes available" required> 
+                               <input class="form-control" type="url" name="image" placeholder=" Image link" required>  
+                              <!-- <input class="form-control" type="text" name="coupons" placeholder="Coupons" required>
+                               -->
+                            </div>
+                                            
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" class="btn btn-primary">Click here to add</button>
+                            </div>
+
+                           
+                            <p style="color:#800004">Invalid Entry!!!! User allready exists</p>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section> 

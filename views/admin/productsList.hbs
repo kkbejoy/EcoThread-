@@ -1,0 +1,29 @@
+
+<section>
+    <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Brand</th>
+       <th>Price</th>
+      <th>Images</th> 
+      <th>Category</th>
+      <th>Coupons</th>
+    </tr>
+
+  </thead>
+  <tbody>
+   {{#each product}}
+   <tr>
+      <td>{{this.brand}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.image}}</td>
+      <td>{{this.category}}</td>
+    <td><a href="/admin/updateproduct/{{this._id}}" class="btn btn-info">Edit</a>
+      <a href="/admin/deleteproduct/{{this._id}}" class="btn btn-danger" onclick="return confirm('do you want to delete {{this.item}}')">Delete</a></td>
+    </tr>
+    {{/each}}
+    
+</table>
+</section>
