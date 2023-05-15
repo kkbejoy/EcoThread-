@@ -1,0 +1,102 @@
+<main class="main-wrap">
+    <section class="content-main">
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="mb-0">Sales Report</h3>
+                    </div>
+                    <form action="/admin/sales-report" method="get">
+                        <div class="form-group row">
+                            <label for="start-date" class="col-sm-2 col-form-label">From:</label>
+                            <div class="col-sm">
+                                <input type="date" class="form-control" id="start-date" name="startDate">
+                            </div>
+                            <label for="end-date" class="col-sm-2 col-form-label">To:</label>
+                            <div class="col-sm">
+                                <input type="date" class="form-control" id="end-date" name="endDate">
+                            </div>
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-primary float-right">Generate Report</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Total Orders: <br>(Delivered)</th>
+                            <td>{{ salesReport.totalOrders }} Orders</td>
+                        </tr>
+                        <tr>
+                            <th>Total Products Sold: <br>(Delivered)</th>
+                            <td>{{ salesReport.totalProductsSold }} Products</td>
+                        </tr>
+                        <tr>
+                            <th>Total Revenue:</th>
+                            <td>{{formatCurrency salesReport.totalRevenue }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Profit:</th>
+                            <td>{{formatCurrency salesReport.totalProfit }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> <div>  <a href="#" class="btn btn-dark" id="downloadButton" ><i class="bi bi-printer"></i> Print Sales Statement</a>
+</div>
+    </section>
+   
+</main>
+
+<script>
+    const startDate="{{salesReport.startDate}}"
+    console.log(startDate);
+const startDateInput = document.getElementById('start-date');
+startDateInput.value = startDate;
+const endDateInput = document.getElementById('end-date');
+endDateInput.value ="{{salesReport.endDate}}";
+
+</script>
+
+{{!-- Download file function --}}
+<script>function downloadFile(url) {
+  $.ajax({
+    url: url,
+    method: 'GET',
+    xhrFields: {
+      responseType: 'blob' // Set the response type to 'blob'
+    },
+    success: function(data) {
+      // Create a temporary <a> element and trigger a download
+      const a = document.createElement('a');
+      const url = window.URL.createObjectURL(data);
+      a.href = url;
+      a.download = 'file.csv'; // Replace 'file.txt' with the desired file name
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up: remove the temporary <a> element and revoke the object URL
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    },
+    error: function(xhr, status, error) {
+      console.error('Error downloading file:', error);
+    }
+  });
+}
+
+// Example usage: Attach this function to a button click event
+const downloadButton = document.getElementById('downloadButton');
+const startDateInputValue = document.getElementById('start-date').value;
+const endDateInputValue = document.getElementById('end-date').value;
+
+downloadButton.addEventListener('click', function() {
+  const fileUrl = '/admin/sales-report-download?startDate='+startDateInputValue+'&endDate='+endDateInputValue; 
+  console.log("hello 1")
+  downloadFile(fileUrl);
+});
+</script>

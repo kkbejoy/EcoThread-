@@ -1,243 +1,360 @@
+<!-----("product" is sent into this page )---->
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="../IMAGES/Logo/myntra.svg" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-
-    <link rel="stylesheet" href="../Style/navbar.css" />
-    <link rel="stylesheet" href="../Style/product.css" />
-    <link rel="stylesheet" href="../Style/footer.css">
-    <title>Product Page</title>
-  </head>
-  <body>
-    <div id="header"></div>
-    <br />
-
-    <div id="ProductsContainer">
-      <div id="ProductsParent">
-        <div>Home / ClothingMen / <span> T-Shirts</span></div>
-        <div>Men T-Shirts <span>- 64944 items</span></div>
-        <div id="filterSelectBoxes">
-          <div class="fl">FILTERS</div>
-          <div class="bundel">
-            <select>
-              <option value="">Bundles</option>
-              <option value="">Single Styles</option>
-            </select>
-          </div>
-          <div class="country">
-            <select>
-              <option value="">Country Of Origin</option>
-              <option value="">All Countries</option>
-              <option value="">India</option>
-            </select>
-          </div>
-          <div class="size">
-            <select>
-              <option value="">Size</option>
-              <option value="">Small</option>
-              <option value="">Medium</option>
-              <option value="">Large</option>
-            </select>
-          </div>
-          <div class="ProductSelectBy">
-            <select name="sort" id="sortButton">
-              <option value="">Sort by : Recommended</option>
-              <option value="whatsNew">Whats New</option>
-              <option value="popularity">Popularity</option>
-              <option value="discount">Better Discount</option>
-              <option value="desc">Price : High to Low</option>
-              <option value="asc">Price : Low to High</option>
-              <option value="rating">Customer Rating</option>
-            </select>
+<!-- Breadcrumb Section Begin -->
+<section class='breadcrumb-option'>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-lg-12'>
+        <div class='breadcrumb__text'>
+          <h4>Shop</h4>
+          <div class='breadcrumb__links'>
+            <a href='./index.html'>Home</a>
+            <span>Shop</span>
           </div>
         </div>
-
-        <div id="ProductBlock">
-          <div id="ProductFilter">
-            <div id="brandFilter">
-              <br /><br />
-              <span class="filterspan">BRAND</span>
-              <ul id="filterButtonBrand">
-                <li>
-                  <input
-                    type="checkbox"
-                    class="bandfiltered"
-                    id="Roadster"
-                    value="Roadster"
-                    name="Roadster"
-                  />
-                  <span>Roadster</span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    class="bandfiltered"
-                    id="WROGN"
-                    value="WROGN"
-                    name="WROGN"
-                  />
-                  <span> WROGN </span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    class="bandfiltered"
-                    id="HRX"
-                    value="HRX by Hrithik Roshan"
-                    name="HRX by Hrithik Roshan"
-                  />
-                  <span> HRX by Hrithik Roshan </span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    class="bandfiltered"
-                    id="LouisPhilippeSport"
-                    value="Louis Philippe Sport"
-                    name="Louis Philippe Sport"
-                  />
-                  <span> Louis Philippe Sport </span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    class="bandfiltered"
-                    id="Puma"
-                    value="Puma"
-                    name="Puma"
-                  />
-                  <span> Puma </span>
-                </li>
-              </ul>
-              <br />
-
-              <span class="filterspan">PRICE</span>
-              <ul id="filterButtonPrice">
-                <li> <input type="checkbox" id="174-1881" value="174-1881" name="174-1881"/><span> Rs. 174 to Rs. 1881 </span></li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="1881-3588"
-                    value="1881-3588"
-                    name="1881-3588"
-                  /><span> Rs. 1881 to Rs. 3588 </span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="3588-5295"
-                    value="3588-5295"
-                    name="3588-5295"
-                  /><span> Rs. 3588 to Rs. 5295 </span>
-                </li>
-                <li>
-                  <input
-                    type="checkbox"
-                    id="5295-7002"
-                    value="5295-7002"
-                    name="5295-7002"
-                  />
-                  <span> Rs. 5295 to Rs. 7002 </span>
-                </li>
-              </ul>
-              <br>
-              <span class="filterspan">DISCOUNT RANGE</span>
-              <ul id="filterButtonDiscount">
-                <li>
-                  <input
-                    type="radio"
-                    id="10"
-                    value="10"
-                    name="10"
-                  /><span> 10% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="20"
-                  value="20"
-                  name="20"
-                  /><span> 20% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="30"
-                  value="30"
-                  name="30"/>
-                  <span> 30% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="40"
-                  value="40"
-                  name="40"/>
-                  <span> 40% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="50"
-                  value="50"
-                  name="50"/>
-                  <span> 50% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="60"
-                  value="60"
-                  name="60"/>
-                  <span> 60% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="70"
-                  value="70"
-                  name="70"/>
-                  <span> 70% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="80"
-                  value="80"
-                  name="80"/>
-                  <span> 80% and above </span>
-                </li>
-                <li>
-                  <input
-                  type="radio"
-                  id="90"
-                  value="90"
-                  name="90"/>
-                  <span> 90% and above </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <br /><br />
-
-          <div id="productGrid"><div id="productGridItems"></div></div>
-        </div>
-        <hr />
-        <div id="footerBlock"></div>
       </div>
     </div>
-    
-<!-- 
-<div> </div> -->
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
 
-    <script type="module" src="../JS/product.js"></script>
-  </body>
-</html>
+<!-- Shop Section Begin -->
+<section class='shop spad'>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-lg-3'>
+        <div class='shop__sidebar'>
+          <div class='shop__sidebar__search'>
+            <form action="/productsearch?search" method="get">
+              <input type="text" name="search" id="search-input" placeholder="Search here....."> <button
+                type='submit'><span class='icon_search'></span></button>
+            </form>
+          </div>
+          <div class='shop__sidebar__accordion'>
+            <div class='accordion' id='accordionExample'>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseOne'>Categories</a>
+                </div>
+                <div id='collapseOne' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__categories'>
+                      <ul class='nice-scroll'>
+                        {{#each activeCategories}}
+                        <li><a href='/products/{{this._id}}'>{{this.name}}</a></li>
+                        {{/each}}
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseTwo'>Branding</a>
+                </div>
+                <div id='collapseTwo' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__brand'>
+                      <ul>
+                        <li><a href='#'>Louis Vuitton</a></li>
+                        <li><a href='#'>Chanel</a></li>
+                        <li><a href='#'>Hermes</a></li>
+                        <li><a href='#'>Gucci</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseThree'>Filter Price</a>
+                </div>
+                <div id='collapseThree' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__price'>
+                      <ul>
+                        <li><a href='#'>$0.00 - $50.00</a></li>
+                        <li><a href='#'>$50.00 - $100.00</a></li>
+                        <li><a href='#'>$100.00 - $150.00</a></li>
+                        <li><a href='#'>$150.00 - $200.00</a></li>
+                        <li><a href='#'>$200.00 - $250.00</a></li>
+                        <li><a href='#'>250.00+</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseFour'>Size</a>
+                </div>
+                <div id='collapseFour' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__size'>
+                      <label for='xs'>xs
+                        <input type='radio' id='xs' />
+                      </label>
+                      <label for='sm'>s
+                        <input type='radio' id='sm' />
+                      </label>
+                      <label for='md'>m
+                        <input type='radio' id='md' />
+                      </label>
+                      <label for='xl'>xl
+                        <input type='radio' id='xl' />
+                      </label>
+                      <label for='2xl'>2xl
+                        <input type='radio' id='2xl' />
+                      </label>
+                      <label for='xxl'>xxl
+                        <input type='radio' id='xxl' />
+                      </label>
+                      <label for='3xl'>3xl
+                        <input type='radio' id='3xl' />
+                      </label>
+                      <label for='4xl'>4xl
+                        <input type='radio' id='4xl' />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseFive'>Colors</a>
+                </div>
+                <div id='collapseFive' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__color'>
+                      <label class='c-1' for='sp-1'>
+                        <input type='radio' id='sp-1' />
+                      </label>
+                      <label class='c-2' for='sp-2'>
+                        <input type='radio' id='sp-2' />
+                      </label>
+                      <label class='c-3' for='sp-3'>
+                        <input type='radio' id='sp-3' />
+                      </label>
+                      <label class='c-4' for='sp-4'>
+                        <input type='radio' id='sp-4' />
+                      </label>
+                      <label class='c-5' for='sp-5'>
+                        <input type='radio' id='sp-5' />
+                      </label>
+                      <label class='c-6' for='sp-6'>
+                        <input type='radio' id='sp-6' />
+                      </label>
+                      <label class='c-7' for='sp-7'>
+                        <input type='radio' id='sp-7' />
+                      </label>
+                      <label class='c-8' for='sp-8'>
+                        <input type='radio' id='sp-8' />
+                      </label>
+                      <label class='c-9' for='sp-9'>
+                        <input type='radio' id='sp-9' />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card'>
+                <div class='card-heading'>
+                  <a data-toggle='collapse' data-target='#collapseSix'>Tags</a>
+                </div>
+                <div id='collapseSix' class='collapse show' data-parent='#accordionExample'>
+                  <div class='card-body'>
+                    <div class='shop__sidebar__tags'>
+                      <a href='#'>Product</a>
+                      <a href='#'>Bags</a>
+                      <a href='#'>Shoes</a>
+                      <a href='#'>Fashio</a>
+                      <a href='#'>Clothing</a>
+                      <a href='#'>Hats</a>
+                      <a href='#'>Accessories</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='col-lg-9'>
+        <div class='shop__product__option'>
+          <div class='row'>
+            <div class='col-lg-6 col-md-6 col-sm-6'>
+              <div class='shop__product__option__left'>
+                <p>Displaying the Page {{subtract productsPaginated.next.page 1}} of {{productsPaginated.resultsCount}}
+                  results</p>
+              </div>
+            </div>
+            <div class='col-lg-6 col-md-6 col-sm-6'>
+              <div class='shop__product__option__right'>
+                <p>Sort by Price:</p>
+                <select>
+                  <option value=''>Low To High</option>
+                  <option value=''>$0 - $55</option>
+                  <option value=''>$55 - $100</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='row'>
+
+          {{#each productsPaginated.results}}
+          <div class='col-lg-4 col-md-6 col-sm-6'>
+            <div class='single-product-wrap mb-35'>
+              <div class='product__item'>
+                <div class='product__item__pic set-bg'
+                  data-setbg='https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.productImages.[2]}}.jpg'>
+                  <a href='/product/{{this._id}}'><img src='../productImages/{{this.productImages.[0]}}' alt='' /></a>
+                  <ul class='product__hover'>
+                    <li><a href='#' class="add-to-wishlist" data-id="{{this._id}}"><img src='img/icon/heart.png'
+                          alt='' /></a></li>
+                    <li><a href='#'><img src='img/icon/compare.png' alt='' />
+                        <span>Compare</span></a></li>
+                    <li><a href='#'><img src='img/icon/search.png' alt='' /></a></li>
+                  </ul>
+                </div>
+                <div class='product__item__text'>
+                  <a href='/product/{{this._id}}'>
+                    <h6>{{this.name}}</h6>
+                  </a>
+                  <div class='rating'>
+                    <i class='fa fa-star-o'></i>
+                    <i class='fa fa-star-o'></i>
+                    <i class='fa fa-star-o'></i>
+                    <i class='fa fa-star-o'></i>
+                    <i class='fa fa-star-o'></i>
+                  </div>
+                  <a href='/product/{{this._id}}'>
+                    <h6>{{this.brand}}</h6>
+                  </a>
+                  <h6>{{this.name}}</h6>
+                   {{#if this.quantity}}
+                  <h5>₹{{this.price}}</h5>{{/if}}
+                  <div class='product__color__select'>
+                    <label for='pc-4'>
+                      <input type='radio' id='pc-4' />
+                    </label>
+                    <label class='active black' for='pc-5'>
+                      <input type='radio' id='pc-5' />
+                    </label>
+                    <label class='grey' for='pc-6'>
+                      <input type='radio' id='pc-6' />
+                    </label>
+                  </div> 
+                  {{#if this.quantity}}
+                  <a href="#" class="add-cart btn btn-primary btn-block mt-3" data-id="{{this._id}}"
+                    style="background-color: rgb(16, 15, 15); color: white;">Add to Cart</a>
+{{else}}<h7 style="color: crimson;">Coming soon...!!!</h7>
+{{/if}}
+
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+
+
+        </div>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <div class='product__pagination'>
+
+              {{!-- {{#if productsPaginated.previous}}
+              <li class="page-item "><a class="page-link" href="/products?page={{productsPaginated.previous.page}}">Prev
+                </a>
+                {{/if}}
+                {{#if productsPaginated.next}}
+              <li class="page-item  float-end "><a class="page-link "
+                  href="/products?page={{productsPaginated.next.page}}">Next </a>
+                {{/if}} --}}
+                {{#if productsPaginated.previous}}
+                <a href='products?page={{productsPaginated.previous.page}}'>Prev </a>
+                {{/if}}
+                {{#if productsPaginated.next}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <a href='/products?page={{productsPaginated.next.page}}'> Next</a>
+                {{/if}}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Shop Section End -->
+
+{{!-- Add to Cart Modal --}}
+<div id="cart-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Item has been added to the cart!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Search Begin -->
+<div class='search-model'>
+  <div class='h-100 d-flex align-items-center justify-content-center'>
+    <div class='search-close-switch'>+</div>
+    <form class="search-model-form" action="/productsearch?search" method="get">
+      <input type="text" name="search" id="search-input" placeholder="Search here.....">
+    </form>
+  </div>
+</div>
+<!-- Search End -->
+
+
+{{!-- Add to cart --}}
+<script>
+  $(document).ready(function () {
+    $(".add-cart").click(function (event) {
+      event.preventDefault();
+      console.log("Ajax")
+      const itemId = $(this).data("id");
+      $.ajax({
+        type: "GET",
+        url: "cart/addtocart/" + itemId,
+        success: function (data) {
+          console.log(data)
+          $("#cart-modal").modal("show");
+          //alert("Item has been added to the cart!");
+        },
+        error: function (xhr, status, error) {
+          alert("Adding to cart Failed")
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+</script>
+{{!-- wishlist --}}
+<script>
+  $(document).ready(function () {
+    $(".add-to-wishlist").click(function (event) {
+      event.preventDefault();
+      console.log("add to wishlist")
+      const itemId = $(this).data("id");
+      $.ajax({
+        type: "POST",
+        url: "wishlist",
+        data: { productId: itemId },
+        success: function (data) {
+          console.log(data)
+          alert("Successfully added")
+        },
+        error: function (xhr, status, error) {
+          alert("Please LogIn")
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+</script>

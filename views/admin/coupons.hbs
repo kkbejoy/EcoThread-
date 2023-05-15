@@ -1,0 +1,413 @@
+<main class="main-wrap">
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Coupons </h2>
+                
+            </div>
+            <div>
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#coupon-modal">
+  Create Coupon
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="coupon-modal" tabindex="-1" aria-labelledby="coupon-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="coupon-modal-label">Create Coupon</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="coupon-form">
+          <div class="mb-4">
+            <label for="code_name" class="form-label">Code</label>
+            <input type="text" placeholder="Type here" name="code" class="form-control" id="code_name" required />
+          </div>
+          <div class="mb-4">
+            <label for="discount_percentage" class="form-label">Discount Percentage</label>
+            <input type="number" placeholder="Type here" name="discount" class="form-control" id="discount_percentage" required />
+          </div>
+          <div class="mb-4">
+            <label for="discount_percentage" class="form-label">Required Minimum Purchase </label>
+            <input type="number" placeholder="Type here" name="requiredMinPurchaseLimit" class="form-control" id="discount_percentage" required />
+          </div>
+          
+           <div class="mb-4">
+            <label for="discount_percentage" class="form-label">Maximum Redeemable Amount</label>
+            <input type="number" placeholder="Type here" name="maxRedeemableAmount" class="form-control" id="discount_percentage" required />
+          </div>
+            <div class="mb-4">
+            <label class="form-label">Starting date</label>
+            <input class="form-control" name="startingDate" type="date" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Expiration date</label>
+            <input class="form-control" name="expirationDate" type="date" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Description</label>
+            <textarea placeholder="Type here" name="description" class="form-control" required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="coupon-form">Create Coupon</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    
+                    <div class="col-md-9 w-100">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    
+                                        <th>Sl.No</th>
+                                        <th>Code</th>
+                                        <th>Discount</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Users Used</th>
+                                        <th>Max Limit </th>
+                                        <th>Min Purchase required </th>
+                                         <th class="text-center">Starting Date</th>
+                                         <th class="text-center">Expiration Date</th>
+                                        
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#if coupons}}
+                                    {{#each coupons}}
+                                    <tr>
+                                        
+                                        <td>{{incrementedIndex @index}}</td>
+                                        <td><b>{{this.code}}</b></td>
+                                        <td>{{this.discountPercentage}} %</td>
+                                        <td>{{this.description}}</td>
+                                        <td><span >{{#if this.isActive}}Active{{else}}Inactive{{/if}}</span></td>
+                                         <td class="text-center">{{this.usersUsed.length}}</td>
+                                         <td>₹ {{ this.maxRedeemableAmount}}</td>
+                                         <td>₹ {{ this.requiredMinPurchaseLimit}}</td>
+                                         <td class="text-center">{{formatDate this.startingDate}}</td>
+                                         <td class="text-center">{{formatDate this.expirationDate}}</td>
+                                        <td class="text-end">
+                                            <div class="dropdown">
+                                                <a href="#" data-bs-toggle="dropdown"
+                                                    class="btn btn-light rounded btn-sm font-sm"> <i
+                                                        class="material-icons md-more_horiz"></i> </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item couponEdit" onclick="deleteCoupon('{{this._id}}')" href="#" >Delete Coupon</a>
+                                                </div>
+                                            </div> <!-- dropdown //end -->
+                                        </td>
+
+{{!-- Modal for Deletion Confirmation --}}
+                                                                            <div id="confirmDeleteCouponModal" class="modal fade">
+                                        <div class="modal-dialog modal-confirm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="icon-box">
+                                                        <i class="material-icons">&#xE5CD;</i>
+                                                    </div>
+                                                    <h4 class="modal-title">Are you sure?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want to delete {{this.code}} coupon?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-danger" id="confirmDeleteCouponBtn">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </tr>
+                                    {{/each}}
+                                    {{else}}
+                                
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- .col// -->
+                </div> <!-- .row // -->
+            </div> <!-- card body .// -->
+        </div> <!-- card .// -->
+    </section> <!-- content-main end// -->
+</main>
+
+{{!-- modal section --}}
+<style>
+    #myModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+    }
+
+    .modal {
+        max-width: 100%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+{{!-- success and failure modal --}}
+
+<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="success-modal-label">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Coupon successfully added.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="error-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="error-modal-label">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Coupon addition failed. Make sure coupon with similar name doesn't exist.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- 
+
+{{!-- updation modal --}}
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Coupon </h2>
+                <p> Update coupon</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <form id="coupon-update">
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Code</label>
+                                <input type="text" placeholder="Type here" name="code" class="form-control" id="code" />
+                                <input type="text" style="visibility: hidden;" id="id" name="couponId">
+                            </div>
+                            <div class="mb-4">
+                                <label for="product_slug" class="form-label">Discount</label>
+                                <input type="number" placeholder="Type here" name="discount" class="form-control"
+                                    id="discount" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Expiration date</label>
+                                <input class="form-control" name="expirationDate" type="date" id="expirationDate">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Type here" id="description" name="description"
+                                    class="form-control"></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">Create coupon</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- .row // -->
+            </div> <!-- card body .// -->
+        </div> <!-- card .// -->
+    </div>
+</div> --}}
+
+
+
+{{!-- jquery script Must be placed in before --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{{!-- Form to server --}}
+<script>
+    $(document).ready(function() {
+    $("#coupon-form").submit(function(e) {
+        console.log("Ajax Coupon Submission ")
+        e.preventDefault();
+        var formData ={
+    code: $("input[name='code']").val(),
+    discountPercentage: $("input[name='discount']").val(),
+    startingDate:$("input[name='startingDate']").val(),
+    expirationDate: $("input[name='expirationDate']").val(),
+    requiredMinPurchaseLimit: $("input[name='requiredMinPurchaseLimit']").val(),
+    maxRedeemableAmount:$("input[name='maxRedeemableAmount']").val(),
+    description: $("textarea[name='description']").val()
+};
+         $.ajax({
+            type: "POST",
+            url: "/admin/newcouponaddition",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function(response) {
+                console.log("Success"+ response);
+                 alert("Coupon Added Successfully")
+                 $('#coupon-modal').modal('show');
+
+                location.reload();
+
+            },
+            error: function(error) {
+                console.log(error);
+            alert("Coupon Addition Failed")
+            }
+        });
+    });
+});
+
+</script>
+
+{{!-- Coupon addition form validation --}}
+<script>
+const form = document.getElementById('coupon-form');
+
+form.addEventListener('submit', function(event) {
+  // Prevent the form from submitting
+  event.preventDefault();
+
+  // Get the values from the form fields
+  const code = document.getElementById('code_name').value;
+  const discount = document.getElementById('discount_percentage').value;
+  const requiredMinPurchaseLimit = document.getElementById('requiredMinPurchaseLimit').value;
+  const maxRedeemableAmount = document.getElementById('maxRedeemableAmount').value;
+  const startingDate = document.getElementsByName('startingDate')[0].value;
+  const expirationDate = document.getElementsByName('expirationDate')[0].value;
+  const description = document.getElementsByName('description')[0].value;
+
+  // Validate the form fields
+  if (code.trim() === '') {
+    alert('Please enter a code');
+    return;
+  }
+
+  if (isNaN(discount) || discount <= 0 || discount > 100) {
+    alert('Please enter a valid discount percentage');
+    return;
+  }
+
+  if (isNaN(requiredMinPurchaseLimit) || requiredMinPurchaseLimit <= 0) {
+    alert('Please enter a valid required minimum purchase limit');
+    return;
+  }
+
+  if (isNaN(maxRedeemableAmount) || maxRedeemableAmount <= 0) {
+    alert('Please enter a valid maximum redeemable amount');
+    return;
+  }
+
+  if (new Date(startingDate) >= new Date(expirationDate)) {
+    alert('Please enter a valid expiration date');
+    return;
+  }
+
+  if (description.trim() === '') {
+    alert('Please enter a description');
+    return;
+  }
+
+  // If all fields are valid, submit the form
+  form.submit();
+});
+</script>
+
+
+<script>
+function deleteCoupon(couponId) {
+  $.ajax({
+    type: "DELETE",
+    url: "/admin/deletecoupon",
+    data: { couponId: couponId },
+    success: function(response) {
+      if (response.status=="success") {
+          alert("Coupon deleted.");
+       location.reload();
+      } else {
+        alert("Failed to delete coupon.");
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error(error);
+      alert("An error occurred while deleting the coupon.");
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+

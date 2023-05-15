@@ -1,0 +1,88 @@
+<main class='my-4 p-4 shadow-sm rounded bg-white'>
+  <div class='p-4'>
+    <h7 class='mb-4'>Order #{{orderDetails.orderId}}</h7>
+    <p class='mb-2'><strong>Order Placed On:</strong>
+      {{formatDate orderDetails.dateCreated}}</p>
+    <p class='mb-2'><strong>Shipping Address:</strong>
+      {{orderDetails.deliveryAddress.name}},<br
+      />{{orderDetails.deliveryAddress.houseNo}},{{orderDetails.deliveryAddress.street}},{{orderDetails.deliveryAddress.district}}<br
+      />{{orderDetails.deliveryAddress.state}},{{orderDetails.deliveryAddress.pinCode}},<br
+      />{{orderDetails.deliveryAddress.email}},<br
+      />{{orderDetails.deliveryAddress.phone}}</p>
+    {{#if orderDetails.orderStatus}}
+      {{#if (eq orderDetails.orderStatus 'Cancelled')}}
+        Order Cancelled
+      
+      {{else if (eq orderDetails.orderStatus 'Delivered')}}
+        Order Delivered.
+                 {{#if (eq orderDetails.returnRequested true)}}
+            Return requested, awaiting confirmation..!!!
+                   {{else}}
+                   
+        <p class='text-right'><a
+            href='#'
+            class='btn btn-dark'
+            onclick="if(confirm('Are you sure you want to retun this product?')){location.href='/requestreturn/{{orderDetails._id}}'}"
+          >Request Return</a></p>
+                  {{/if}}
+      {{else if (eq orderDetails.orderStatus 'Returned')}}    
+      Product Returned, Amount will be refunded within 7 working days..        
+      {{else}}<p class='text-right'><a
+            href='#'
+            class='btn btn-dark'
+            onclick="if(confirm('Are you sure you want to cancel this order?')){location.href='/cancelorder/{{orderDetails._id}}'}"
+          >Cancel Order</a></p>{{/if}}{{/if}}
+
+    <div class='table-responsive'>
+      <table class='table table-striped'>
+        <thead>
+          <tr>
+            <th>Sl.no</th>
+            <th></th>
+
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        {{#each orderDetails.products}}
+          <tbody>
+            <tr>
+              <td>{{incrementedIndex @index}}</td>
+              <td><img
+                  src='https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.product.productImages.[1]}}.jpg'
+                  alt=''
+                  width='50'
+                  height='50'
+                /></td>
+              <td>
+                {{this.product.name}} <br> {{this.product.description}}</td>
+              <td>₹{{this.product.price}}</td>
+              <td>{{this.quantity}}</td>
+              <td>₹{{multiply this.product.price this.quantity}}</td>
+            </tr>
+
+          </tbody>
+        {{/each}}
+
+        <tfoot>
+          <tr>
+            <td colspan='1' class='text-end'>Total:</td>
+            <td>₹{{orderDetails.totalPrice}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</main>
+<footer class='text-center mt-auto pb-4'>
+  <p>&copy; 2023 Clothing Ecommerce Website. All rights reserved.</p>
+</footer>
+<!-- Bootstrap JS -->
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.min.js'
+  integrity='sha512-BPhKjckdQ2bZD9Y+sxMbhJGhntFgyw+sxLYG1bj6BQ/w6VJUo+uT7V9Tq3ThPV7VpdrKj0OFJISN4q3HY4Av4g=='
+  crossorigin='anonymous'
+  referrerpolicy='no-referrer'
+></script>

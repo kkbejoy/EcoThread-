@@ -1,22 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../Style/WishList.css" />
-    <link rel="stylesheet" href="../Style/navbar.css" />
-    <link rel="icon" href="../IMAGES/Logo/myntra.svg" />
-    <link rel="stylesheet" href="../Style/footer.css" />
-    <title>Wish List</title>
-  </head>
-  <body>
-    <div id="header"></div>
-    <div id="wishlistparent">
-      <div id="wishlistCount">My Wishlist 0 items</div>
-      <div id="WishListContainer"></div>
-      <div id="footerEl"></div>
-    </div>
-    <script type="module" src="../JS/WishList.js"></script>
-  </body>
-</html>
+<div class='container'>
+  <p></p>
+  <p></p>
+  <h4>My Wishlist {{wishlist.[0].products.length}} items</h4>
+  <p></p>
+  <p></p>
+  <div class='row'>
+    <div class='col-md-12'>
+      <!-- Wishlist items -->
+      <div class='card-deck'>
+        <!-- Item 1 -->
+        {{#each wishlist.[0].products}}
+        <div class='col-lg-3 col-md-6 col-sm-6'>
+          <div class='single-product-wrap mb-35'>
+
+            <div class=' product__item'><button type="button" class="remove-wishlist" data-id="{{this._id}}"
+                class="close position-absolute"
+                style="top: 10px; right: 10px; background-color: rgb(7, 7, 11); color: white;">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class='product__item__pic set-bg'
+                data-setbg='https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.productImages.[2]}}.jpg'>
+                <a href='/product/{{this._id}}'><img src='../productImages/{{this.productImages.[0]}}' alt='' /></a>
+
+              </div>
+              <div class='product__item__text'>
+                <a href='/product/{{this._id}}'>
+                  <h6>{{this.name}}</h6>
+                </a>
+                <div class='rating'>
+                  <i class='fa fa-star-o'></i>
+                  <i class='fa fa-star-o'></i>
+                  <i class='fa fa-star-o'></i>
+                  <i class='fa fa-star-o'></i>
+                  <i class='fa fa-star-o'></i>
+                </div>
+                <a href='/product/{{this._id}}'>
+                  <h6>{{this.brand}}</h6>
+                </a>
+                <h6>{{this.name}}</h6>
+                <h5>₹{{this.price}}</h5>
+                <div class='product__color__select'>
+                  <label for='pc-4'>
+                    <input type='radio' id='pc-4' />
+                  </label>
+                  <label class='active black' for='pc-5'>
+                    <input type='radio' id='pc-5' />
+                  </label>
+                  <label class='grey' for='pc-6'>
+                    <input type='radio' id='pc-6' />
+                  </label>
+                </div>
+                <a href="#" class="add-cart btn btn-primary btn-block mt-3" data-id="{{this._id}}"
+                  style="background-color: rgb(16, 15, 15); color: white;">Add to Cart</a>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+
+        {{!-- Add to Cart Modal --}}
+        <div id="cart-modal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <p>Item has been added to the cart!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- Bootstrap JS -->
+        {{!--
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script> --}}
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'></script>
+        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+
+
+        {{!-- Add to cart --}}
+        <script>
+          $(document).ready(function () {
+            $(".add-cart").click(function (event) {
+              event.preventDefault();
+              console.log("Ajax")
+              const itemId = $(this).data("id");
+              $.ajax({
+                type: "GET",
+                url: "cart/addtocart/" + itemId,
+                success: function (data) {
+                  console.log(data)
+                  $("#cart-modal").modal("show");
+                  //alert("Item has been added to the cart!");
+                },
+                error: function (xhr, status, error) {
+                  alert("Adding to cart Failed")
+                  console.error(xhr.responseText);
+                }
+              });
+            });
+          });
+        </script>
+        {{!-- remove from wishlist --}}
+        <script>
+          $(document).ready(function () {
+            $(".remove-wishlist").click(function (event) {
+              event.preventDefault();
+              console.log("Remove From Wishlist")
+              const productId = $(this).data("id");
+              console.log(productId);
+
+              $.ajax({
+                type: "DELETE",
+                url: "wishlist",
+                data: { productId: productId },
+                success: function (data) {
+                  console.log(data)
+                  alert("Product removed");
+                  location.reload()
+                  //alert("Item has been added to the cart!");
+                },
+                error: function (xhr, status, error) {
+                  alert(" Failed")
+                  console.error(xhr.responseText);
+                }
+              });
+            });
+          });
+        </script>

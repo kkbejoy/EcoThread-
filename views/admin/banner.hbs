@@ -1,0 +1,106 @@
+<body>
+  <main class='main-wrap'>
+    <div class="container">
+      <h3 class="text-center"> Banner</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <form action="/admin/banner" method="POST" id="banner-upload" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name-input">Banner Name:</label>
+              <input type="text" class="form-control" name="name" id="name-input" >
+              <div id="name-error" class="text-danger"></div>
+
+            </div>
+            <div class="form-group">
+              <label for="url-input">URL:</label>
+              <input type="text" class="form-control" name="url" id="url-input" >
+              <div id="url-error" class="text-danger"></div>
+
+            </div>
+            <div class="form-group">
+              <label for="banner-input">Select Banner Image:</label>
+              <input type="file" class="form-control-file" name="banner" id="banner-input" accept="image/*" >
+              <div id="banner-error" class="text-danger"></div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h4 class="text-center">Banners List</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Sl No</th>
+                <th scope="col">Tumbnail</th>
+                <th scope="col">Name</th>
+                <th scope="col">URL</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each banners}}
+              <tr>
+                <th scope="row">{{incrementedIndex @index}}</th>
+                <td>
+                  <div class="media align-items-center"><img
+                      src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.imageUrl}}.jpg"
+                      class="img-sm img-thumbnail" style="width: 50px; height: 50px;" alt=""></div>
+                </td>
+                <td>{{this.name}}</td>
+                <td>{{this.bannerUrl}}</td>
+              </tr>
+              {{/each}}
+
+            </tbody>
+          </table>
+          <div id="banner-list">
+            <!-- Banners will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <script>
+    const bannerForm = document.getElementById('banner-upload');
+    const nameInput = document.getElementById('name-input');
+    const urlInput = document.getElementById('url-input');
+    const bannerInput = document.getElementById('banner-input');
+    const nameError = document.getElementById('name-error');
+    const urlError = document.getElementById('url-error');
+    const bannerError = document.getElementById('banner-error');
+    console.log("Hello")
+    bannerForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Clear previous error messages
+      nameError.textContent = '';
+      urlError.textContent = '';
+      bannerError.textContent = '';
+
+      // Perform form validation
+      let isValid = true;
+
+      if (nameInput.value.trim() === '') {
+        console.log("enter name")
+        nameError.textContent = 'Banner Name is required';
+        isValid = false;
+      }
+
+      if (urlInput.value.trim() === '') {
+        urlError.textContent = 'URL is required';
+        isValid = false;
+      }
+
+      if (!bannerInput.value) {
+        bannerError.textContent = 'Banner Image is required';
+        isValid = false;
+      }
+
+      if (isValid) {
+        // If the form is valid, submit it
+        bannerForm.submit();
+      }
+    });
+  </script>
+</body>

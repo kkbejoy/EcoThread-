@@ -1,0 +1,23 @@
+<main class="main-wrap">
+<div class="text-center">
+<h3>Edit {{categoryDetails.[0].category}} here</h3>
+<form action="/categorylisting/{{categoryDetails.[0]._id}}" method="post">
+    <div class="form-group col-sm-8 offset-sm-2">
+    <label for="nameInput">Name:</label>
+    <input type="text" name="name" class="form-control" id="nameInput" placeholder="{{categoryDetails.[0].category}}">
+  </div>
+   <div class="form-group col-sm-8 offset-sm-2">
+    <label for="descInput">Description:</label>
+    <input type="text" name="description" class="form-control" id="descInput" placeholder="Enter description">
+  </div>
+   <div class="form-group col-sm-8 offset-sm-2">
+    <label for="listSelect">List or Unlist:</label>
+    <select class="form-control" id="listSelect" name="categoryStatus">
+      <option value="list">List</option>
+      <option value="unlist">Unlist</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</main>

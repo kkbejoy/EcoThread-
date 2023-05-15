@@ -1,0 +1,68 @@
+<body>
+    <main class="main">
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row justify-content-center mt-5 py-3">
+                    <div class="col-sm-8 col-md-6 col-lg-4">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-center mb-4">Enter Your Mobile Number</h4>
+
+                                <form action="/otplogin" method="post"  onsubmit="return validateInput()">
+                                    <div class="form-group">
+                                        <input type="tel" class="form-control mx-auto text-center" required="" name="mobile" id="phone"
+                                            placeholder="Mobile Number" style="width: 200px;">
+                                    </div>
+                                
+                                        {{#if otpLoginErr}}
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            {{otpLoginErr}}
+                                        </div>
+                                        {{/if}}
+                                
+                                    <div class="form-group">
+                                        <button type="submit" 
+                                            class="btn btn-fill-out btn-block hover-up" name="login"
+                                            style="background-color: black; color: white;">Send OTP</button>
+
+                                    </div>
+                                </form>
+                                {{!-- <h3 style="margin-top: 20px;">OR</h3>
+
+
+                                <a class="btn btn-lg btn-block btn-primary mb-2" href="/otp-login"
+                                    style="background-color: #3b5998;" type="submit">OTP Login</a> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+
+    <script>function validateInput() {
+            //
+            const input = document.querySelector('#phone');
+            const value = input.value.trim(); // Remove leading/trailing whitespace
+
+            // Check if value is 10 digits and a number
+            if (/^\d{10}$/.test(value)) {
+                // Valid input - do something here
+                console.log("Entered")
+                return true;
+            } else {
+                // Invalid input - display error message and prevent form submission
+                alert('Please enter a 10-digit number');
+                console.log("Failed")
+                event.preventDefault();
+                input.focus();
+
+                return false;
+            }
+        }
+    </script>
+
+</body>

@@ -1,0 +1,59 @@
+<main class="main">
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row justify-content-center mt-5 py-3">
+                <div class="col-sm-8 col-md-6 col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title text-center mb-4">Enter the OTP</h4>
+                            <form action="/otpverify" method="post">
+                                <div class="form-group">
+                                    <input type="text" class="form-control mx-auto text-center" required="" name="otp" placeholder="Enter the OTP" id="otpInput"
+                                        style="width: 200px;">
+                                </div>
+                               {{#if otpStatus}}
+                                    <div class="alert alert-success text-center" role="alert">
+                                        {{otpStatus}}
+                                    </div>
+                                    {{/if}}
+                                    {{#if otpErr}}
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        {{otpErr}}
+                                    </div>
+                                    {{/if}}
+                               
+                                <div class="form-group">
+                                    <button type="submit" onclick="validateInput()"
+                                        class="btn btn-fill-out btn-block hover-up" name="login"
+                                        style="background-color: black; color: white;">Verify OTP</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<script>
+
+    function validateInput() {
+       
+        const input = document.querySelector('#otpInput');
+        const value = input.value;
+
+        if (value.length !== 6 || isNaN(value)) {
+            alert('Please enter a 6-digit number.');
+             event.preventDefault();
+            input.focus();
+            return false;
+             
+        }
+
+        // submit the form or do something else
+    }
+</script>

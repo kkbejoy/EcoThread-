@@ -1,0 +1,25 @@
+
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card ">
+          {{!-- <div class="card-header bg-danger text-white">
+            <h5>Error</h5>
+          </div> --}}
+          <div class="card-body">
+{{#if emptyCart}} 
+{{else}}
+            <p style="text-align: center;" >Sorry, something went wrong. Please try again later.</p>
+            {{/if}}
+             <p style="text-align: center;">{{message}}</p>
+          </div>
+          <div class="card-footer">
+            <a href="/" class="d-flex justify-content-center " style="color: black;"> Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+

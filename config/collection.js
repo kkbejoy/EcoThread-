@@ -2,7 +2,8 @@
 module.exports={
     USERCOLLECTION:'users',
     PRODUCTCOLLECTION:'products',
-    ADMINCOLLECTION:'admin'
+    ADMINCOLLECTION:'admin',
+    CATEGORYCOLLECTION:'categories'
 }
 
     

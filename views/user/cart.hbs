@@ -1,0 +1,285 @@
+<body><!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        {{#if totalPrice}}
+
+        <div class="container">
+            <div class="row">
+                {{!-- {{cartDetails}} --}}
+                <div class="col-lg-8">
+
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each cartDetails}}
+                                {{#each this.products}}
+                                <tr>
+
+
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.product.productImages.[2]}}" alt=""
+                                                class="img-thumbnail" width="50" height="50">
+                                        </div>
+                                                {{#if this.product.quantity}}
+                                        <div class="product__cart__item__text">
+                                            <a href="/product/{{this.product._id}}"><h5>{{this.product.name}}</h5></a>
+                                          
+                                            <h7>{{this.product.description}}</h7>{{else}}<h7 style="color: red;">Product not available now.!!! Please add this the product to wishlist </h7>{{/if}}
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div class="quantity">
+                                            <button type="button" class="btn btn-sm btn-primary dec"
+                                                onclick="updateQuantity('{{../this._id}}','{{this.product._id}}','{{../user}}', -1,this)">-</button>
+                                            <input type="text" name="quantity" id="quantity-input-{{this.product._id}}"
+                                                class="form-control form-control-sm w-25 d-inline-block mx-2"
+                                                value="{{this.quantity}}">
+                                            <button type="button" class="btn btn-sm btn-primary inc"
+                                                onclick="updateQuantity('{{../_id}}','{{this.product._id}}','{{../user}}', 1,this)">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">₹{{this.product.price}}</td>
+                                    <td class="cart__price">{{multiply this.quantity this.product.price}}</td>
+
+                                    <td class="cart__close">
+                                        <a href="" class="close-link" aria-label="Remove" data-toggle="modal"
+                                            data-target="#removeModal{{@index}}">
+                                            <span aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{/each}}
+
+                                {{#each cartDetails}}
+                                {{#each this.products}}
+
+                                <!-- The Modal -->
+                                <div class="modal fade" id="removeModal{{@index}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="removeModalLabel{{@index}}" aria-hidden="true">
+
+                                    <!-- Modal content -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="removeModalLabel{{@index}}">Remove Item</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to remove "{{this.product.name}}" from your
+                                                    cart?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Add
+                                                    to wishlist</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <a href="/cart/removeitem/{{this.product._id}}"
+                                                    class="btn btn-danger">Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                {{/each}}
+                                {{/each}}
+                                <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="successModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="successModalLabel">Success!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Your request has been successfully processed.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="#">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+                                <a href="/checkout"><i class="fa fa-spinner"></i> Check Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        <h6>Discount codes</h6>
+                        <form id="verifycoupon">
+                            <input type="text" name="couponEntred" placeholder="Coupon code">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div>
+
+                    {{!-- Coupons Section --}}
+                    {{#if couponsAvailable}}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="cart-coupons">
+                                    <h4>Available Coupons</h4>
+                                    <ul class="list-unstyled">
+                                        {{#each couponsAvailable}}
+                                        <li>{{incrementedIndex @index}}.{{this.code}} - {{this.discountPercentage}}% off on all summer products
+                                            above {{this.requiredMinPurchaseLimit}}</li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+
+
+
+                    <br>
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            
+                            <li>Total <span> {{formatCurrency totalPrice}}</span></li>
+                            {{#if cartDetails.[0].couponApplied}}
+                            <li>Coupon : <span> </span></li>
+                            <li>Coupon Discount: <span>₹ {{subtract totalPrice discountPrice}} </span></li>
+                            {{/if}}
+                            {{#if cartDetails.[0].couponApplied}}
+                            {{#if_eq discountPrice totalPrice }} {{else}}<li>Discounted Price <span>₹
+                                    {{ formatCurrency discountPrice}}</span></li>
+                            {{/if_eq}}
+                            {{/if}}
+                        </ul>
+                        <a href="/checkout" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{else}}
+
+        <h4 style="text-align: center;">Empty Cart</h4>
+        <div style="display: flex; justify-content: center; align-items: center;"> <a href="/products"> <button
+                    type="button" class="btn btn-dark" style="align-items: center; " data-dismiss="modal">Shop
+                    Here</button></a></div>
+        {{/if}}
+
+    </section>
+
+    {{! jquery script Must be placed in before }}
+
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+
+
+    <script>
+        function updateQuantity(_id, productId, userId, inc, btn) {
+            // Send an AJAX request to the server to update the quantity for the product with ID "productId"
+            // The "quantity" parameter can be either 1 (to increment) or -1 (to decrement) the quantity
+            console.log("working")
+            let quantity = parseInt($("#quantity-input-"+productId).val());
+                        console.log($("#quantity-input-"+productId).val());
+
+            console.log(quantity);
+            if (quantity <= 1 && inc === -1) {
+                btn.disabled = true;
+                console.log("button disable function")
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/cart/changeproductquantity",
+                data: {
+                    cartId: _id,
+                    productId: productId,
+                    userId: userId,
+                    inc: inc,
+                    quantity: quantity
+                },
+                success: function (data) {
+                    console.log(data);
+                    location.reload();
+                            },
+                error: function () {
+                    alert("Error updating quantity");
+                }
+            });
+        }
+
+    </script>
+
+
+    {{!-- Verify coupon --}}
+    <script>
+        $('#verifycoupon').submit(function (event) {
+            event.preventDefault(); // prevent the default form submission
+
+            // get the form data
+            var formData = $(this).serialize();
+
+            // send the AJAX request
+            $.ajax({
+                type: 'POST',
+                url: '/cart/verifycoupon',
+                data: formData,
+                success: function (response) {
+                    alert("Coupon Verified");
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("Coupon can't be used")
+                }
+            });
+        });
+    </script>
+</body>

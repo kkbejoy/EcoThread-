@@ -1,0 +1,257 @@
+<body>
+    <main class="main-wrap">
+
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Order detail</h2>
+                    <p>Details for Order ID: {{orderDetails.orderId}}</p>
+                       
+
+                </div>
+                <div>       <a href="#" class="btn btn-dark" onclick="generatePDF()"><i class="bi bi-printer"></i> Invoice</a>
+</div>
+            </div>
+            <div class="card" id="invoice-area">
+                <header class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                            <span>
+                                <i class="material-icons md-calendar_today"></i> <b>{{formatDate
+                                    orderDetails.dateCreated }}</b>
+                            </span> <br>
+                            <small class="text-muted">Order ID: {{orderDetails.orderId}}</small>
+                        </div>
+                        {{!-- <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                            <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
+                                <option>Change status</option>
+                                <option>Awaiting payment</option>
+                                <option>Confirmed</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                            </select>
+                            <a class="btn btn-primary" href="#">Save</a>
+                            <a class="btn btn-secondary print ms-2" href="#"><i
+                                    class="icon material-icons md-print"></i></a>
+                        </div> --}}
+                    </div>
+                </header> <!-- card-header end// -->
+
+
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap">
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Customer</h6>
+                                    <p class="mb-1">
+                                        {{orderDetails.customer.name}} <br> <template class="__cf_email__"
+                                            data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template>
+                                        <br> {{orderDetails.customer.phone}}
+                                    </p>
+                                    {{!-- <a href="#">View profile</a> --}}
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Status</h6>
+                                    <p class="mb-1">
+                                        {{orderDetails.orderStatus}}
+                                    </p>
+
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Deliver to</h6>
+                                    <p class="mb-1">
+                                        City:{{orderDetails.deliveryAddress.street}}
+                                        <br>{{orderDetails.deliveryAddress.houseNo}} ,
+                                        {{orderDetails.deliveryAddress.city}}<br> Pin:
+                                        {{orderDetails.deliveryAddress.pinCode}}
+                                    </p>
+                                    {{!-- <a href="#">View profile</a> --}}
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                    </div> <!-- row // -->
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="40%">Product</th>
+                                            <th width="20%">Unit Price</th>
+                                            <th width="20%">Quantity</th>
+                                            <th width="20%" class="text-end">Sub Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each orderDetails.products}}
+                                        <tr>
+ 
+                                            <td>
+                                                <a class="itemside" href="/product/{{this.product._id}}">
+                                                    <div class="left">
+                                                        <img src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.product.productImages.[1]}}"
+                                                            width="40" height="40" class="img-xs" alt="Item">
+                                                    </div>
+                                                    <div class="info"> {{this.product.name}} <br>
+                                                    {{this.product.description}}</div>
+                                                </a>
+                                            </td>
+                                            <td> ₹{{this.product.price}} </td>
+                                            <td> {{this.quantity}} </td>
+                                            <td class="text-end">₹{{multiply this.product.price this.quantity }} </td>
+                                        </tr>
+
+                                        {{/each}}
+
+
+
+                                        <tr>
+                                            <td colspan="4">
+                                                <article class="float-end">
+                                                    {{!-- <dl class="dlist">
+                                                        <dt>Subtotal:</dt>
+                                                        <dd>$973.35</dd>
+                                                    </dl> --}}
+                                                    <dl class="dlist">
+                                                        <dt>Shipping cost:</dt>
+                                                        <dd>₹0.00</dd>
+                                                    </dl>
+                                                    <dl class="dlist">
+                                                        <dt>Grand total:</dt>
+                                                        <dd> <b class="h5">₹{{orderDetails.totalPrice}}</b> </dd>
+                                                    </dl>
+                                                    {{!-- <dl class="dlist">
+                                                        <dt class="text-muted">Status:</dt>
+                                                        <dd>
+                                                            {{#if (eq this.PaymentMethod 'Card Payment')}}
+                                                            <span
+                                                                class="badge rounded-pill alert-success text-success">Payment
+                                                                done</span>
+                                                            {{else}}
+                                                            <span
+                                                                class="badge rounded-pill alert-warning text-success">Pending</span>
+                                                            {{/if}}
+                                                        </dd>
+                                                    </dl> --}}
+                                                </article>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- table-responsive// -->
+                        </div> <!-- col// -->
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-4">
+                            <div class="box shadow-sm bg-light">
+                                <h6 class="mb-15">Payment info</h6>
+                                <p>
+                                    {{orderDetails.PaymentMethod}}<br>
+
+                                </p>
+                            </div> <br>
+
+                            <div class="btn-group">
+
+
+
+                                <form id="category-listing-form"
+                                    action="#">
+                                    <div style="display: inline-block;">
+                                        {{#if (eq orderDetails.orderStatus 'Cancelled')}}
+                                        Order Cancelled.
+                                        {{else if (eq orderDetails.orderStatus 'Delivered')}}
+                                        Order Delivered.
+                                                {{#if (eq orderDetails.returnRequested true)}}
+                                                Return requested <a href="/admin/acceptreturnrequest/{{orderDetails._id}}" class="btn btn-primary">Approve Return</a>
+                                                    {{else}}
+                                                    {{/if}}
+                                         {{else if (eq orderDetails.orderStatus 'Returned')}} 
+                                         Product Returned           
+                                        {{else}}
+                                        <h6>Status</h6> 
+                                       <select name="orderStatus" onchange="modifyOrderStatus('{{orderDetails._id}}')">
+                                            <option value="">Select Status</option>
+                                            <option value="Approved">Approve</option>
+                                            <option value="Shipped">Shipped</option>
+                                            <option value="Cancelled">Cancel</option>
+                                            <option value="Delivered">Delivered</option>
+                                        </select>
+                                        {{/if}}
+                                    </div>
+                                </form>
+
+
+
+
+                            </div>
+
+                        </div> <!-- col// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+        </section> <!-- content-main end// -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+{{!-- <script src="/admin/js/puppeteer.js"></script> --}}
+
+<script>
+  function modifyOrderStatus(orderId) {
+    const orderStatusSelect = document.querySelector('select[name="orderStatus"]');
+    const newStatus = orderStatusSelect.value;
+
+    fetch(`/admin/orderstatusmodification/${orderId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ orderStatus: newStatus })
+    })
+    .then(response => 
+    response.json())
+    .then(data => {
+            console.log(data)
+        alert("Status Modified")
+        location.reload(); // Reload the page on successful operation
+      
+    })
+    .catch(error => console.error(error));
+  }
+</script>
+
+<script>function generatePDF() {
+const element = document.querySelector('#invoice-area');
+  const opt = {
+    margin: 0,
+    filename: 'document.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  // Use html2pdf library to generate PDF
+  html2pdf().set(opt).from(element).save();
+}
+</script>
+
+
+</body>

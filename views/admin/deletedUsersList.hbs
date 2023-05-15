@@ -1,0 +1,83 @@
+<body>
+
+    <main class="main-wrap">
+
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Users Details</h2>
+                    <p></p>
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                          
+                        </div>
+                       
+                        <div class="col-md-2 col-6">
+                            <a href="#" data-toggle="modal" data-target="#deleted-users-modal">
+                               
+                            </a>
+
+
+
+                           
+                        </div>
+                    </div>
+                </header> <!-- card-header end// -->
+
+               
+
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl.no</th>
+                            <th scope="col">Name</th>
+                            <th scope="col text-center">Email</th>
+                            {{!-- <th scope="col text-center">Description</th> --}}
+                            <th scope="col text-center">Phone</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date Created</th>
+
+                            <th scope="col text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                        <tr>
+                            <th scope="row">{{incrementedIndex @index}}</td>
+                            <th scope="row">{{this.name}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phone}}</td>
+                            <td> <span>{{#if
+                                    this.access}}Active{{else}}Blocked{{/if}}</span></td>
+                            <td>{{this.createdAt}}</td>
+                            <td>
+
+                          
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+
+
+            </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            
+        </section> <!-- content-main end// -->
+
+    </main>
+
+
+    
+
+</body>

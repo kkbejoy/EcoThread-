@@ -1,0 +1,142 @@
+<body>
+
+    <main class="main-wrap">
+
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    {{!-- {{orders}} --}}
+                    <h2 class="content-title card-title">Orders</h2>
+                    <p></p>
+                </div>
+
+            </div>
+            {{#if orders.next}}
+            <h6> Page no {{subtract orders.next.page 1}} of {{orders.totalPageNo}} pages</h6> 
+            {{else}}
+                  <h6> Page no {{orders.totalPageNo}} of {{orders.totalPageNo}} pages</h6>
+            {{/if}}
+            <div class="card mb-4">
+                {{!-- <header class="card-header">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                            <select class="form-select">
+                                <option selected>All category</option>
+                                <option>Electronics</option>
+                                <option>Clothes</option>
+                                <option>Automobile</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <input type="date" value="02.05.2021" class="form-control">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select">
+                                <option selected>Status</option>
+                                <option>Active</option>
+                                <option>Disabled</option>
+                                <option>Disabled</option>
+                                <option>Show all</option>
+                            </select>
+                        </div>
+                    </div>
+                </header> <!-- card-header end// --> --}}
+
+
+
+                <table class="table">
+                    
+                    <thead>
+                        <tr>
+                            {{!-- <th scope="col">Sl no</th> --}}
+                            <th scope="col " class="text-center">Order Id</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col text-center">Products</th>
+                            {{!-- <th scope="col text-center">Description</th> --}}
+                            <th scope="col text-center">Status</th>
+                            <th scope="col text-center">Revenue</th>
+                            <th scope="col">Payment Mode</th>
+                            <th scope="col">Order Placed on:</th>
+                            <th scope="col text-center">Details</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        
+                        {{#each orders.results}}
+                        <tr>
+                            {{!-- <th scope="row">{{incrementedIndex @index}}.</td> --}}
+                            <th scope="row"><a href="/admin/orderdetails/{{this._id}}">{{this.orderId}}</a></td>
+                            <th scope="row">{{this.customer.name}}</td>
+                            <td>{{#each products}}
+                                {{incrementedIndex @index}}.{{this.product.name}}{{#unless @last}} <br> {{/unless}}
+                                {{/each}}</td>
+                            <td>{{this.orderStatus}}</td>
+                            <td> {{formatCurrency this.totalPrice}}</th>
+                            <td>{{this.PaymentMethod}}</td>
+                            <td>{{formatDate this.dateCreated}}</td>
+                            <td>
+                                <a href="/admin/orderdetails/{{this._id}}">Details</a>
+
+                                {{!-- <div class="col-lg-2 col-sm-1 col-4 text-end">
+                                    <div class="btn-group">
+
+
+                                        <form id="category-listing-form"
+                                            action="/admin/orderstatusmodification/{{this._id}}" method="POST">
+                                            <div style="display: inline-block;">
+                                                {{#if this.orderStatus}}
+                                                {{#if (eq this.orderStatus 'Cancelled')}}
+                                                Order Cancelled.
+                                                {{else}}
+                                                <button type="submit" class="btn btn-sm btn-success"
+                                                    style="margin-bottom: 5px;" name="orderStatus"
+                                                    value="Approved">Approve</button>
+
+                                                <button type="submit" class="btn btn-sm btn-warning"
+                                                    style="margin-bottom: 5px;" name="orderStatus"
+                                                    value="Shipped">Shipped</button>
+
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    style="margin-bottom: 5px;" name='orderStatus' value="Cancelled"
+                                                    onclick="return confirm('Are you sure? You can't approve this order again {{this.customer}}')">Cancel</button>
+                                                {{/if}}
+                                                {{/if}}
+                                        </form>
+
+
+                                    </div> --}}
+                                </div>
+
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+
+
+            </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            <div class="pagination-area mt-30 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                       {{#if orders.previous}}
+                        <li class="page-item "><a class="page-link"
+                                href="/admin/orders?page={{orders.previous.page}}">Prev  </a></li>
+                        {{/if}}
+                        {{#if orders.next}}
+                        <li class="page-item  float-end "><a class="page-link "
+                                href="/admin/orders?page={{orders.next.page}}">Next </a></li>
+                        {{/if}}
+                        {{!-- {{#loopTimes orders.totalPageNo}} <li class="page-item active"><a class="page-link"
+                                href="/admin/orders?page={{incrementedIndex @index}}"> {{incrementedIndex @index}}</a></li>{{/loopTimes}} --}}
+                    </ul>
+                </nav>
+            </div>
+        </section> <!-- content-main end// -->
+
+    </main>
+
+</body>
