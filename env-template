@@ -1,0 +1,15 @@
+TWILIO_ACCOUNT_SID="" // Account SID from twilio
+TWILIO_AUTH_TOKEN="" //Account Token
+TWILIO_SERVICE_SID="" //Service Token from Twilio
+TWILIO_PHONE_NUMBER=""//Twilio Phone Number
+
+
+PORT= //Port Number
+MONGO_URI= // MongoDb URL
+
+RAZORPAY_KEY_ID="" //Razorpay id
+RAZORPAY_KEY_SECRET="" //Secret
+
+CLOUDINARY_NAME="" //name
+CLOUDINARY_API_KEY="" //API key
+CLOUDINARY_API_SECRET="" //Secret

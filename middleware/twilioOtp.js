@@ -3,9 +3,9 @@ require('dotenv').config();
 const user_helper = require('../helpers/userHelpers');
 
 
-const accountSid = 'AC8334ffb09ea4173cf48b3fe7d713a462'; // Your Account SID from www.twilio.com/console
-const authToken = 'ad0212b0bab499bcb14a3be95d3ac716';   // Your Auth Token from www.twilio.com/console
-const serviceSid = 'VAab5ec480d21354497ebc8bb6e7c9c74e'; // My Service SID from www.twilio.com/console
+const accountSid = process.env.TWILIO_ACCOUNT_SID  // Your Account SID from www.twilio.com/console
+const authToken = process.env.TWILIO_AUTH_TOKEN   // Your Auth Token from www.twilio.com/console
+const serviceSid = process.env.TWILIO_SERVICE_SID ; // My Service SID from www.twilio.com/console
 
 const client = require('twilio')(accountSid, authToken)
 

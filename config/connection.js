@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 // const Admin= require('../model/adminModel');
 // const Category=require('../model/categoryModel');
+
+const password=encodeURIComponent("g6OVlaCQYE0Wznja")
+const username=encodeURIComponent("ecoThread")
 const userSchema= require('../model/userModel');
 const uri = process.env.MONGO_URI;
 
