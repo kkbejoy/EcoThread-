@@ -68,6 +68,7 @@ const userChecking = async (req, res, next) => {
         res.redirect('/logout'); //To make sure the user logs out automatically when the admin blocks him
       }
     } else {
+      console.log("LogIn Route")
       res.redirect('/login');
     }
   }catch(error){

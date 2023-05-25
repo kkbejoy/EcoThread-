@@ -8,21 +8,20 @@
                             <div class="card-body">
                                 <h4 class="card-title text-center mb-4">Enter Your Mobile Number</h4>
 
-                                <form action="/otplogin" method="post"  onsubmit="return validateInput()">
+                                <form action="/otplogin" method="post" onsubmit="return validateInput()">
                                     <div class="form-group">
-                                        <input type="tel" class="form-control mx-auto text-center" required="" name="mobile" id="phone"
-                                            placeholder="Mobile Number" style="width: 200px;">
+                                        <input type="tel" class="form-control mx-auto text-center" required=""
+                                            name="mobile" id="phone" placeholder="Mobile Number" style="width: 200px;">
                                     </div>
-                                
-                                        {{#if otpLoginErr}}
-                                        <div class="alert alert-danger text-center" role="alert">
-                                            {{otpLoginErr}}
-                                        </div>
-                                        {{/if}}
-                                
+
+                                    {{#if otpLoginErr}}
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        {{otpLoginErr}}
+                                    </div>
+                                    {{/if}}
+
                                     <div class="form-group">
-                                        <button type="submit" 
-                                            class="btn btn-fill-out btn-block hover-up" name="login"
+                                        <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login"
                                             style="background-color: black; color: white;">Send OTP</button>
 
                                     </div>
@@ -38,7 +37,7 @@
                     <div class="col-lg-1"></div>
                 </div>
             </div>
-            
+
         </section>
     </main>
 

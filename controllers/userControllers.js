@@ -18,10 +18,10 @@ const stockManagement = require('../helpers/inventoryMangament');
 
 // HomePage rendering
 
-const homePageRendering = async(req, res, next) => {
+const homePageRendering = async (req, res, next) => {
   try {
-    const banners=await producthelper.bannerDetails();
-    const products=await producthelper.getAllActiveProducts()
+    const banners = await producthelper.bannerDetails();
+    const products = await producthelper.getAllActiveProducts();
     if (req.session.user) {
       var loggedInStatus = true;
       var {
@@ -31,11 +31,12 @@ const homePageRendering = async(req, res, next) => {
       // console.log(loggedInUser)
       // generate a unique ID with 5 characters
 
-      res.render('homepage', { user: true, loggedInUser,products,banners });
+      res.render('homepage', { user: true, loggedInUser, products, banners });
     } else {
-      res.render('homepage', { user: true,products,banners });
+      res.render('homepage', { user: true, products, banners });
     }
   } catch (err) {
+    res.render('error', { user: true });
     next(err);
   }
 };
@@ -81,16 +82,21 @@ const userSignUpPageRendering = (req, res) => {
 //user SignUp page post
 const signUpPost = (req, res, next) => {
   try {
+    console.log('Hello from signup con');
+    // const {name,email,password,phone}=req.body;
+    console.log(req.body);
     userHelper
       .Signup(req.body)
       .then((status) => {
-        console.log(status);
-        res.render('user/usersignup', { registered: true, user: true });
+        console.log('Status', status);
+        res.status(201).json({ success: true, registered: true });
+        //res.render('user/usersignup', { registered: true, user: true });
       })
       .catch((error) => {
         let existingUser = error.status;
-        console.log(error);
-        res.render('user/usersignup', { existingUser, user: true });
+        console.log('Error', error);
+        res.status(500).json({ error: existingUser });
+        //res.render('user/usersignup', { existingUser, user: true });
       });
   } catch (error) {
     res.render('error', { user: true });
@@ -321,7 +327,7 @@ const productsUnderCategory = async (req, res) => {
 
 const productPageForEachItem = async (req, res) => {
   try {
-    const similarProducts=await producthelper.getAllActiveProducts()
+    const similarProducts = await producthelper.getAllActiveProducts();
     if (req.session.user) {
       var loggedInStatus = true;
       var {
@@ -334,14 +340,18 @@ const productPageForEachItem = async (req, res) => {
           user: true,
           product,
           loggedInUser,
-          similarProducts
+          similarProducts,
         });
         console.log(product);
       });
     } else {
       const { id: productId } = req.params;
       await producthelper.getProductdetails(productId).then((product) => {
-        res.render('user/specificProductPage', { user: true, product,similarProducts });
+        res.render('user/specificProductPage', {
+          user: true,
+          product,
+          similarProducts,
+        });
         console.log(product);
       });
     }
@@ -493,12 +503,15 @@ const checkOutPost = async (req, res) => {
     await userHelper
       .addShippingAddressIdToCart(userId, addressId)
       .then(() => {
-        // console.log("address id added to cart");
-        res.redirect('/checkout/payment');
+        console.log('address id added to cart');
+        res.status(200).send({ message: 'Addredd Selected successfully' });
+        // res.redirect('back');
       })
       .catch((err) => {
         console.log(err);
-        res.redirect('/checkout');
+        res.status(500).send({ message: 'Addredd Selected failed' });
+
+        // res.redirect('/checkout');
       });
   } catch (error) {
     console.log(error);
@@ -524,16 +537,19 @@ const addNewAddress = async (req, res) => {
       .addNewAddress(address)
       .then((address) => {
         console.log('address id added to cart: ' + address);
-        return res.json({
-          success: true,
-          message: 'Address added successfully',
-        });
+        res.redirect('back');
+        // return res.send({
+        //   success: true,
+        //   message: 'Address added successfully',
+        // });
       })
       .catch((err) => {
         console.log(err);
-        return res
-          .status(500)
-          .json({ success: false, message: 'Failed to add address' });
+        res.redirect('back');
+
+        // return res
+        //   .status(500)
+        //   .json({ success: false, message: 'Failed to add address' });
       });
   } catch (error) {
     console.log(error);
@@ -716,15 +732,25 @@ const orderDetailPage = async (req, res) => {
     const {
       params: { id: orderId },
     } = req;
+   let paymentStatus="Returned";
     await orderHelper
       .orderDetailsOfThisId(orderId)
-      .then((orderDetails) => {
-        console.log('order page:' + orderDetails);
+      .then(async (orderDetails) => {
+        
+        if (orderDetails.PaymentMethod == 'Card Payment'){
+           paymentStatus= await razorPayServices.checkPaymentStatus(
+            orderDetails.razorpayPaymentId
+          );
+          paymentStatus=paymentStatus.status;
+        }
+        console.log('order page:' + orderDetails ,"PaymentStatus",paymentStatus);
+        
         res.render('user/orderDetail', {
           user: true,
           userAccount: true,
           loggedInUser,
           orderDetails,
+          paymentStatus,
         });
       })
       .catch((error) => {

@@ -1,4 +1,9 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
 <body><!-- Breadcrumb Section Begin -->
+
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -6,8 +11,8 @@
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
+                            <a href="#">Home</a>
+                            <a href="#">Shop</a>
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -46,28 +51,32 @@
 
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <img src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.product.productImages.[2]}}" alt=""
-                                                class="img-thumbnail" width="50" height="50">
+                                            <img src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.product.productImages.[2]}}"
+                                                alt="" class="img-thumbnail" width="50" height="50">
                                         </div>
-                                                {{#if this.product.quantity}}
+                                        {{#if this.product.quantity}}
                                         <div class="product__cart__item__text">
-                                            <a href="/product/{{this.product._id}}"><h5>{{this.product.name}}</h5></a>
-                                          
-                                            <h7>{{this.product.description}}</h7>{{else}}<h7 style="color: red;">Product not available now.!!! Please add this the product to wishlist </h7>{{/if}}
+                                            <a href="/product/{{this.product._id}}">
+                                                <h5>{{this.product.name}}</h5>
+                                            </a>
+
+                                            <h7>{{this.product.description}}</h7>{{else}}<h7 style="color: red;">Product
+                                                not available now.!!! Please add this the product to wishlist </h7>
+                                            {{/if}}
                                         </div>
                                     </td>
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <button type="button" class="btn btn-sm btn-primary dec"
-                                                onclick="updateQuantity('{{../this._id}}','{{this.product._id}}','{{../user}}', -1,this)">-</button>
+                                                onclick="handleQuantityChangeDebounced('{{../this._id}}','{{this.product._id}}','{{../user}}', -1,this)">-</button>
                                             <input type="text" name="quantity" id="quantity-input-{{this.product._id}}"
                                                 class="form-control form-control-sm w-25 d-inline-block mx-2"
                                                 value="{{this.quantity}}">
                                             <button type="button" class="btn btn-sm btn-primary inc"
-                                                onclick="updateQuantity('{{../_id}}','{{this.product._id}}','{{../user}}', 1,this)">+</button>
+                                                onclick="handleQuantityChangeDebounced('{{../_id}}','{{this.product._id}}','{{../user}}', 1,this)">+</button>
                                         </div>
                                     </td>
-                                    <td class="cart__price">₹{{this.product.price}}</td>
+                                    <td class="cart__price">{{this.product.price}}</td>
                                     <td class="cart__price">{{multiply this.quantity this.product.price}}</td>
 
                                     <td class="cart__close">
@@ -174,7 +183,8 @@
                                     <h4>Available Coupons</h4>
                                     <ul class="list-unstyled">
                                         {{#each couponsAvailable}}
-                                        <li>{{incrementedIndex @index}}.{{this.code}} - {{this.discountPercentage}}% off on all summer products
+                                        <li>{{incrementedIndex @index}}.{{this.code}} - {{this.discountPercentage}}% off
+                                            on all summer products
                                             above {{this.requiredMinPurchaseLimit}}</li>
                                         {{/each}}
                                     </ul>
@@ -190,14 +200,14 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            
+
                             <li>Total <span> {{formatCurrency totalPrice}}</span></li>
                             {{#if cartDetails.[0].couponApplied}}
                             <li>Coupon : <span> </span></li>
-                            <li>Coupon Discount: <span>₹ {{subtract totalPrice discountPrice}} </span></li>
+                            <li>Coupon Discount: <span> {{subtract totalPrice discountPrice}} </span></li>
                             {{/if}}
                             {{#if cartDetails.[0].couponApplied}}
-                            {{#if_eq discountPrice totalPrice }} {{else}}<li>Discounted Price <span>₹
+                            {{#if_eq discountPrice totalPrice }} {{else}}<li>Discounted Price <span>
                                     {{ formatCurrency discountPrice}}</span></li>
                             {{/if_eq}}
                             {{/if}}
@@ -223,12 +233,19 @@
 
 
     <script>
+        const handleQuantityChangeDebounced = _.debounce((cartId, productId, userId, inc, btn) => {
+            updateQuantity(cartId, productId, userId, inc, btn);
+            console.log("Debounce Function")
+        }, 300);
+    </script>
+    <script>
+
         function updateQuantity(_id, productId, userId, inc, btn) {
             // Send an AJAX request to the server to update the quantity for the product with ID "productId"
             // The "quantity" parameter can be either 1 (to increment) or -1 (to decrement) the quantity
             console.log("working")
-            let quantity = parseInt($("#quantity-input-"+productId).val());
-                        console.log($("#quantity-input-"+productId).val());
+            let quantity = parseInt($("#quantity-input-" + productId).val());
+            console.log($("#quantity-input-" + productId).val());
 
             console.log(quantity);
             if (quantity <= 1 && inc === -1) {
@@ -249,9 +266,26 @@
                 success: function (data) {
                     console.log(data);
                     location.reload();
-                            },
+                },
                 error: function () {
-                    alert("Error updating quantity");
+                    Toastify({
+                        text: "Cannot Update Quantity at the moment!!!!",
+                        duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+                        // Enable the close button on the toast
+                        gravity: "center", // Display the toast at the top of the screen
+                        backgroundColor: "#ffff", // Set the background color of the toast
+                        stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+                        style: {
+                            top: "20px",
+                            left: "550px",
+                            width: "300px",
+                            height: "auto",
+
+                            color: "Red"
+
+                        }
+                    }).showToast();
+
                 }
             });
         }
@@ -273,11 +307,45 @@
                 url: '/cart/verifycoupon',
                 data: formData,
                 success: function (response) {
-                    alert("Coupon Verified");
+                    Toastify({
+                        text: "Coupon Verified",
+                        duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+                        // Enable the close button on the toast
+                        gravity: "center", // Display the toast at the top of the screen
+                        backgroundColor: "#ffff", // Set the background color of the toast
+                        stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+                        style: {
+                            top: "20px",
+                            left: "550px",
+                            width: "300px",
+                            height: "auto",
+
+                            color: "Black"
+
+                        }
+                    }).showToast();
                     location.reload();
                 },
                 error: function (xhr, status, error) {
-                    alert("Coupon can't be used")
+                    Toastify({
+                        text: "Coupon Verification Failed",
+                        duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+                        // Enable the close button on the toast
+                        gravity: "center", // Display the toast at the top of the screen
+                        backgroundColor: "#ffff", // Set the background color of the toast
+                        stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+                        style: {
+                            top: "20px",
+                            left: "550px",
+                            width: "300px",
+                            height: "auto",
+
+                            color: "Red"
+
+                        }
+                    }).showToast();
+
+                   
                 }
             });
         });

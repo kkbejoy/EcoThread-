@@ -14,7 +14,7 @@ router.get('/', session_check.userChecking, cartController.cartPageRendering);
 router.post('/changeproductquantity', cartController.changeProductQuantity);
 
 //Add to cart request
-router.get('/addtocart/:id', cartController.addToCart);
+router.get('/addtocart/:id',  cartController.addToCart);
 
 //Remove products from cart
 router.get(
@@ -24,9 +24,9 @@ router.get(
 );
 
 // Payment Mode selection To Cart Data
-router.post('/paymentmethodtocart', cartController.paymentmethodtocart);
+router.post('/paymentmethodtocart',  session_check.userChecking,cartController.paymentmethodtocart);
 
 //Coupon Verification route
-router.post('/verifycoupon', cartController.couponVerification);
+router.post('/verifycoupon', session_check.userChecking, cartController.couponVerification);
 
 module.exports = router;

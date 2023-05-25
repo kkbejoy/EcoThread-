@@ -1,6 +1,9 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+{{!--
+
 <body>
 
-</body>
+</body> --}}
 <section class="pt-150 pb-150">
     <div class="card mx-auto card-login">
         <div class="card-body">
@@ -20,21 +23,21 @@
                                         website, to manage access to your account, and for other purposes described in
                                         our privacy policy
                                     </p>
-                                    <form method="post" action="/signup">
+                                    <form id="signup-form">
                                         <div class="form-group">
-                                            <input type="text"  name="name" placeholder="Name">
+                                            <input type="text" name="name" placeholder="Name">
                                             <div class="error-message"></div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"  name="email" placeholder="Email">
+                                            <input type="text" name="email" placeholder="Email">
                                             <div class="error-message"></div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"  name="phone" placeholder="Mobile">
+                                            <input type="text" name="phone" placeholder="Mobile">
                                             <div class="error-message"></div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password"  name="password" placeholder="Password">
+                                            <input type="password" name="password" placeholder="Password">
                                             <div class="error-message"></div>
                                         </div>
                                         <div class="form-group">
@@ -54,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-dark btn-fill-out btn-block hover-up"
-                                                 id="submit">Submit &amp;
+                                                id="submit">Submit &amp;
                                                 Register</button>
 
                                             {{#if existingUser}}
@@ -89,6 +92,12 @@
 
 
 
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+{{!--
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/dist/toastify.min.js"></script> --}}
+
+
 <script>
     function checkAgreement() {
         var checkbox = document.getElementById("terms");
@@ -102,71 +111,136 @@
     }
 </script>
 
+
+
 <script>
-  // Get the form element
-  const form = document.querySelector('form');
+    // Get the form element
+    const form = document.querySelector('form');
+    //console.log(form)
 
-  // Add event listener for form submission
-  form.addEventListener('submit', function (event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+    // Add event listener for form submission
+    form.addEventListener('submit', function (event) {
+        // Prevent the form from being submitted
+        event.preventDefault();
 
-    // Perform form validation
-    const nameInput = document.querySelector('input[name="name"]');
-    const emailInput = document.querySelector('input[name="email"]');
-    const phoneInput = document.querySelector('input[name="phone"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    console.log(nameInput)
-    let isValid = true;
+        // Perform form validation
+        const nameInput = document.querySelector('input[name="name"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const phoneInput = document.querySelector('input[name="phone"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        console.log("Name", nameInput.value)
+        let isValid = true;
 
-    // Validate name field
-    if (nameInput.value.trim() === '') {
-      isValid = false;
-      nameInput.classList.add('is-invalid');
-      nameInput.nextElementSibling.textContent = 'Please enter your name.';
-    } else {
-      nameInput.classList.remove('is-invalid');
-      nameInput.nextElementSibling.textContent = '';
-    }
+        // Validate name field
+        if (nameInput.value.trim() === '') {
+            isValid = false;
+            nameInput.classList.add('is-invalid');
+            nameInput.nextElementSibling.textContent = 'Please enter your name.';
+        } else {
+            nameInput.classList.remove('is-invalid');
+            nameInput.nextElementSibling.textContent = '';
+        }
 
-   // Validate email field
-    const emailRegex = /^\S+@\S+\.\S+$/;
-    if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
-      isValid = false;
-      emailInput.classList.add('is-invalid');
-      emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
-    } else {
-      emailInput.classList.remove('is-invalid');
-      emailInput.nextElementSibling.textContent = '';
-    }
+        // Validate email field
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
+            isValid = false;
+            emailInput.classList.add('is-invalid');
+            emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
+        } else {
+            emailInput.classList.remove('is-invalid');
+            emailInput.nextElementSibling.textContent = '';
+        }
 
 
-   // Validate phone field
-    const phoneRegex = /^\d{10,}$/;
-    if (phoneInput.value.trim() === '' || !phoneRegex.test(phoneInput.value)) {
-      isValid = false;
-      phoneInput.classList.add('is-invalid');
-      phoneInput.nextElementSibling.textContent = 'Please enter a valid phone number with at least 10 digits.';
-    } else {
-      phoneInput.classList.remove('is-invalid');
-      phoneInput.nextElementSibling.textContent = '';
-    }
+        // Validate phone field
+        const phoneRegex = /^[1-9]\d{9,}$/;
+        if (phoneInput.value.trim() === '' || !phoneRegex.test(phoneInput.value)) {
+            isValid = false;
+            phoneInput.classList.add('is-invalid');
+            phoneInput.nextElementSibling.textContent = 'Please enter a valid phone number with at least 10 digits and the first digit should not be zero.';
+        } else {
+            phoneInput.classList.remove('is-invalid');
+            phoneInput.nextElementSibling.textContent = '';
+        }
 
-    // Validate password field
-    if (passwordInput.value.trim() === '') {
-      isValid = false;
-      passwordInput.classList.add('is-invalid');
-      passwordInput.nextElementSibling.textContent = 'Please enter your password.';
-    } else {
-      passwordInput.classList.remove('is-invalid');
-      passwordInput.nextElementSibling.textContent = '';
-    }
+        // Validate password field
+        if (passwordInput.value.trim() === '') {
+            isValid = false;
+            passwordInput.classList.add('is-invalid');
+            passwordInput.nextElementSibling.textContent = 'Please enter your password.';
+        } else {
+            passwordInput.classList.remove('is-invalid');
+            passwordInput.nextElementSibling.textContent = '';
+        }
 
-    // If form is valid, submit it
-    if (isValid) {
-      form.submit();
-    }
-  });
+
+        // If form is valid, submit it
+
+        if (isValid) {
+            const formData = {
+                name: nameInput.value,
+                email: emailInput.value,
+                phone: phoneInput.value,
+                password: passwordInput.value
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: JSON.stringify(formData),
+                contentType: "application/json",
+                success: function (response) {
+                    console.log("Success", response);
+                    Toastify({
+                        text: "User Successfully Registered... Please LogIn",
+                        duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+                        close: true, // Enable the close button on the toast
+                        gravity: "center", // Display the toast at the top of the screen
+                        backgroundColor: "green", // Set the background color of the toast
+                        stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+                        style: {
+                            top: "20px",
+                            left: "550px",
+                            width: "300px",
+                            height: "auto"
+                        }
+                    }).showToast();
+                    setTimeout(function () {
+                        window.location.href = '/login'
+
+                    }, 2000)
+
+                    //location.reload();
+                    // Handle success response
+                },
+                error: function (error) {
+                    console.log("Error", error);
+                    Toastify({
+                        text: "User Registration Failed !!!!!!",
+                        duration: 5000,
+                        close: true,
+                        gravity: "center",
+                        backgroundColor: "#FFFFFF",
+
+
+                        stopOnFocus: true,
+                        style: {
+                            top: "20px",
+                            left: "550px",
+                            width: "300px",
+                            height: "auto",
+                            backgroundColor: "red",
+                            color: "red"
+                        }
+                    }).showToast();
+                    // window.location.href='/login'
+                    /// location.reload();
+                    // Handle error response
+
+                }
+            });
+        }
+    });
 </script>
-
 </body>

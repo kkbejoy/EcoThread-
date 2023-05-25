@@ -1,44 +1,48 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
 
   <!----Admin Header----->
-{{#if admin}}
+  {{#if admin}}
   <meta charset="utf-8">
-    <title>EcoThread</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/public/admin/imgs/icons/EcoThread Favicon.jpg">
-    <!-- Template CSS -->
-    <link href="/admin/css/main.css" rel="stylesheet" type="text/css" />
+  <title>EcoThread</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/public/admin/imgs/icons/EcoThread Favicon.jpg">
+  <!-- Template CSS -->
+  <link href="/admin/css/main.css" rel="stylesheet" type="text/css" />
 
-    <!------JQuery Loading CDN------>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!------JQuery Loading CDN------>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" rel="stylesheet">
-    
-    {{!-- <link rel="stylesheet" href="path/to/sweetalert.css"> --}}
-
-{{/if}}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-<!----User Header---->
-{{#if user}}
 
-<head>
-    {{!-- <meta charset="UTF-8">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" rel="stylesheet">
+  {{!-- toastify --}}
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
+
+  {{/if}}
+
+
+  <!----User Header---->
+  {{#if user}}
+
+  <head>
+    {{!--
+    <meta charset="UTF-8">
     <meta name="description" content="Male_Fashion Template">
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +51,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+      rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -68,15 +72,15 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+      rel="stylesheet">
 
-<!------JQuery Loading CDN------>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!------JQuery Loading CDN------>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
     <!-- Css Styles -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
@@ -86,90 +90,108 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link rel="stylesheet" href="/node_modules/cropperjs/dist/cropper.min.js">
-        <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/node_modules/cropperjs/dist/cropper.min.js">
+    <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
 
-</head>
+    {{!-- toastify --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-{{/if}}
-
-</head>
-
-   <body>
-
- <!--- Nav Bar----->
-    {{#if admin}}
-    {{>adminHeader}} 
-    {{>adminSideBar}}
-   {{/if}}
-  
-    {{#if user}}
-    {{>userHeader}} 
-    {{#if userAccount}}
-    {{>userAccountNavBar}}
-    {{/if}}
-    {{/if}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-
-
-<!---Main Body---->
-    {{{body}}}
-
-
-
-<!-------Footer session---->
-     {{#if admin}}
-     {{>adminFooter}}
-     {{/if}} 
-     {{#if user}}  
-     {{>userFooter}}
-     {{/if}}
-   
-
- 
-
- <!----Admin Script---->
-  {{#if admin}}
-
-    <script src="/admin/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="/admin/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="/admin/js/vendors/select2.min.js"></script>
-    <script src="/admin/js/vendors/perfect-scrollbar.js"></script>
-    <script src="/admin/js/vendors/jquery.fullscreen.min.js"></script>
-    {{!-- <script src="/admin/js/vendors/chart.js"></script> --}}
-
-    <!-- Main Script -->
-    <script src="/admin/js/main.js" type="text/javascript"></script>
-    {{!-- <script src="/admin/js/custom-chart.js" type="text/javascript"></script> --}}
+  </head>
 
   {{/if}}
 
-<!-------User Scripts----->
-{{#if user}}
-<!--Modal-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</head>
 
-   <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery.nicescroll.min.js"></script>
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-    <script src="/js/jquery.countdown.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/mixitup.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-  
+<body>
 
+  <!--- Nav Bar----->
+  {{#if admin}}
+  {{>adminHeader}}
+  {{>adminSideBar}}
+  {{/if}}
+
+  {{#if user}}
+  {{>userHeader}}
+  {{#if userAccount}}
+  {{>userAccountNavBar}}
+  {{/if}}
+  {{/if}}
 
 
 
 
-{{/if}}
+  <!---Main Body---->
+  {{{body}}}
 
-  
+
+
+  <!-------Footer session---->
+  {{#if admin}}
+  {{>adminFooter}}
+  {{/if}}
+  {{#if user}}
+  {{>userFooter}}
+  {{/if}}
+
+
+
+
+  <!----Admin Script---->
+  {{#if admin}}
+
+  <script src="/admin/js/vendors/jquery-3.6.0.min.js"></script>
+  <script src="/admin/js/vendors/bootstrap.bundle.min.js"></script>
+  <script src="/admin/js/vendors/select2.min.js"></script>
+  <script src="/admin/js/vendors/perfect-scrollbar.js"></script>
+  <script src="/admin/js/vendors/jquery.fullscreen.min.js"></script>
+  <script src="/admin/js/script.js"></script>
+  {{!--
+  <script src="/admin/js/vendors/chart.js"></script> --}}
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+  <!-- Main Script -->
+  <script src="/admin/js/main.js" type="text/javascript"></script>
+  {{!--
+  <script src="/admin/js/custom-chart.js" type="text/javascript"></script> --}}
+
+
+  {{!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
+
+  {{/if}}
+
+  <!-------User Scripts----->
+  {{#if user}}
+  <!--Modal-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery.nicescroll.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/jquery.countdown.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/script.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+
+
+
+
+
+  {{/if}}
+
+
 </body>
 
 </html>

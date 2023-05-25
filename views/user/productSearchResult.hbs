@@ -248,10 +248,10 @@
                       </label>
                     </div>
                     {{#if this.quantity}}
-                  <a href="#" class="add-cart btn btn-primary btn-block mt-3" data-id="{{this._id}}"
-                    style="background-color: rgb(16, 15, 15); color: white;">Add to Cart</a>
-{{else}}<h7 style="color: crimson;">Coming soon...!!!</h7>
-{{/if}}
+                    <a href="#" class="add-cart btn btn-primary btn-block mt-3" data-id="{{this._id}}"
+                      style="background-color: rgb(16, 15, 15); color: white;">Add to Cart</a>
+                    {{else}}<h7 style="color: crimson;">Product Out Of Stock...!!!</h7>
+                    {{/if}}
 
                   </div>
                 </div>
@@ -293,16 +293,16 @@
   <!-- Search End -->
 
 
-{{!-- Add to Cart Modal --}}
-<div id="cart-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>Item has been added to the cart!</p>
+  {{!-- Add to Cart Modal --}}
+  <div id="cart-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Item has been added to the cart!</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
   {{!-- Add to cart --}}

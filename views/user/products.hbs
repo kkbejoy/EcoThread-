@@ -233,7 +233,7 @@
                     <h6>{{this.brand}}</h6>
                   </a>
                   <h6>{{this.name}}</h6>
-                   {{#if this.quantity}}
+                  {{#if this.quantity}}
                   <h5>₹{{this.price}}</h5>{{/if}}
                   <div class='product__color__select'>
                     <label for='pc-4'>
@@ -245,12 +245,12 @@
                     <label class='grey' for='pc-6'>
                       <input type='radio' id='pc-6' />
                     </label>
-                  </div> 
+                  </div>
                   {{#if this.quantity}}
                   <a href="#" class="add-cart btn btn-primary btn-block mt-3" data-id="{{this._id}}"
                     style="background-color: rgb(16, 15, 15); color: white;">Add to Cart</a>
-{{else}}<h7 style="color: crimson;">Coming soon...!!!</h7>
-{{/if}}
+                  {{else}}<h7 style="color: crimson;">Product Out Of Stock...!!!</h7>
+                  {{/if}}
 
                 </div>
               </div>
@@ -328,7 +328,8 @@
           //alert("Item has been added to the cart!");
         },
         error: function (xhr, status, error) {
-          alert("Adding to cart Failed")
+          window.location.href = '/login';
+          //alert("Adding to cart Failed")
           console.error(xhr.responseText);
         }
       });
@@ -336,25 +337,3 @@
   });
 </script>
 {{!-- wishlist --}}
-<script>
-  $(document).ready(function () {
-    $(".add-to-wishlist").click(function (event) {
-      event.preventDefault();
-      console.log("add to wishlist")
-      const itemId = $(this).data("id");
-      $.ajax({
-        type: "POST",
-        url: "wishlist",
-        data: { productId: itemId },
-        success: function (data) {
-          console.log(data)
-          alert("Successfully added")
-        },
-        error: function (xhr, status, error) {
-          alert("Please LogIn")
-          console.error(xhr.responseText);
-        }
-      });
-    });
-  });
-</script>

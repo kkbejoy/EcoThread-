@@ -63,12 +63,12 @@
                         <div class="product__details__text">
                             <h4>{{product.name}}</h4>
                             <div class="rating">
+                                {{!-- <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span> - 5 Reviews</span>
+                                <i class="fa fa-star-o"></i> 
+                                <span> - 5 Reviews</span>--}}
                             </div>
                             <h3>{{formatCurrency product.price}} <span></span></h3>
                             <p>{{product.description}}</p>
@@ -116,7 +116,7 @@
                                 <a href="/cart/addtocart/{{product._id}}" class="primary-btn">add to cart</a>
                             </div>{{/if}}
                             <div class="product__details__btns__option">
-                                <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                                <a href="#" class="add-to-wishlist" data-id="{{this._id}}"><i class=" fa fa-heart"></i> add to wishlist</a>
                                 <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
                             </div>
                             <div class="product__details__last__option">
@@ -186,7 +186,8 @@
                 {{#firstN similarProducts 4}}
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.productImages.[2]}}.jpg">
+                        <div class="product__item__pic set-bg"
+                            data-setbg="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.productImages.[2]}}.jpg">
                             <span class="label">New</span>
                             <ul class="product__hover">
                                 <li><a href="#"></img src="/img/icon/heart.png" alt=""></a></li>
@@ -196,13 +197,13 @@
                         </div>
                         <div class="product__item__text">
                             <h6>{{this.name}}</h6>
-                            <a href="/product/{{this._id}}" class="add-cart">+ Add To Cart</a>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
                             <div class="rating">
+                                {{!-- <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i> --}}
                             </div>
                             <h5>{{this.price}}</h5>
                             <div class="product__color__select">
@@ -326,10 +327,21 @@
             </div>
         </div>
     </section>
+    {{!-- Add to Cart Modal --}}
+    <div id="cart-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Item has been added to the cart!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Related Section End -->
-    {{!--
-    <script src="https://unpkg.com/js-image-zoom/js-image-zoom.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script> --}}
+
+
+  
 
     {{!-- Elivate Zoom --}}
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
@@ -347,5 +359,62 @@
     </script>
     <script>
         $("#image3").ezPlus();</script>
+
+
+{{!-- //Wishlist  --}}
+<script>
+  $(document).ready(function () {
+    $(".add-to-wishlist").click(function (event) {
+      event.preventDefault();
+      console.log("add to wishlist")
+      const itemId = $(this).data("id");
+      $.ajax({
+        type: "POST",
+        url: "/wishlist",
+        data: { productId: itemId },
+        success: function (data) {
+          console.log(data)
+          Toastify({
+            text: "Item added to Wishlist",
+            duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+            // Enable the close button on the toast
+            gravity: "center", // Display the toast at the top of the screen
+            backgroundColor: "#ffff", // Set the background color of the toast
+            stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+            style: {
+                top: "20px",
+                left: "550px",
+                width: "300px",
+                height: "auto",
+                color: "Green"
+
+            }
+        }).showToast();
+        },
+        error: function (xhr, status, error) {
+            console.log(error)
+            Toastify({
+                text: "Please Log in ",
+                duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+                // Enable the close button on the toast
+                gravity: "center", // Display the toast at the top of the screen
+                backgroundColor: "#ffff", // Set the background color of the toast
+                stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+                style: {
+                    top: "20px",
+                    left: "550px",
+                    width: "300px",
+                    height: "auto",
+
+                    color: "Red"
+
+                }
+            }).showToast();
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+  </script>
 
 </body>

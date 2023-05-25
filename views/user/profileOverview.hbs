@@ -28,84 +28,46 @@
             <a href='/savedaddress' class='btn btn-dark d-block mb-2'>Saved
               Address</a>
             <a href='/orders' class='btn btn-dark d-block mb-2'>Orders</a>
-            <a href='#'  data-bs-toggle='modal'
-          data-bs-target='#updateUserModal' class='btn btn-dark d-block mb-2'>Edit Profile Details</a>
+            <a href='#' data-bs-toggle='modal' data-bs-target='#updateUserModal' class='btn btn-dark d-block mb-2'>Edit
+              Profile Details</a>
             <a href='/wishlist' class='btn btn-dark d-block'>Wishlist</a>
           </div>
         </div>
 
         {{!-- <!-- Button trigger modal -->2
-        <button
-          type='button'
-          class='btn btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#updateUserModal'
-        >
+        <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#updateUserModal'>
           Update User Details
         </button> --}}
 
         <!-- Modal -->
-        <div
-          class='modal fade'
-          id='updateUserModal'
-          tabindex='-1'
-          aria-labelledby='updateUserModalLabel'
-          aria-hidden='true'
-        >
+        <div class='modal fade' id='updateUserModal' tabindex='-1' aria-labelledby='updateUserModalLabel'
+          aria-hidden='true'>
           <div class='modal-dialog'>
             <div class='modal-content'>
               <div class='modal-header'>
                 <h5 class='modal-title' id='updateUserModalLabel'>Update User
                   Details</h5>
-                <button
-                  type='button'
-                  class='btn-close'
-                  data-bs-dismiss='modal'
-                  aria-label='Close'
-                ></button>
+                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
               </div>
               <div class='modal-body'>
                 <form id='updateUserForm'>
                   <div class='mb-3'>
                     <label for='nameInput' class='form-label'>Name</label>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='nameInput'
-                      name='name'
-                    />
+                    <input type='text' class='form-control' id='nameInput' name='name' />
                   </div>
                   <div class='mb-3'>
                     <label for='phoneInput' class='form-label'>Phone</label>
-                    <input
-                      type='tel'
-                      class='form-control'
-                      id='phoneInput'
-                      name='phone'
-                    />
+                    <input type='tel' class='form-control' id='phoneInput' name='phone' />
                   </div>
                   <div class='mb-3'>
                     <label for='emailInput' class='form-label'>Email address</label>
-                    <input
-                      type='email'
-                      class='form-control'
-                      id='emailInput'
-                      name='email'
-                    />
+                    <input type='email' class='form-control' id='emailInput' name='email' />
                   </div>
                 </form>
               </div>
               <div class='modal-footer'>
-                <button
-                  type='button'
-                  class='btn btn-secondary'
-                  data-bs-dismiss='modal'
-                >Close</button>
-                <button
-                  type='submit'
-                  class='btn btn-primary'
-                  form='updateUserForm'
-                >Save changes</button>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                <button type='submit' class='btn btn-primary' form='updateUserForm'>Save changes</button>
               </div>
             </div>
           </div>
@@ -119,30 +81,30 @@
 </div>
 
 
-{{!-- Update user Details  --}}
+{{!-- Update user Details --}}
 
 <script>
-$(document).ready(function() {
-  // Handle form submission
-  $('#updateUserForm').on('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    var formData = $(this).serialize(); // Get form data
-    console.log(formData);
-    $.ajax({
-      url: '/updateUserDetails',
-      type: 'PATCH',
-      data: formData,
-      success: function(response) {
-        console.log(response);
-        
-        alert("Successfully updated user details");
-        location.reload(); // Redirect to new URL
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-        alert("Error updating user details");
-      }
+  $(document).ready(function () {
+    // Handle form submission
+    $('#updateUserForm').on('submit', function (event) {
+      event.preventDefault(); // Prevent default form submission
+      var formData = $(this).serialize(); // Get form data
+      console.log(formData);
+      $.ajax({
+        url: '/updateUserDetails',
+        type: 'PATCH',
+        data: formData,
+        success: function (response) {
+          console.log(response);
+
+          alert("Successfully updated user details");
+          location.reload(); // Redirect to new URL
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+          alert("Error updating user details");
+        }
+      });
     });
   });
-});
 </script>

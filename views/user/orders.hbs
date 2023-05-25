@@ -1,127 +1,97 @@
+<div class='container mt-3'>
+  <h2>Order List</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        {{! <th scope="col">#</th> }}
+        <th scope='col'></th>
+        {{! <th scope="col">Customer Name</th> }}
+        <th scope='col'>Products</th>
+        <th scope='col'>Total Amount</th>
+        <th scope='col'>Payment Mode</th>
+        <th scope='col'>Status</th>
+        {{!-- <th scope='col'>Actions</th> --}}
+        <th scope='col'>Date Ordered</th>
+        <th scope='col'>More </th>
 
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orderDetails}}
+      <tr>
+        {{!-- <td>{{formatDate this.dateCreated}}</a></td> --}}
+        <td><img
+            src='https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.products.[0].product.productImages.[1]}}.jpg'
+            alt='' width="75" height="75" /></a></td>
 
-    <div class='container mt-3'>
-      <h2>Order List</h2>
-      <table class='table'>
-        <thead>
-          <tr>
-            {{! <th scope="col">#</th> }}
-            <th scope='col'></th>
-            {{! <th scope="col">Customer Name</th> }}
-            <th scope='col'>Products</th>
-            <th scope='col'>Total Amount</th>
-            <th scope='col'>Payment Mode</th>
-            <th scope='col'>Status</th>
-            {{!-- <th scope='col'>Actions</th> --}}
-            <th scope='col'>Date Ordered</th>
-           <th scope='col'>More </th>
-
-          </tr>
-        </thead>
-        <tbody>
-          {{#each orderDetails}}
-            <tr>
-              {{!-- <td>{{formatDate this.dateCreated}}</a></td> --}}
-                            <td><img
-                          src='https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.products.[0].product.productImages.[1]}}.jpg'
-                          alt='' width="75" height="75"
-                        /></a></td>
-
-              <td>
-                {{#each products}}
-                  {{incrementedIndex @index}}.{{this.product.name}}{{#unless @last}},<br> {{/unless}}
-                {{/each}}
-              </td>
-              <td>{{formatCurrency this.totalPrice}}</td>
-              <td>{{this.PaymentMethod}}</td>
-              <td><span class='badge badge-warning'>{{orderStatus}}</span></td>
-             
-              <td>{{formatDate this.dateCreated}}</a></td>
-          <td>
-{{!--              
-                {{#if this.orderStatus}}
-                {{#if (eq this.orderStatus 'Cancelled')}}
-                Order Cancelled
-                {{else if (eq this.orderStatus 'Delivered')}} Order Delivered.
-                {{else}}
-                <button
-                  class='btn'
-                  data-toggle='modal'
-                  data-target='#cancelModal{{this._id}}'
-                  style='background-color: black; color: white;'
-                >Cancel</button>
-                {{/if}}
-                {{/if}} <br><br> --}}
-              <a href="/orderdetails/{{this._id}}" style="color: burlywood;" >Details...</a></td>
-            </tr>
-
-            <!-- Cancellation Modal -->
-            <div
-              class='modal fade'
-              id='cancelModal{{this._id}}'
-              tabindex='-1'
-              aria-labelledby='cancelModalLabel'
-              aria-hidden='true'
-            >
-              <div class='modal-dialog'>
-                <div class='modal-content'>
-                  <div class='modal-header'>
-                    <h5 class='modal-title' id='cancelModalLabel'>Confirm
-                      Cancellation</h5>
-                    <button
-                      type='button'
-                      class='close'
-                      data-dismiss='modal'
-                      aria-label='Close'
-                    >
-                      <span aria-hidden='true'>&times;</span>
-                    </button>
-                  </div>
-                  <div class='modal-body'>
-                    Are you sure you want to cancel this order?
-                  </div>
-                  <div class='modal-footer'>
-                    <button
-                      type='button'
-                      class='btn btn-secondary'
-                      data-dismiss='modal'
-                    >Close</button>
-                    <a href='/cancelorder/{{this._id}}'><button
-                        type='button'
-                        class='btn btn-danger'
-                      >Yes, Cancel Order</button></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-{{!-- More Details Modal --}}
-
-
+        <td>
+          {{#each products}}
+          {{incrementedIndex @index}}.{{this.product.name}}{{#unless @last}},<br> {{/unless}}
           {{/each}}
+        </td>
+        <td>{{formatCurrency this.totalPrice}}</td>
+        <td>{{this.PaymentMethod}}</td>
+        <td><span class='badge badge-warning'>{{orderStatus}}</span></td>
 
-          <!-- more orders... -->
-        </tbody>
-      </table>
-    </div>
+        <td>{{formatDate this.dateCreated}}</a></td>
+        <td>
+          {{!--
+          {{#if this.orderStatus}}
+          {{#if (eq this.orderStatus 'Cancelled')}}
+          Order Cancelled
+          {{else if (eq this.orderStatus 'Delivered')}} Order Delivered.
+          {{else}}
+          <button class='btn' data-toggle='modal' data-target='#cancelModal{{this._id}}'
+            style='background-color: black; color: white;'>Cancel</button>
+          {{/if}}
+          {{/if}} <br><br> --}}
+          <a href="/orderdetails/{{this._id}}" style="color: burlywood;">Details...</a>
+        </td>
+      </tr>
 
-    <!-- Bootstrap JS -->
-    <script>Handlebars.registerHelper("inc", function(value, options) { return
-      parseInt(value) + 1; });
-    </script>
-    <script
-      src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
-      integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
-      crossorigin='anonymous'
-    ></script>
-    <script
-      src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'
-      integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q'
-      crossorigin='anonymous'
-    ></script>
-    <script
-      src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
-      integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl'
-      crossorigin='anonymous'
-    ></script>
- 
+      <!-- Cancellation Modal -->
+      <div class='modal fade' id='cancelModal{{this._id}}' tabindex='-1' aria-labelledby='cancelModalLabel'
+        aria-hidden='true'>
+        <div class='modal-dialog'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h5 class='modal-title' id='cancelModalLabel'>Confirm
+                Cancellation</h5>
+              <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              Are you sure you want to cancel this order?
+            </div>
+            <div class='modal-footer'>
+              <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+              <a href='/cancelorder/{{this._id}}'><button type='button' class='btn btn-danger'>Yes, Cancel
+                  Order</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{!-- More Details Modal --}}
+
+
+      {{/each}}
+
+      <!-- more orders... -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Bootstrap JS -->
+<script>Handlebars.registerHelper("inc", function (value, options) {
+    return
+    parseInt(value) + 1;
+  });
+</script>
+<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
+  integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'
+  integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
+  integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>

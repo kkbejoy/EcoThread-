@@ -89,7 +89,6 @@ router.get(
 router.delete('/deleteimage', adminControllers.imageDeletion);
 
 //CATEGORY MANAGEMENT SECTION
-
 // category page rendering
 router.get(
   '/category',

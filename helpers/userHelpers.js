@@ -311,9 +311,16 @@ const Signup = (user) => {
     try {
       let olduser = {};
       //console.log(user);
-      let existingUser = await userSchema.findOne({ email: user.email }).lean();
+      let existingUser = await userSchema.findOne({
+        $or: [
+          { email: user.email },
+          { phone: user.phone }
+        ]
+      }).lean();
+      // console.log(existingUser);
       if (existingUser) {
         olduser.status = true;
+        console.log("Existing user");
         reject(olduser);
       } else {
         user.password = await bcrypt.hash(user.password, 10);
@@ -528,7 +535,7 @@ const addShippingAddressIdToCart = async (userId, shippingAddressId) => {
     );
     if (result.nModified === 0) {
       console.log('Address id additiion to cart failed');
-      // throw new Error(`Cart not found or shipping address already set`);
+      throw new Error(`Cart not found or shipping address already set`);
     }
     console.log('Shipping address added to cart');
   } catch (error) {
@@ -605,11 +612,11 @@ const orderCancelation = async (orderId) => {
 //Wishlists
 
 //Wishlist Items
-const wishlistDetails=async(userId)=>{
-  try{
-    const wishlist=await WishlistSchema.find({userId:userId}).populate('products').lean();
+const wishlistDetails = async (userId) => {
+  try {
+    const wishlist = await WishlistSchema.find({ userId: userId }).populate('products').lean();
     return wishlist;
-  }catch(error){
+  } catch (error) {
     console.log(error);
     throw error;
   }

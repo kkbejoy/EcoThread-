@@ -272,7 +272,7 @@ const get_category_id = (categoryId) => {
   });
 };
 
-//Admin Catergory status modification
+//Admin Catergory status modification(Listing and Unlisting)
 const categoryListing = (categoryId, modification) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -293,9 +293,19 @@ const categoryListing = (categoryId, modification) => {
   });
 };
 
-//BANNER MANAGEMENT
+//Products Under Category Listing and Unlisting
+const productsUnderCatStatusModification=async(categoryId,newStatus)=>{
+  try{
+    await productSchema.updateMany({category:categoryId},
+      {productStatus:newStatus});
+  }catch(error){
+    throw error;
+  }
 
-//All Banner Details
+}
+
+//BANNER MANAGEMENT
+//List Of Banners With Details
 
 const bannerDetails=async()=>{
   try{
@@ -336,6 +346,7 @@ module.exports = {
   getAllActiveCategories,
   getAllCategories,
   addCategory,
+  productsUnderCatStatusModification,
   updateProduct,
   deleteProducts,
   getProductdetails,

@@ -1,132 +1,133 @@
-
 <body>
-           <section class="pt-150 pb-150">
-               <div class="container">
-                <div class="row justify-content-center mt-5 py-3">
-                    <div class="col-sm-8 col-md-6 col-lg-4">
-                        <div class="card shadow rounded" >
-                            <div class="card-body">
-                                <h4 class="card-title text-center mb-4 " aria-label="Log In Form Title">Log In</h4>
+  <section class="pt-150 pb-150">
+    <div class="container">
+      <div class="row justify-content-center mt-5 py-3">
+        <div class="col-sm-8 col-md-6 col-lg-4">
+          <div class="card shadow rounded">
+            <div class="card-body">
+              <h4 class="card-title text-center mb-4 " aria-label="Log In Form Title">Log In</h4>
 
-                                        <form method="post" action="/login">
-                                            <div class="form-group">
-                                                <input type="text"  class="form-control mx-auto text-center" name="email" placeholder="Your Email">
-                                                <div class="error-message"></div>
-                                            
-                                            </div>
-                                            <div class="form-group">
-                                                <input  type="password" class="form-control mx-auto text-center" name="password" placeholder="Password">
-                                                <div class="error-message"></div>
-                                            </div>
-                                            <div class="login_footer form-group">
-                                                {{!-- <div class="chek-form">
-                                                    <div class="custome-checkbox">
-                                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                                        <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
-                                                    </div>
-                                                      </div> --}}
-                                                <a class="text-muted " href="/otplogin">Login with Mobile </a>
-                                                 <div>
-                                                <a class="text-muted" href="/passwordreset">Forgot password?</a>
-                                                
-                                            </div>
-                                            <div><a class="text-muted" href="/signup">Create an Account</a></div>
-                                            </div>
-                                               
-                                            <div class="form-group">
-                                                  {{#if loginerr }}
-                                                    <div  class="alert alert-danger" role="alert">                                                 
-                                                    <span >
-                                                      Incorrect Username/Password
-                                                      </span>
-                                                      </div>
-                                                    {{/if}}
-                                                <button type="submit" class="btn btn-dark btn-fill-out btn-block hover-up" name="login">Log in</button>
-                                                 
-                                                  
-                                            </div>
-                                       </form>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
+              <form method="post" action="/login">
+                <div class="form-group">
+                  <input type="text" class="form-control mx-auto text-center" name="email" placeholder="Your Email">
+                  <div class="error-message"></div>
+
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control mx-auto text-center" name="password"
+                    placeholder="Password">
+                  <div class="error-message"></div>
+                </div>
+                <div class="login_footer form-group">
+                  {{!-- <div class="chek-form">
+                    <div class="custome-checkbox">
+                      <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                      <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
                     </div>
-              
-        </section>
-    </main>
+                  </div> --}}
+                  <a class="text-muted " href="/otplogin">Login with Mobile </a>
+                  <div>
+                    <a class="text-muted" href="/passwordreset">Forgot password?</a>
+
+                  </div>
+                  <div><a class="text-muted" href="/signup">Create an Account</a></div>
+                </div>
+
+                <div class="form-group">
+                  {{#if loginerr }}
+                  <div class="alert alert-danger" role="alert">
+                    <span>
+                      Incorrect Username/Password
+                    </span>
+                  </div>
+                  {{/if}}
+                  <button type="submit" class="btn btn-dark btn-fill-out btn-block hover-up" name="login">Log
+                    in</button>
 
 
-<script>
-  // Get the form element
-  const form = document.querySelector('form');
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
-  // Add event listener for form submission
-  form.addEventListener('submit', function (event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+      </div>
+    </div>
 
-    // Perform form validation
-   
-    const emailInput = document.querySelector('input[name="email"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    let isValid = true;
-
-   
-   // Validate email field
-    const emailRegex = /^\S+@\S+\.\S+$/;
-    if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
-      isValid = false;
-      emailInput.classList.add('is-invalid');
-      emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
-    } else {
-      emailInput.classList.remove('is-invalid');
-      emailInput.nextElementSibling.textContent = '';
-    }
+  </section>
+  </main>
 
 
-   
-    // Validate password field
-    if (passwordInput.value.trim() === '') {
-      isValid = false;
-      passwordInput.classList.add('is-invalid');
-      passwordInput.nextElementSibling.textContent = 'Please enter your password.';
-    } else {
-      passwordInput.classList.remove('is-invalid');
-      passwordInput.nextElementSibling.textContent = '';
-    }
+  <script>
+    // Get the form element
+    const form = document.querySelector('form');
 
-    // If form is valid, submit it
-    if (isValid) {
-      form.submit();
-    }
-  });
-</script>
+    // Add event listener for form submission
+    form.addEventListener('submit', function (event) {
+      // Prevent the form from being submitted
+      event.preventDefault();
+
+      // Perform form validation
+
+      const emailInput = document.querySelector('input[name="email"]');
+      const passwordInput = document.querySelector('input[name="password"]');
+      let isValid = true;
+
+
+      // Validate email field
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
+        isValid = false;
+        emailInput.classList.add('is-invalid');
+        emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
+      } else {
+        emailInput.classList.remove('is-invalid');
+        emailInput.nextElementSibling.textContent = '';
+      }
 
 
 
+      // Validate password field
+      if (passwordInput.value.trim() === '') {
+        isValid = false;
+        passwordInput.classList.add('is-invalid');
+        passwordInput.nextElementSibling.textContent = 'Please enter your password.';
+      } else {
+        passwordInput.classList.remove('is-invalid');
+        passwordInput.nextElementSibling.textContent = '';
+      }
 
- <!-- Vendor JS-->
-    <script src="assetsLogIn/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assetsLogIn/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assetsLogIn/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assetsLogIn/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assetsLogIn/js/plugins/slick.js"></script>
-    <script src="assetsLogIn/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="assetsLogIn/js/plugins/wow.js"></script>
-    <script src="assetsLogIn/js/plugins/jquery-ui.js"></script>
-    <script src="assetsLogIn/js/plugins/perfect-scrollbar.js"></script>
-    <script src="assetsLogIn/js/plugins/magnific-popup.js"></script>
-    <script src="assetsLogIn/js/plugins/select2.min.js"></script>
-    <script src="assetsLogIn/js/plugins/waypoints.js"></script>
-    <script src="assetsLogIn/js/plugins/counterup.js"></script>
-    <script src="assetsLogIn/js/plugins/jquery.countdown.min.js"></script>
-    <script src="assetsLogIn/js/plugins/images-loaded.js"></script>
-    <script src="assetsLogIn/js/plugins/isotope.js"></script>
-    <script src="assetsLogIn/js/plugins/scrollup.js"></script>
-    <script src="assetsLogIn/js/plugins/jquery.vticker-min.js"></script>
-    <script src="assetsLogIn/js/plugins/jquery.theia.sticky.js"></script>
-    <!-- Template  JS -->
-    <script src="assetsLogIn/js/mainLogIn.js"></script>
+      // If form is valid, submit it
+      if (isValid) {
+        form.submit();
+      }
+    });
+  </script>
+
+
+
+
+  <!-- Vendor JS-->
+  <script src="assetsLogIn/js/vendor/modernizr-3.6.0.min.js"></script>
+  <script src="assetsLogIn/js/vendor/jquery-3.6.0.min.js"></script>
+  <script src="assetsLogIn/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+  <script src="assetsLogIn/js/vendor/bootstrap.bundle.min.js"></script>
+  <script src="assetsLogIn/js/plugins/slick.js"></script>
+  <script src="assetsLogIn/js/plugins/jquery.syotimer.min.js"></script>
+  <script src="assetsLogIn/js/plugins/wow.js"></script>
+  <script src="assetsLogIn/js/plugins/jquery-ui.js"></script>
+  <script src="assetsLogIn/js/plugins/perfect-scrollbar.js"></script>
+  <script src="assetsLogIn/js/plugins/magnific-popup.js"></script>
+  <script src="assetsLogIn/js/plugins/select2.min.js"></script>
+  <script src="assetsLogIn/js/plugins/waypoints.js"></script>
+  <script src="assetsLogIn/js/plugins/counterup.js"></script>
+  <script src="assetsLogIn/js/plugins/jquery.countdown.min.js"></script>
+  <script src="assetsLogIn/js/plugins/images-loaded.js"></script>
+  <script src="assetsLogIn/js/plugins/isotope.js"></script>
+  <script src="assetsLogIn/js/plugins/scrollup.js"></script>
+  <script src="assetsLogIn/js/plugins/jquery.vticker-min.js"></script>
+  <script src="assetsLogIn/js/plugins/jquery.theia.sticky.js"></script>
+  <!-- Template  JS -->
+  <script src="assetsLogIn/js/mainLogIn.js"></script>
 
 </body>

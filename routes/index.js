@@ -93,7 +93,7 @@ router.get(
 router.post(
   '/addnewaddressfromcheckout',
   session_check.userChecking,
-  user_controller.checkOutPost
+  user_controller.addNewAddress
 );
 
 //CheckOut page post link to add address id to the cart
@@ -104,8 +104,8 @@ router.post(
 );
 
 //prE-Payment page rendering
-router.get('/checkout/payment',  session_check.userChecking,
-user_controller.paymentSelectionPage);
+// router.get('/checkout/payment',  session_check.userChecking,
+// user_controller.paymentSelectionPage);
 
 //OrderConfirmation link
 router.get('/checkout/confirm-cod-order',  session_check.userChecking,

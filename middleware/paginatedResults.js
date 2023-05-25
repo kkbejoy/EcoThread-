@@ -1,6 +1,5 @@
-//This will work only for Products and Orders in admin side
 
-const { Order } = require('../model/orderModel');
+
 const paginatedResults = (model) => {
   return async (req, res, next) => {
     let page = parseInt(req.query.page);

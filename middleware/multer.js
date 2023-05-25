@@ -12,14 +12,14 @@ const apiSecret=process.env.CLOUDINARY_API_SECRET
 
 
 
-// Configuration 
+//Cloudinary Configuration 
 cloudinary.config({
     cloud_name: cloudinaryName,
     api_key: apiKey,
     api_secret: apiSecret
   });
 
-//Products Image
+//Products Image Storage in Cloudinary
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: (req,res)=>{
@@ -53,7 +53,7 @@ cloudinary.config({
 // });
 
 
-//Banner Image
+//Banner Image Storage in Cloudinary
 const bannerStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req,res)=>{
@@ -80,7 +80,7 @@ const bannerStorage = new CloudinaryStorage({
 
 
 
-//Image Delete
+// Delete Image from Cloudinary
 const deleteImage=async(id)=>{
   try{
     const result= await cloudinary.api.delete_resources([id]);

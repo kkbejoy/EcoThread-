@@ -1,236 +1,312 @@
-<div class="container"> 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<div class="container">
   <div class="row">
-            <div class="col-lg-4">
-                <h5>Select the Shipping Address </h5>
+    <div class="col-lg-4">
+      <h5>Select the Shipping Address </h5>
 
 
-          <div class="list-group ">
-                <form action="" method="post">
-              <!-- Loop through address collection and render each address as an option -->
-            {{#each address}}
-                <label class="list-group-item">
-                  <input type="radio" name="addressButton" value="{{this._id}}" onclick="sendAddressValue()" required >
-                  <strong>{{this.name}}</strong><br>
-                  {{this.houseNo}}, {{this.street}},<br>
-                  {{this.city}}, {{this.district}}, {{this.state}}<br>
-                  {{this.country}}, {{this.pinCode}}<br>
-                  Phone: {{this.phone}}<br>
-                  Email: {{this.email}}
-                </label>
-            
-              {{/each}}
+      <div class="list-group ">
+        <form action="" method="post">
+          <!-- Loop through address collection and render each address as an option -->
+          {{#each address}}
+          <label class="list-group-item">
+            <input type="radio" name="addressButton" value="{{this._id}}" onclick="sendAddressValue()" required>
+            <strong>{{this.name}}</strong><br>
+            {{this.houseNo}}, {{this.street}},<br>
+            {{this.city}}, {{this.district}}, {{this.state}}<br>
+            {{this.country}}, {{this.pinCode}}<br>
+            Phone: {{this.phone}}<br>
+            Email: {{this.email}}
+          </label>
+
+          {{/each}}
+        </form>
+      </div>
+
+
+
+      {{!-- Modal codes --}}
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary " style="background-color: black; color: white;"
+          data-toggle="modal" data-target="#checkoutModal">
+          Add New Address
+        </button>
+
+        <!-- Checkout modal -->
+        <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="checkoutModalLabel">New Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="/addnewaddressfromcheckout" method="post">
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto">
+                      <h4></h4>
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="address">House No</label>
+                        <input type="text" class="form-control" id="address" name="houseNo" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Street</label>
+                        <input type="text" class="form-control" id="address" name="street" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">City</label>
+                        <input type="text" class="form-control" id="address" name="city">
+                      </div>
+                      <div class="form-group">
+                        <label for="address">District</label>
+                        <input type="text" class="form-control" id="address" name="district" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">State</label>
+                        <input type="text" class="form-control" id="address" name="state" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Country</label>
+                        <input type="text" class="form-control" id="address" name="country" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Pincode</label>
+                        <input type="number" class="form-control" id="address" name="pinCode" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Phone</label>
+                        <input type="tel" class="form-control" id="address" name="phone" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    {{!-- Cart Details --}}
+    <div class="col-lg-8">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header">
+            Cart Details
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each cartDetails}}
+                {{#each this.products}}
+                <tr>
+                  <td>{{this.product.name}}</td>
+                  <td>{{this.product.price}}</td>
+                  <td>{{this.quantity}}</td>
+                </tr>
+
+                {{/each}}
+                {{/each}}
+
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer text-muted">
+
+            Total : ₹ {{#if discountPrice}}{{discountPrice}} {{else}} {{totalCartPrice}}{{/if}}
+
           </div>
 
 
+        </div>
+      </div>
 
-{{!-- Modal codes --}}
-<div class="col-md-6">
-               <button type="button" class="btn btn-primary " style="background-color: black; color: white;" data-toggle="modal" data-target="#checkoutModal">
-              Add New Address
-            </button>
-           
-                  <!-- Checkout modal -->
-            <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="checkoutModalLabel">New Address</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <form action="/addnewaddressfromcheckout" method="post">
-                    <div class="modal-body">
-                      <div class="row">
-                        <div class="col-md-6 mx-auto">
-                          <h4></h4>
-                          <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                          </div>
+      {{!-- Proceed to paymet button --}}
 
-                          <div class="form-group">
-                            <label for="address">House No</label>
-                            <input type="text" class="form-control" id="address" name="houseNo" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="address">Street</label>
-                            <input type="text" class="form-control" id="address" name="street" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="address">City</label>
-                            <input type="text" class="form-control" id="address" name="city">
-                          </div>
-                          <div class="form-group">
-                            <label for="address">District</label>
-                            <input type="text" class="form-control" id="address" name="district" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="address">State</label>
-                            <input type="text" class="form-control" id="address" name="state" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="address">Country</label>
-                            <input type="text" class="form-control" id="address" name="country" required>
-                          </div> 
-                          <div class="form-group">
-                            <label for="address">Pincode</label>
-                            <input type="number" class="form-control" id="address" name="pinCode" required>
-                          </div> 
-                          <div class="form-group">
-                            <label for="address">Phone</label>
-                            <input type="tel" class="form-control" id="address" name="phone" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </form>
-                </div>
+
+      <div class="col-md-6 mx-auto">
+        <div class="card pt-3">
+          <div class="card-header">
+            Payment Method
+          </div>
+          <div class="container flex-column justify-content-center align-items-center">
+            <form id="checkoutForm">
+
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethodButton" id="cardPayRadioButton"
+                  value="Card Payment" onclick="sendPaymentModeValue()">
+                <label class="form-check-label" for="creditCard">
+                  Credit/Debit Cart
+                </label>
               </div>
-            </div>
-            </div>
 
-
-
-
-            </div>
-          {{!-- Cart Details --}}
-         <div class="col-lg-8" >
-          <div class="col-md-6 mx-auto">
-                  <div class="card">
-                    <div class="card-header">
-                      Cart Details
-                    </div>
-                    <div class="card-body">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {{#each cartDetails}}
-                            {{#each this.products}}
-                          <tr>
-                            <td>{{this.product.name}}</td>
-                            <td>{{this.product.price}}</td>
-                            <td>{{this.quantity}}</td>
-                          </tr>
-
-                          {{/each}}
-                          {{/each}}
-                        
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="card-footer text-muted">
-                      
-                      Total  : ₹ {{#if discountPrice}}{{discountPrice}} {{else}} {{totalCartPrice}}{{/if}}
-                     
-                    </div>
-
-                    
-                  </div></div>
-                           
-            {{!-- Proceed to paymet button --}}
-             
-                   
-                        <div class="col-md-6 mx-auto">
-                        <div class="card pt-3">
-                    <div class="card-header">
-                      Payment Method
-                    </div>
-                      <div class="container flex-column justify-content-center align-items-center">
-                        <form id="checkoutForm">
-     
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="paymentMethodButton" id="cardPayRadioButton" value="Card Payment" onclick="sendPaymentModeValue()" >
-                          <label class="form-check-label" for="creditCard">
-                            Credit/Debit Cart
-                          </label>
-                        </div>
-                        
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="paymentMethodButton" id="CodRadioButton" value="COD" onclick="sendPaymentModeValue()" >
-                          <label class="form-check-label" for="cashOnDelivery">
-                            Cash on Delivery
-                          </label>
-                        </div>
-                        
-                        <br>
-                        <a href="">
-                            <button type="submit" class="btn btn-primary" id="submit-btn" disabled style="background-color: black; color: white;">Proceed to Payment</button>
-                          </a>
-                          </form>
-                        </div>
-                        </div>
-                        </div>
-                     
-                     </div>
-         </div>
-             </div>
-
-            </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethodButton" id="CodRadioButton" value="COD"
+                  onclick="sendPaymentModeValue()">
+                <label class="form-check-label" for="cashOnDelivery">
+                  Cash on Delivery
+                </label>
               </div>
+
+              <br>
+              <a href="">
+                <button type="submit" class="btn btn-primary" id="submit-btn" disabled
+                  style="background-color: black; color: white;">Proceed to Payment</button>
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
 
 
 {{!-- RazorPay Script --}}
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>              
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 {{!-- Address selection and Data manipulation in Cart --}}
 <script>
 
- function sendAddressValue() {
-  console.log("Buton click function start")
-  const selectedValue = document.querySelector('input[name="addressButton"]:checked').value;
-  fetch('/addaddressidtocart', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ selectedValue })
-  })
-  .then(response => {
-    alert("Address selection updated in cart")
-  })
-  .catch(error => {
-    alert("Error")
-  });
-} </script>
+  function sendAddressValue() {
+    console.log("Buton click function start")
+    const selectedValue = document.querySelector('input[name="addressButton"]:checked').value;
+    fetch('/addaddressidtocart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ selectedValue })
+    })
+      .then(response => {
+        Toastify({
+          text: "Address Selected",
+          duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+          // Enable the close button on the toast
+          gravity: "center", // Display the toast at the top of the screen
+          backgroundColor: "#ffff", // Set the background color of the toast
+          stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+          style: {
+            top: "20px",
+            left: "550px",
+            width: "300px",
+            height: "auto",
+
+            color: "black"
+
+          }
+        }).showToast();
+        // alert("Address selection updated in cart")
+      })
+      .catch(error => {
+        Toastify({
+          text: "Address Selection failed. Please try again!!!!",
+          duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+          // Enable the close button on the toast
+          gravity: "center", // Display the toast at the top of the screen
+          backgroundColor: "#0f0e0e", // Set the background color of the toast
+          stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+          style: {
+            top: "20px",
+            left: "550px",
+            width: "300px",
+            height: "auto",
+
+            color: "Black"
+
+          }
+        }).showToast();
+      });
+  } </script>
 
 
 {{!-- payment method selection and payment method change in cart --}}
 <script>
 
- function sendPaymentModeValue() {
-  console.log("Buton click function start")
-  const selectedValue = document.querySelector('input[name="paymentMethodButton"]:checked').value;
-  console.log(selectedValue);
-  fetch('/cart/paymentmethodtocart', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ selectedValue })
-  })
-  .then(response => {
-    alert("Payment Method selection successfull")
-  })
-  .catch(error => {
-    alert("Error")
-  });
-} </script>
+  function sendPaymentModeValue() {
+    console.log("Buton click function start")
+    const selectedValue = document.querySelector('input[name="paymentMethodButton"]:checked').value;
+    console.log(selectedValue);
+    fetch('/cart/paymentmethodtocart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ selectedValue })
+    })
+      .then(response => {
+
+        Toastify({
+          text: "Payment Selected",
+          duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+          // Enable the close button on the toast
+          gravity: "center", // Display the toast at the top of the screen
+          backgroundColor: "#ffff", // Set the background color of the toast
+          stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+          style: {
+            top: "20px",
+            left: "550px",
+            width: "300px",
+            height: "auto",
+
+            color: "Black"
+
+          }
+        }).showToast();
+
+        // alert("Payment Method selection successfull")
+      })
+      .catch(error => {
+        Toastify({
+          text: "Payment selection failed",
+          duration: 3000, // Set the duration for which the toast should be displayed (in milliseconds)
+          // Enable the close button on the toast
+          gravity: "center", // Display the toast at the top of the screen
+          backgroundColor: "#ffff", // Set the background color of the toast
+          stopOnFocus: true, // Stop the toast from automatically disappearing when it receives focus
+          style: {
+            top: "20px",
+            left: "550px",
+            width: "300px",
+            height: "auto",
+
+            color: "black"
+
+          }
+        }).showToast();
+      });
+  } </script>
 
 
 
@@ -238,9 +314,9 @@
 <script>
   const radioButtons = document.querySelectorAll('input[name="addressButton"]');
   const submitBtn = document.querySelector('#submit-btn');
-  
-  radioButtons.forEach(function(radio) {
-    radio.addEventListener('change', function() {
+
+  radioButtons.forEach(function (radio) {
+    radio.addEventListener('change', function () {
       const addressRadioSelected = document.querySelector('input[name="addressButton"]:checked');
       if (addressRadioSelected) {
         submitBtn.disabled = false;
@@ -257,101 +333,101 @@
 {{!-- Payment redirecting codes --}}
 
 <script>
-async function redirectToPaymentPage(event) {
-  // Prevent the form from submitting normally
-  event.preventDefault();
+  async function redirectToPaymentPage(event) {
+    // Prevent the form from submitting normally
+    event.preventDefault();
 
-  // Get the radio button elements
-  const codRadioButton = document.getElementById('CodRadioButton');
-  const onlinePaymentRadioButton = document.getElementById('cardPayRadioButton');
+    // Get the radio button elements
+    const codRadioButton = document.getElementById('CodRadioButton');
+    const onlinePaymentRadioButton = document.getElementById('cardPayRadioButton');
 
-  // Check which radio button is selected
-  if (codRadioButton.checked) {
-    console.log(" COD from script")
-    // If the COD radio button is selected, redirect to the COD payment page
-    //window.location.href = '/checkout/confirm-cod-order';
-    fetch('/checkout/confirm-cod-order')
-      .then((response)=>{
-        if (!response.ok) {
-        throw new Error('Oops..!!!! Product Unavailable');
-      }else{
-      window.location.href = '/orders';
-      }
-      }).catch((error)=>{
-        console.log(error);
-         alert(error);
+    // Check which radio button is selected
+    if (codRadioButton.checked) {
+      console.log(" COD from script")
+      // If the COD radio button is selected, redirect to the COD payment page
+      //window.location.href = '/checkout/confirm-cod-order';
+      fetch('/checkout/confirm-cod-order')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Oops..!!!! Product Unavailable');
+          } else {
+            window.location.href = '/orders';
+          }
+        }).catch((error) => {
+          console.log(error);
+          alert(error);
 
-      })
-  } else if (onlinePaymentRadioButton.checked) {
-    console.log(" Card from script")
-    // If the online payment radio button is selected, redirect to the online payment page
-    const response = await fetch('/payment/create-razororder');
-  const razorOrder=await response.json();
-  console.log("razorPya Order:" + razorOrder)
+        })
+    } else if (onlinePaymentRadioButton.checked) {
+      console.log(" Card from script")
+      // If the online payment radio button is selected, redirect to the online payment page
+      const response = await fetch('/payment/create-razororder');
+      const razorOrder = await response.json();
+      console.log("razorPya Order:" + razorOrder)
 
-    // Redirect to the Razorpay payment page
-    const razorpayPaymentOptions = {
-      "key": "rzp_test_GvoovMXnKWxqSg",
-      "amount": razorOrder.amount,
-      "currency": razorOrder.currency,
-      "name": "Fashions",
-      "description": "Transfer to Bejoy K K for shopping",
-      "order_id": razorOrder.id,
-      "handler": function (response) {
+      // Redirect to the Razorpay payment page
+      const razorpayPaymentOptions = {
+        "key": "rzp_test_GvoovMXnKWxqSg",
+        "amount": razorOrder.amount,
+        "currency": razorOrder.currency,
+        "name": "Fashions",
+        "description": "Transfer to Bejoy K K for shopping",
+        "order_id": razorOrder.id,
+        "handler": function (response) {
           // Perform operations after payment success
           console.log(response);
-          fetch('/payment/verifypayment',{
-                      method:'POST',
-                      headers:{
-                      'Content-Type':'application/json'
-                   },
-                    body: JSON.stringify({
-                      razorpay_order_id: razorOrder.id,
-        razorpay_payment_id: response.razorpay_payment_id,
-        
-        razorpay_signature: response.razorpay_signature
-      })
-          }).then(response=>response.json())
-           .then(result => {
-      console.log(result);
-    
-      // Redirect the user to a success or failure page based on the result
-      if (result.success) {
-        window.location.href = '/orders';
-      } else {
-        window.location.href = '/';
-      }
-    })
-    .catch(error => {
-       if (error.message.includes("Product Unavailable")){
-    // Render the message "Product Unavailable" to the user
-    alert("Ooops..!!!!Product Unavailable");
-  } else {
-      console.error("Payment failed. Please try after sometime");
-      alert("Payment failed. Please try after sometime")
-      // Redirect the user to a failure page
-  }
-    });
-  },
-     
-      "prefill": {
+          fetch('/payment/verifypayment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              razorpay_order_id: razorOrder.id,
+              razorpay_payment_id: response.razorpay_payment_id,
+
+              razorpay_signature: response.razorpay_signature
+            })
+          }).then(response => response.json())
+            .then(result => {
+              console.log(result);
+
+              // Redirect the user to a success or failure page based on the result
+              if (result.success) {
+                window.location.href = '/orders';
+              } else {
+                window.location.href = '/';
+              }
+            })
+            .catch(error => {
+              if (error.message.includes("Product Unavailable")) {
+                // Render the message "Product Unavailable" to the user
+                alert("Ooops..!!!!Product Unavailable");
+              } else {
+                console.error("Payment failed. Please try after sometime");
+                alert("Payment failed. Please try after sometime")
+                // Redirect the user to a failure page
+              }
+            });
+        },
+
+        "prefill": {
           "name": "<CUSTOMER_NAME>",
           "email": "<CUSTOMER_EMAIL>",
           "contact": "<CUSTOMER_CONTACT_NUMBER>"
-      },
-      "theme": {
+        },
+        "theme": {
           "color": "#F37254"
-      }
-    };
-    const rzp = new Razorpay(razorpayPaymentOptions);
-    rzp.open();
-  } else {
-    // If no radio button is selected, show an error message
-    alert('Please select a payment method');
+        }
+      };
+      const rzp = new Razorpay(razorpayPaymentOptions);
+      rzp.open();
+    } else {
+      // If no radio button is selected, show an error message
+      alert('Please select a payment method');
+    }
   }
-}
 
-// Get the form element and add a submit event listener
-const form = document.getElementById('checkoutForm');
-form.addEventListener('submit', redirectToPaymentPage);
+  // Get the form element and add a submit event listener
+  const form = document.getElementById('checkoutForm');
+  form.addEventListener('submit', redirectToPaymentPage);
 </script>

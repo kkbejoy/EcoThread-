@@ -1,35 +1,19 @@
 <div class='container mt-5'>
   <div class='row justify-content-center'>
     <div class='col-md-12 text-right mb-3'>
-      <button
-        type='button'
-        class='btn btn-dark'
-        data-toggle='modal'
-        data-target='#addAddressModal'
-      >
+      <button type='button' class='btn btn-dark' data-toggle='modal' data-target='#addAddressModal'>
         Add New Address
       </button>
 
       {{! Add New address modal }}
 
-      <div
-        class='modal fade'
-        id='addAddressModal'
-        tabindex='-1'
-        role='dialog'
-        aria-labelledby='addAddressModalLabel'
-        aria-hidden='true'
-      >
+      <div class='modal fade' id='addAddressModal' tabindex='-1' role='dialog' aria-labelledby='addAddressModalLabel'
+        aria-hidden='true'>
         <div class='modal-dialog' role='document'>
           <div class='modal-content'>
             <div class='modal-header'>
               <h5 class='modal-title' id='addAddressModalLabel'>Add New Address</h5>
-              <button
-                type='button'
-                class='close'
-                data-dismiss='modal'
-                aria-label='Close'
-              >
+              <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
@@ -40,145 +24,69 @@
                 <div class='form-group row'>
                   <label for='name' class='col-sm-3 col-form-label'>Name</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='name' required
-                      placeholder='Enter Name'
-                    />
+                    <input type='text' class='form-control' id='name' required placeholder='Enter Name' />
                   </div>
                 </div>
                 <div class='form-group row'>
                   <label for='houseNo' class='col-sm-3 col-form-label'>House No</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='houseNo' required
-                      placeholder='Enter House No'
-                    />
+                    <input type='text' class='form-control' id='houseNo' required placeholder='Enter House No' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='street'
-                    class='col-sm-3 col-form-label'
-                  >Street</label>
+                  <label for='street' class='col-sm-3 col-form-label'>Street</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='street' required
-                      placeholder='Enter Street'
-                    />
+                    <input type='text' class='form-control' id='street' required placeholder='Enter Street' />
                   </div>
                 </div>
                 <div class='form-group row'>
                   <label for='city' class='col-sm-3 col-form-label'>City</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='city' required
-                      placeholder='Enter City'
-                    />
+                    <input type='text' class='form-control' id='city' required placeholder='Enter City' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='district'
-                    class='col-sm-3 col-form-label'
-                  >District</label>
+                  <label for='district' class='col-sm-3 col-form-label'>District</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='district' required
-                      placeholder='Enter District'
-                    />
+                    <input type='text' class='form-control' id='district' required placeholder='Enter District' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='state'
-                    class='col-sm-3 col-form-label'
-                  >State</label>
+                  <label for='state' class='col-sm-3 col-form-label'>State</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='state' required
-                      placeholder='Enter State'
-                    />
+                    <input type='text' class='form-control' id='state' required placeholder='Enter State' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='country'
-                    class='col-sm-3 col-form-label'
-                  >Country</label>
+                  <label for='country' class='col-sm-3 col-form-label'>Country</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='country' required
-                      placeholder='Enter Country'
-                    />
+                    <input type='text' class='form-control' id='country' required placeholder='Enter Country' />
                   </div>
                 </div>
                 <div class='form-group row'>
                   <label for='pinCode' class='col-sm-3 col-form-label'>Pin Code</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='number'
-                      class='form-control'
-                      id='pinCode' required
-                      placeholder='Enter Pin Code'
-                    />
+                    <input type='number' class='form-control' id='pinCode' required placeholder='Enter Pin Code' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='phone'
-                    class='col-sm-3 col-form-label' required
-                  >Phone</label>
+                  <label for='phone' class='col-sm-3 col-form-label' required>Phone</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='number'
-                      class='form-control'
-                      id='phone' required
-                      placeholder='Enter Phone'
-                    />
+                    <input type='number' class='form-control' id='phone' required placeholder='Enter Phone' />
                   </div>
                 </div>
                 <div class='form-group row'>
-                  <label
-                    for='email'
-                    class='col-sm-3 col-form-label' required
-                  >Email</label>
+                  <label for='email' class='col-sm-3 col-form-label' required>Email</label>
                   <div class='col-sm-9'>
-                    <input
-                      type='email'
-                      class='form-control'
-                      id='email' required
-                      placeholder='Enter Email'
-                    />
+                    <input type='email' class='form-control' id='email' required placeholder='Enter Email' />
                   </div>
                 </div>
 
               </form>
             </div>
             <div class='modal-footer'>
-              <button
-                type='button'
-                class='btn btn-secondary'
-                data-dismiss='modal'
-              >Close</button>
-              <button
-                type='submit'
-                form='add-address-form'
-                class='btn btn-primary'
-              >Submit</button>
+              <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+              <button type='submit' form='add-address-form' class='btn btn-primary'>Submit</button>
             </div>
           </div>
         </div>
@@ -187,222 +95,125 @@
 
     <!-- Address Details Cards -->
     {{#each addresses}}
-      <div class='col-md-4'>
+    <div class='col-md-4'>
+      <div class='card'>
         <div class='card'>
-          <div class='card'>
 
-            <div class='card-body'>
-              <h5 class='card-title'>Address</h5>
-              <p class='card-text'> <span>{{this.name}}</span></p>
-              <p class='card-text'><span
-                >{{this.houseNo}},{{this.street}},{{this.city}}</span></p>
-              <p class='card-text'>
-                <span>{{this.district}},{{this.state}}</span></p>
-              <p class='card-text'>
-                <span>{{this.country}}, Pin:{{this.pinCode}}</span></p>
-              <p class='card-text'><span>Phone:
-                  {{this.phone}}, Email:
-                  {{this.email}}</span></p>
-              {{!-- <button
-                type='button'
-                 data-id='{{this._id}}'
-                data-toggle='modal'
-                data-target='#{{this._id}}'
-                
-                class='edit-address-btn btn btn-light'
-              >Edit </button> --}}
-               <a href="/editaddress/{{this._id}}"> <button
-                type='button'          
-                class='edit-address-btn btn btn-light'
-              >Edit </button></a>
-              <button type='button' class='delete-address-btn btn btn-light'  data-id='{{this._id}}'>Delete </button>
-            </div>
-
+          <div class='card-body'>
+            <h5 class='card-title'>Address</h5>
+            <p class='card-text'> <span>{{this.name}}</span></p>
+            <p class='card-text'><span>{{this.houseNo}},{{this.street}},{{this.city}}</span></p>
+            <p class='card-text'>
+              <span>{{this.district}},{{this.state}}</span>
+            </p>
+            <p class='card-text'>
+              <span>{{this.country}}, Pin:{{this.pinCode}}</span>
+            </p>
+            <p class='card-text'><span>Phone:
+                {{this.phone}}, Email:
+                {{this.email}}</span></p>
+            {{!-- <button type='button' data-id='{{this._id}}' data-toggle='modal' data-target='#{{this._id}}'
+              class='edit-address-btn btn btn-light'>Edit </button> --}}
+            <a href="/editaddress/{{this._id}}"> <button type='button' class='edit-address-btn btn btn-light'>Edit
+              </button></a>
+            <button type='button' class='delete-address-btn btn btn-light' data-id='{{this._id}}'>Delete </button>
           </div>
 
         </div>
+
       </div>
+    </div>
 
 
 
-{{! Update address modal }}
-      <div
-        class='modal fade'
-        id='{{this._id}}'
-        tabindex='-1'
-        role='dialog'
-        aria-labelledby='updateAddressModalLabel'
-        aria-hidden='true'
-      >
-        <div class='modal-dialog' role='document'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h5 class='modal-title' id='updateAddressModalLabel'>Update Address</h5>
-              <button
-                type='button'
-                class='close'
-                data-dismiss='modal'
-                aria-label='Close'
-              >
-                <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>
-            <div class='modal-body'>
+    {{! Update address modal }}
+    <div class='modal fade' id='{{this._id}}' tabindex='-1' role='dialog' aria-labelledby='updateAddressModalLabel'
+      aria-hidden='true'>
+      <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <h5 class='modal-title' id='updateAddressModalLabel'>Update Address</h5>
+            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
 
-              <form id='update-address-form'>
+            <form id='update-address-form'>
 
-                <div class='form-group row'>
-                  <label for='name' class='col-sm-3 col-form-label'>Name</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='name1'
-                      placeholder='Enter Name'
-                    />
-                  </div>
+              <div class='form-group row'>
+                <label for='name' class='col-sm-3 col-form-label'>Name</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='name1' placeholder='Enter Name' />
                 </div>
-                <div class='form-group row'>
-                  <label for='houseNo' class='col-sm-3 col-form-label'>House No</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='houseNo'
-                      placeholder='Enter House No'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='houseNo' class='col-sm-3 col-form-label'>House No</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='houseNo' placeholder='Enter House No' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='street'
-                    class='col-sm-3 col-form-label'
-                  >Street</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='street'
-                      placeholder='Enter Street'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='street' class='col-sm-3 col-form-label'>Street</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='street' placeholder='Enter Street' />
                 </div>
-                <div class='form-group row'>
-                  <label for='city' class='col-sm-3 col-form-label'>City</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='city'
-                      placeholder='Enter City'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='city' class='col-sm-3 col-form-label'>City</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='city' placeholder='Enter City' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='district'
-                    class='col-sm-3 col-form-label'
-                  >District</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='district'
-                      placeholder='Enter District'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='district' class='col-sm-3 col-form-label'>District</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='district' placeholder='Enter District' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='state'
-                    class='col-sm-3 col-form-label'
-                  >State</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='state'
-                      placeholder='Enter State'
-                    />
-                  </div>
-                  <input type="hidden" id="address-id" value="{{this._id}}">
+              </div>
+              <div class='form-group row'>
+                <label for='state' class='col-sm-3 col-form-label'>State</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='state' placeholder='Enter State' />
+                </div>
+                <input type="hidden" id="address-id" value="{{this._id}}">
 
+              </div>
+              <div class='form-group row'>
+                <label for='country' class='col-sm-3 col-form-label'>Country</label>
+                <div class='col-sm-9'>
+                  <input type='text' class='form-control' id='country' placeholder='Enter Country' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='country'
-                    class='col-sm-3 col-form-label'
-                  >Country</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='country'
-                      placeholder='Enter Country'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='pinCode' class='col-sm-3 col-form-label'>Pin Code</label>
+                <div class='col-sm-9'>
+                  <input type='number' class='form-control' id='pinCode' placeholder='Enter Pin Code' />
                 </div>
-                <div class='form-group row'>
-                  <label for='pinCode' class='col-sm-3 col-form-label'>Pin Code</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='number'
-                      class='form-control'
-                      id='pinCode'
-                      placeholder='Enter Pin Code'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='phone' class='col-sm-3 col-form-label'>Phone</label>
+                <div class='col-sm-9'>
+                  <input type='number' class='form-control' id='phone' placeholder='Enter Phone' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='phone'
-                    class='col-sm-3 col-form-label'
-                  >Phone</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='number'
-                      class='form-control'
-                      id='phone'
-                      placeholder='Enter Phone'
-                    />
-                  </div>
+              </div>
+              <div class='form-group row'>
+                <label for='email' class='col-sm-3 col-form-label'>Email</label>
+                <div class='col-sm-9'>
+                  <input type='email' class='form-control' id='email' placeholder='Enter Email' />
                 </div>
-                <div class='form-group row'>
-                  <label
-                    for='email'
-                    class='col-sm-3 col-form-label'
-                  >Email</label>
-                  <div class='col-sm-9'>
-                    <input
-                      type='email'
-                      class='form-control'
-                      id='email'
-                      placeholder='Enter Email'
-                    />
-                  </div>
-                </div>
+              </div>
 
-              </form>
-            </div>
-            <div class='modal-footer'>
-              <button
-                type='button'
-                class='btn btn-secondary'
-                data-dismiss='modal'
-              >Close</button>
-              {{!-- <button
-                type='submit'
-                form='update-address-form'
-                class='btn btn-primary'
-              >Submit</button> --}}
-             <a href="/editaddress/{{this._id}}"></a> <button
-                type='submit'
-                               class='btn btn-primary'
-              >Submit</button>
-            </div>
+            </form>
+          </div>
+          <div class='modal-footer'>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+            {{!-- <button type='submit' form='update-address-form' class='btn btn-primary'>Submit</button> --}}
+            <a href="/editaddress/{{this._id}}"></a> <button type='submit' class='btn btn-primary'>Submit</button>
           </div>
         </div>
       </div>
+    </div>
 
 
     {{/each}}
@@ -415,13 +226,13 @@
 
 {{! Add New Address }}
 <script>
-  $(document).ready(function() {
-    $('#add-address-form').on('submit', function(e) {
+  $(document).ready(function () {
+    $('#add-address-form').on('submit', function (e) {
       console.log("Add New Address Function")
       e.preventDefault();
 
       var formData = {
-        name: $('#name').val() ,
+        name: $('#name').val(),
         houseNo: $('#houseNo').val(),
         street: $('#street').val(),
         city: $('#city').val(),
@@ -437,14 +248,14 @@
         type: 'POST',
         url: '/addnewaddress',
         data: formData,
-        success: function(response) {
+        success: function (response) {
           console.log(response);
           alert("Address added");
           location.reload();
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.log(xhr.responseText);
-          
+
         }
       });
     });
@@ -454,79 +265,79 @@
 
 {{!-- Delete Address --}}
 <script>
-$(document).ready(function() {
-  $('.delete-address-btn').on('click', function(e) {
-    e.preventDefault();
-    console.log("Delete Button Clicked")
+  $(document).ready(function () {
+    $('.delete-address-btn').on('click', function (e) {
+      e.preventDefault();
+      console.log("Delete Button Clicked")
 
-    var addressId = $(this).data('id');
-console.log(addressId)
-    $.ajax({
-      type: 'DELETE',
-      url: '/deleteaddress/' + addressId, 
-      success: function(response) {
-        console.log(response);
-        alert("Address Successfully Deleted");
-        location.reload();
-      
-        
-      },
-      error: function(xhr, status, error) {
-        console.log(xhr.responseText);
-         alert("Address Deletetion Failed");
-       
-      }
+      var addressId = $(this).data('id');
+      console.log(addressId)
+      $.ajax({
+        type: 'DELETE',
+        url: '/deleteaddress/' + addressId,
+        success: function (response) {
+          console.log(response);
+          alert("Address Successfully Deleted");
+          location.reload();
+
+
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+          alert("Address Deletetion Failed");
+
+        }
+      });
     });
   });
-});
 
 </script>
 
-{{! Update Existing address // Issue woth addressid need rectification  }}
+{{! Update Existing address // Issue woth addressid need rectification }}
 
 <script>
-  $(document).ready(function() {
-  $('.edit-address-btn').on('click', function() {
-    var addressId = $(this).data('id');
-    console.log("addressid:" + addressId);
-    $('#address-id').val(addressId);
-  });
-});
-
-
-$(document).ready(function() {
-    $('#update-address-form').on('submit', function(e) {
-        console.log("Update Address Function");
-        e.preventDefault();
-        var addressId = $('#address-id').val(); // get the address ID from the hidden input field
-        
-        var formData2 = {
-            name: $('#name').val() || "NewTest",
-            houseNo: $('#houseNo').val(),
-            street: $('#street').val(),
-            city: $('#city').val(),
-            district: $('#district').val(),
-            state: $('#state').val(),
-            country: $('#country').val(),
-            pinCode: $('#pinCode').val(),
-            phone: $('#phone').val(),
-            email: $('#email').val()
-        };
-        console.log("formData");
-        console.log(formData);
-        $.ajax({
-            type: 'PATCH',
-            url: '/updateaddress/' + addressId,
-            data: formData2, 
-            success: function(response) {
-                console.log(response);
-                alert("Updating sucess"); // Do something with the response data 
-            }, 
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                // Handle any errors that occur 
-            }
-        });
+  $(document).ready(function () {
+    $('.edit-address-btn').on('click', function () {
+      var addressId = $(this).data('id');
+      console.log("addressid:" + addressId);
+      $('#address-id').val(addressId);
     });
-});
+  });
+
+
+  $(document).ready(function () {
+    $('#update-address-form').on('submit', function (e) {
+      console.log("Update Address Function");
+      e.preventDefault();
+      var addressId = $('#address-id').val(); // get the address ID from the hidden input field
+
+      var formData2 = {
+        name: $('#name').val() || "NewTest",
+        houseNo: $('#houseNo').val(),
+        street: $('#street').val(),
+        city: $('#city').val(),
+        district: $('#district').val(),
+        state: $('#state').val(),
+        country: $('#country').val(),
+        pinCode: $('#pinCode').val(),
+        phone: $('#phone').val(),
+        email: $('#email').val()
+      };
+      console.log("formData");
+      console.log(formData);
+      $.ajax({
+        type: 'PATCH',
+        url: '/updateaddress/' + addressId,
+        data: formData2,
+        success: function (response) {
+          console.log(response);
+          alert("Updating sucess"); // Do something with the response data 
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+          // Handle any errors that occur 
+        }
+      });
+    });
+  });
 </script>

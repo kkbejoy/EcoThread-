@@ -35,6 +35,7 @@
     "promise": "^8.3.0",
     "puppeteer": "^20.1.0",
     "razorpay": "^2.8.6",
+    "sweetalert2": "^11.7.5",
     "twilio": "^4.8.0"
   },
   "devDependencies": {

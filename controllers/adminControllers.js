@@ -341,11 +341,18 @@ const orderDetailsOfThisId = async (req, res) => {
       params: { id: orderId },
     } = req;
     console.log(orderId);
+    let paymentStatus="Returned"
     await orderHelper
       .orderDetailsOfThisId(orderId)
-      .then((orderDetails) => {
-        console.log('orderDetails:' + orderDetails);
-        res.render('admin/orderDetails', { admin: true, orderDetails });
+      .then(async(orderDetails) => {
+        if (orderDetails.PaymentMethod == 'Card Payment'){
+          paymentStatus= await razorPayServices.checkPaymentStatus(
+           orderDetails.razorpayPaymentId
+         );
+         paymentStatus=paymentStatus.status;
+       }
+        console.log('orderDetails:' + orderDetails, "Payment Status:",paymentStatus);
+        res.render('admin/orderDetails', { admin: true, orderDetails,paymentStatus });
       })
       .catch((error) => {
         throw error;
@@ -610,11 +617,13 @@ const categoryStatusAlteration = async (req, res) => {
   try {
     console.log('Category modification');
     let categoryId = req.params.id;
-    let modification = req.body.categoryStatus;
-    console.log('Category modification');
+    let {newStatus:modification} = req.body;
+    console.log('Category modification',modification);
+    await producthelper.productsUnderCatStatusModification(categoryId,modification);
     producthelper.categoryListing(categoryId, modification).then((response) => {
       console.log(response);
-      res.redirect('/admin/category');
+      res.status(200).json({success:true,message:"Category and Products status modified"})
+      // res.redirect('/admin/category');
     });
   } catch (error) {
     console.log(error);
