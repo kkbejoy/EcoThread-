@@ -117,6 +117,7 @@ const userForgotPassword = (req, res, next) => {
   try {
     let email = req.body.email;
     let newPassword = req.body.newPassword;
+    await 
     userHelper
       .passwordReset(email, newPassword)
       .then((response) => {
@@ -242,7 +243,7 @@ const postOtpVerify = async (req, res) => {
         } else {
           console.log('hey2');
           req.session.otpErr = ' OTP does not match';
-          res.render('user/otpverify', {
+          res.render('user/otpVerify', {
             otpStatus: req.session.otpStatus,
             user: true,
             otpErr: req.session.otpErr,
