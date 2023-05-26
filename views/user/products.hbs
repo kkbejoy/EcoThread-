@@ -314,28 +314,3 @@
 <!-- Search End -->
 
 
-{{!-- Add to cart --}}
-<script>
-  $(document).ready(function () {
-    $(".add-cart").click(function (event) {
-      event.preventDefault();
-      console.log("Ajax")
-      const itemId = $(this).data("id");
-      $.ajax({
-        type: "GET",
-        url: "cart/addtocart/" + itemId,
-        success: function (data) {
-          console.log(data)
-          $("#cart-modal").modal("show");
-          //alert("Item has been added to the cart!");
-        },
-        error: function (xhr, status, error) {
-          window.location.href = '/login';
-          //alert("Adding to cart Failed")
-          console.error(xhr.responseText);
-        }
-      });
-    });
-  });
-</script>
-{{!-- wishlist --}}

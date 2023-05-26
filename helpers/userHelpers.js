@@ -311,16 +311,15 @@ const Signup = (user) => {
     try {
       let olduser = {};
       //console.log(user);
-      let existingUser = await userSchema.findOne({
-        $or: [
-          { email: user.email },
-          { phone: user.phone }
-        ]
-      }).lean();
+      let existingUser = await userSchema
+        .findOne({
+          $or: [{ email: user.email }, { phone: user.phone }],
+        })
+        .lean();
       // console.log(existingUser);
       if (existingUser) {
         olduser.status = true;
-        console.log("Existing user");
+        console.log('Existing user');
         reject(olduser);
       } else {
         user.password = await bcrypt.hash(user.password, 10);
@@ -405,12 +404,15 @@ const addToCart = async (userId, productId) => {
     const cartProduct = await cart.products.find((product) =>
       product.product.equals(productId)
     );
-
+    console.log("Cart Quantityyyyyy",cartProduct)
     if (cartProduct) {
+      
       cartProduct.quantity += 1;
+
     } else {
       const product = await productSchema.findById(productId);
       cart.products.push({ product: product });
+      console.log("CT:",cart.products);
     }
     await cart.save();
     return cart;
@@ -614,13 +616,15 @@ const orderCancelation = async (orderId) => {
 //Wishlist Items
 const wishlistDetails = async (userId) => {
   try {
-    const wishlist = await WishlistSchema.find({ userId: userId }).populate('products').lean();
+    const wishlist = await WishlistSchema.find({ userId: userId })
+      .populate('products')
+      .lean();
     return wishlist;
   } catch (error) {
     console.log(error);
     throw error;
   }
-}
+};
 
 //Add to Wishlist
 

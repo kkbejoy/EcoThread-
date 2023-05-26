@@ -70,6 +70,7 @@ const paginatedResults = (model) => {
       }
 
       res.paginatedResults = results;
+      console.log(res.paginatedResults)
 
       next();
     } catch (error) {

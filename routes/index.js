@@ -21,7 +21,11 @@ const productSchema = require('../model/productModel');
 // router.use(session_check);
 
 //Home Page rendering Route
-router.get('/',session_check.userHomePageAuthCheck, user_controller.homePageRendering),
+router.get(
+  '/',
+  session_check.userHomePageAuthCheck,
+  user_controller.homePageRendering
+),
   //Login Page rendering
   router.get(
     '/login',
@@ -31,29 +35,48 @@ router.get('/',session_check.userHomePageAuthCheck, user_controller.homePageRend
   //Login Post
   router.post('/login', user_controller.signInPost);
 
-
 //Prodct rendering page
-router.get('/products', session_check.userHomePageAuthCheck,paginatedResults(productSchema),user_controller.productsListPageRendering);
+router.get(
+  '/products',
+  session_check.userHomePageAuthCheck,
+  paginatedResults(productSchema),
+  user_controller.productsListPageRendering
+);
 
 //Products under specific categories
-router.get('/products/:id',session_check.userHomePageAuthCheck, user_controller.productsUnderCategory);
-
-router.get('/productsfiltered',session_check.userHomePageAuthCheck, user_controller.fileteredProductPageRendering);
+router.get(
+  '/products/:id',
+  session_check.userHomePageAuthCheck,
+  user_controller.productsUnderCategory
+);
 
 //Specific product page rendering
-router.get('/product/:id',session_check.userHomePageAuthCheck, user_controller.productPageForEachItem);
+router.get(
+  '/product/:id',
+  session_check.userHomePageAuthCheck,
+  user_controller.productPageForEachItem
+);
 
-
+//Fileterd Products
+router.get(
+  '/productsfiltered',
+  session_check.userHomePageAuthCheck,
+  user_controller.fileteredProductPageRendering
+);
 //Product Search
-router.get('/productsearch',session_check.userHomePageAuthCheck,user_controller.productSearch);
-
+router.get(
+  '/productsearch',
+  session_check.userHomePageAuthCheck,
+  user_controller.productSearch
+);
 
 //Wishlist
 //Wishlist page rendering
-router.route('/wishlist')
-.get(user_controller.wishlistPageRendering)
-.post(user_controller.addToWishlist)
-.delete(user_controller.removeFromWishlist);
+router
+  .route('/wishlist')
+  .get(user_controller.wishlistPageRendering)
+  .post(user_controller.addToWishlist)
+  .delete(user_controller.removeFromWishlist);
 
 // OTP login using mobile number..
 router
@@ -82,7 +105,6 @@ router.get(
 //Forgot Password post method
 router.post('/passwordreset', user_controller.userForgotPassword);
 
-
 //Check-Out Page
 //CheckOut Page rendering
 router.get(
@@ -110,59 +132,90 @@ router.post(
 // user_controller.paymentSelectionPage);
 
 //OrderConfirmation link
-router.get('/checkout/confirm-cod-order',  session_check.userChecking,
-orderController.createCodOrder);
+router.get(
+  '/checkout/confirm-cod-order',
+  session_check.userChecking,
+  orderController.createCodOrder
+);
 
 //Order Cancelation from user side
-router.get('/cancelorder/:id',  session_check.userChecking,
-user_controller.orderCancelation);
+router.get(
+  '/cancelorder/:id',
+  session_check.userChecking,
+  user_controller.orderCancelation
+);
 
 //Order Return Request
-router.get('/requestreturn/:id',  session_check.userChecking,
-user_controller.returnRequest)
+router.get(
+  '/requestreturn/:id',
+  session_check.userChecking,
+  user_controller.returnRequest
+);
 
 //User Profile Section
 //Profile Overview Page rendering
-router.get('/profile',   session_check.userChecking,
-user_controller.userProfilePageRendering);
+router.get(
+  '/profile',
+  session_check.userChecking,
+  user_controller.userProfilePageRendering
+);
 
 //Orders Page Rendering
 router.get('/orders', session_check.userChecking, user_controller.orderPage);
 
 //Order Detail Page rendering
-router.get('/orderdetails/:id', session_check.userChecking, user_controller.orderDetailPage);
-
+router.get(
+  '/orderdetails/:id',
+  session_check.userChecking,
+  user_controller.orderDetailPage
+);
 
 //Saved addresses of users
-router.get('/savedaddress',  session_check.userChecking,
-user_controller.savedAddressesPageRendering);
+router.get(
+  '/savedaddress',
+  session_check.userChecking,
+  user_controller.savedAddressesPageRendering
+);
 
 //Add New Address
-router.post('/addnewaddress',  session_check.userChecking,
-user_controller.addNewAddress);
+router.post(
+  '/addnewaddress',
+  session_check.userChecking,
+  user_controller.addNewAddress
+);
 
-//Edit Address- 
-router.get('/editaddress/:id',  session_check.userChecking,
-user_controller.editAddressPageRendering);
+//Edit Address-
+router.get(
+  '/editaddress/:id',
+  session_check.userChecking,
+  user_controller.editAddressPageRendering
+);
 
 //Update Address from user Profle
-router.patch('/updateaddress/:id',  session_check.userChecking,
-user_controller.updateAddress);
+router.patch(
+  '/updateaddress/:id',
+  session_check.userChecking,
+  user_controller.updateAddress
+);
 
 //Update user details from user side
-router.patch('/updateuserdetails',  session_check.userChecking,
-user_controller.updateUserDetails);
+router.patch(
+  '/updateuserdetails',
+  session_check.userChecking,
+  user_controller.updateUserDetails
+);
 
 //Delete Address document
-router.delete('/deleteaddress/:id',  session_check.userChecking,
-user_controller.deleteAddress);
-
+router.delete(
+  '/deleteaddress/:id',
+  session_check.userChecking,
+  user_controller.deleteAddress
+);
 
 // User Logout
 router.get('/logout', user_controller.userLogOut);
 
-
 //trail page for sample HBS
-router.get('/trail',user_controller.trailPageRendering)
+router.get('/trail', user_controller.trailPageRendering);
 
 module.exports = router;
