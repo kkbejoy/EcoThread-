@@ -27,13 +27,13 @@ const getCartDetails = async (userId) => {
       .populate({
         path: 'products.product',
         select: 'name price productImages description _id quantity',
-      })
+      }).populate('couponApplied')
       .lean();
-      console.log("Cart:", cart)
+     
     return cart;
   } catch (error) {
     console.error("From GetCartDetails:",error);
-    return null;
+    throw error;
   }
 };
 

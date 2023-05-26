@@ -17,6 +17,7 @@ const razorPayServices = require('../services/razorpay');
 const stockManagement = require('../helpers/inventoryMangament');
 const multer = require('multer');
 const { upload, uploadBanner, deleteImage } = require('../middleware/multer');
+const validator = require('validator');
 
 //Admin LoginPage rendering
 const adminLogInPageRendering = async (req, res) => {
@@ -31,8 +32,17 @@ const adminLogInPageRendering = async (req, res) => {
 // Admin Credentials Validation
 const adminLoginValidation = async (req, res) => {
   try {
+    // Sanitize input
+    const { email, password } = req.body;
+    const sanitizedEmail = validator.trim(email); // Remove leading/trailing whitespace
+    const sanitizedPassword = validator.trim(password);
+
+    // Validate input
+    if (!validator.isEmail(sanitizedEmail)) {
+      res.render('admin/adminlogin',{invalid:true})
+    }
     await userHelper
-      .adminLogin(req.body)
+      .adminLogin({ email: sanitizedEmail, password: sanitizedPassword })
       .then((response) => {
         let adminStatus = response.status;
         if (adminStatus) {
@@ -96,9 +106,11 @@ const dashboardRendering = async (req, res) => {
 
 const productListPageRendering = async (req, res) => {
   try {
-    producthelper.getAllProducts().then((product) => {
-      res.render('admin/productsList', { product, admin: true });
-    });
+    const productsPaginated = res.paginatedResults;
+    //producthelper.getAllProducts().then((product) => {
+      console.log(productsPaginated)
+      res.render('admin/productsList', { productsPaginated, admin: true });
+   // });
   } catch (error) {
     console.log(error);
      res.render("admin/adminError",{admin:true});;

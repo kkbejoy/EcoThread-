@@ -36,7 +36,8 @@
     "puppeteer": "^20.1.0",
     "razorpay": "^2.8.6",
     "sweetalert2": "^11.7.5",
-    "twilio": "^4.8.0"
+    "twilio": "^4.8.0",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "eslint": "^8.37.0",

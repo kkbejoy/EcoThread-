@@ -65,8 +65,8 @@ const bannerStorage = new CloudinaryStorage({
           public_id: 'banner' + uniqueFilename,
           format: 'jpg',
           transformation: [
-            { width: 800, height: 800, crop: 'limit' }, // Resize the image to fit within 800x800 pixels
-            { quality: 'auto:good' }, // Use auto quality compression
+            { width: 1920, height: 800, crop: 'limit' }, // Resize the image
+            { quality: 100 }, // Use auto quality compression
             { fetch_format: 'auto', flags: 'lossy' }, // Use lossy compression
             { effect: 'auto_contrast' } // Apply the auto contrast effect
           ]

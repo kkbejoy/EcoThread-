@@ -27,7 +27,7 @@ const cartPageRendering = async (req, res) => {
       (await cartHelper.discountedPriceFromCart(userId)) || 0;
     const couponsAvailable = await couponHelper.filteredCoupons(totalPrice);
     console.log('discountPrice from Cart controllers:' + discountPrice);
-    console.log('Coupons Avalilable:' + couponsAvailable);
+    console.log('Coupons Appliede:' + cartDetails);
 
     res.render('user/cart', {
       cartDetails,

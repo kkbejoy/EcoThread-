@@ -25,6 +25,11 @@
          
                     <input type="text" name="search" id="search-input" placeholder="Search here....." class="form-control bg-white">   </form>
                 </div></div>
+                {{#if productsPaginated.next}}
+            <h6> Page no {{subtract productsPaginated.next.page 1}} of {{productsPaginated.totalPageNo}} pages</h6> 
+            {{else}}
+                  <h6> Page no {{productsPaginated.totalPageNo}} of {{productsPaginated.totalPageNo}} pages</h6>
+            {{/if}}
             <div class="card mb-4">
                 {{!-- <header class="card-header">
                     <div class="row align-items-center">
@@ -77,7 +82,7 @@
                         </thead>
                         <tbody>
                             
-                            {{#each product}}
+                            {{#each productsPaginated.results}}
                             <tr>
  <th scope="row"><div class="media align-items-center"><img src="https://res.cloudinary.com/dlcsyyk7z/image/upload/v1682316078/{{this.productImages.[2]}}.jpg" class="img-sm img-thumbnail" style="width: 50px; height: 50px;" alt=""></div> </th>                  
                <td ><a href="/product/{{this._id}}">{{this.name}}</a></td>
@@ -114,19 +119,22 @@
 
             </div> <!-- card-body end// -->
             </div> <!-- card end// -->
-            {{!-- <div class="pagination-area mt-30 mb-50">
+            <div class="pagination-area mt-30 mb-50">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-start">
-                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                        <li class="page-item"><a class="page-link" href="#">02</a></li>
-                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#">16</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i
-                                    class="material-icons md-chevron_right"></i></a></li>
+                       {{#if productsPaginated.previous}}
+                        <li class="page-item "><a class="page-link"
+                                href="/admin/viewproducts?page={{productsPaginated.previous.page}}">Prev  </a></li>
+                        {{/if}}
+                        {{#if productsPaginated.next}}
+                        <li class="page-item  float-end "><a class="page-link "
+                                href="/admin/viewproducts?page={{productsPaginated.next.page}}">Next </a></li>
+                        {{/if}}
+                        {{!-- {{#loopTimes orders.totalPageNo}} <li class="page-item active"><a class="page-link"
+                                href="/admin/orders?page={{incrementedIndex @index}}"> {{incrementedIndex @index}}</a></li>{{/loopTimes}} --}}
                     </ul>
                 </nav>
-            </div> --}}
+            </div>
         </section>
     </main>
 

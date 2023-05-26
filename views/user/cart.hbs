@@ -203,7 +203,7 @@
 
                             <li>Total <span> {{formatCurrency totalPrice}}</span></li>
                             {{#if cartDetails.[0].couponApplied}}
-                            <li>Coupon : <span> </span></li>
+                            <li>Coupon : <span>{{cartDetails.[0].couponApplied.code}}</span></li>
                             <li>Coupon Discount: <span> {{subtract totalPrice discountPrice}} </span></li>
                             {{/if}}
                             {{#if cartDetails.[0].couponApplied}}

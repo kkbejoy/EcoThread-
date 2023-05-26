@@ -38,6 +38,8 @@ router.get('/products', session_check.userHomePageAuthCheck,paginatedResults(pro
 //Products under specific categories
 router.get('/products/:id',session_check.userHomePageAuthCheck, user_controller.productsUnderCategory);
 
+router.get('/productsfiltered',session_check.userHomePageAuthCheck, user_controller.fileteredProductPageRendering);
+
 //Specific product page rendering
 router.get('/product/:id',session_check.userHomePageAuthCheck, user_controller.productPageForEachItem);
 

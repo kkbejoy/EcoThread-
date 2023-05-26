@@ -10,6 +10,8 @@ const path = require('path');
 const adminControllers = require('../controllers/adminControllers');
 const { paginatedResults } = require('../middleware/paginatedResults');
 const orderSchema = require('../model/orderModel');
+const productSchema = require('../model/productModel');
+
 
 //ADMIN Root ROUTE
 router.get('/', (req, res) => {
@@ -38,6 +40,7 @@ router.post('/login', adminControllers.adminLoginValidation);
 router.get(
   '/viewproducts',
   session_check.checkingAdmin,
+  paginatedResults(productSchema),
   adminControllers.productListPageRendering
 );
 

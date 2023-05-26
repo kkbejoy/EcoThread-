@@ -10,7 +10,7 @@
         </div>
         <nav>
             <ul class="menu-aside">
-                <li class="menu-item active">
+                <li class="menu-item ">
                     <a class="menu-link" href="/admin/dashboard"></i>
                         <span class="text">Dashboard</span>
                     </a>
@@ -21,12 +21,12 @@
                     <a class="menu-link" href="/admin/viewproducts"></i>
                         <span class="text">Products</span>
                     </a>
-                    <div class="submenu">
+                    {{!-- <div class="submenu">
                         <a href="page-products-list.html">Product List</a>
                         <a href="page-products-grid.html">Product grid</a>
                         <a href="page-products-grid-2.html">Product grid 2</a>
                         <a href="page-categories.html">Categories</a>
-                    </div>
+                    </div> --}}
                 </li>
                  <li class="menu-item ">
                     <a class="menu-link" href="/admin/orders"> </i>
@@ -66,11 +66,11 @@
                     <a class="menu-link" href="/admin/category"></i>
                         <span class="text">Categories</span>
                     </a>
-                    <div class="submenu">
+                    {{!-- <div class="submenu">
                         <a href="page-sellers-cards.html">Sellers cards</a>
                         <a href="page-sellers-list.html">Sellers list</a>
                         <a href="page-seller-detail.html">Seller profile</a>
-                    </div>
+                    </div> --}}
                 </li>
                 
                 <li class="menu-item ">
@@ -84,30 +84,30 @@
                         <span class="text">Users</span>
                     </a>
 
-                    <div class="submenu">
+                    {{!-- <div class="submenu">
                         <a href="page-transactions-1.html">Transaction 1</a>
                         <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
+                    </div> --}}
                 </li>
                 <li class="menu-item ">
                     <a class="menu-link" href="/admin/banner"> </i>
                         <span class="text">Banners</span>
                     </a>
 
-                    <div class="submenu">
+                    {{!-- <div class="submenu">
                         <a href="page-transactions-1.html">Transaction 1</a>
                         <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
+                    </div> --}}
                 </li>
                  <li class="menu-item ">
                     <a class="menu-link" href="/admin/sales-report"></i>
                         <span class="text">Sales Report</span>
                     </a>
 
-                    <div class="submenu">
+                    {{!-- <div class="submenu">
                         <a href="page-transactions-1.html">Transaction 1</a>
                         <a href="page-transactions-2.html">Transaction 2</a>
-                    </div>
+                    </div> --}}
                 </li>
                
                 {{!-- <li class="menu-item">
@@ -146,3 +146,46 @@
             <br>
         </nav>
     </aside>
+
+
+    <script>
+$(document).ready(function() {
+    // Add "active" class to the selected menu item
+    var currentPath = window.location.pathname;
+    $('.menu-link[href="' + currentPath + '"]').closest('.menu-item').addClass('active');
+
+    // Handle menu item click event
+    $('.menu-link').click(function(e) {
+        var menuItem = $(this).closest('.menu-item');
+        var submenu = menuItem.find('.submenu');
+
+        if (submenu.length > 0) {
+            // Menu item has a submenu
+            if (menuItem.hasClass('active')) {
+                // Submenu is currently open, close it
+                menuItem.removeClass('active');
+                
+            } else {
+                // Submenu is currently closed, open it
+                $('.menu-item').removeClass('active');
+                // Close other submenus
+                menuItem.addClass('active');
+                
+            }
+            e.preventDefault();
+        } else {
+            // Menu item does not have a submenu
+            $('.menu-item').removeClass('active');
+            menuItem.addClass('active');
+        }
+    });
+
+    // Add "active" class to parent menu item when submenu item is clicked
+    $('.submenu a').click(function() {
+        $('.menu-item').removeClass('active');
+        $(this).closest('.menu-item').addClass('active');
+    });
+});
+
+
+</script>

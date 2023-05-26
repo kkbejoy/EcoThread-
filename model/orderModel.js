@@ -37,6 +37,11 @@ const orderSchema = new mongoose.Schema({
     enum: ['Pending', 'Processing', 'Shipped', 'Delivered','Cancelled','Returned'],
     default: 'Pending'
   },
+  couponApplied: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Coupon',
+    
+      },
   returnRequested:{
     type:Boolean,
     default:false

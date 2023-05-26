@@ -15,6 +15,7 @@ const { cartTotalAmount } = require('../helpers/cartHelpers');
 const { paginatedResults } = require('../middleware/paginatedResults');
 const razorPayServices = require('../services/razorpay');
 const stockManagement = require('../helpers/inventoryMangament');
+const validator = require('validator');
 
 // HomePage rendering
 
@@ -53,8 +54,15 @@ const signInPage = (req, res) => {
 //Sign In Page Post
 const signInPost = async (req, res) => {
   try {
+    const { email, password } = req.body;
+    const sanitizedEmail = validator.trim(email); // Remove leading/trailing whitespace
+    const sanitizedPassword = validator.trim(password);
+     // Validate input
+     if (!validator.isEmail(sanitizedEmail)) {
+      res.render('user/userlogin', { loginerr: true, user: true })
+    }
     await userHelper
-      .UserLogIn(req.body)
+      .UserLogIn({ email: sanitizedEmail, password: sanitizedPassword })
       .then((response) => {
         req.session.loggedIn = true;
         req.session.user = response.validuser;
@@ -117,7 +125,7 @@ const userForgotPassword = (req, res, next) => {
   try {
     let email = req.body.email;
     let newPassword = req.body.newPassword;
-    await 
+    await;
     userHelper
       .passwordReset(email, newPassword)
       .then((response) => {
@@ -318,6 +326,29 @@ const productsUnderCategory = async (req, res) => {
       .catch((error) => {
         console.log(error);
       });
+  } catch (error) {
+    console.log(error);
+    res.render('error', { user: true });
+  }
+};
+
+//Filetered Products
+
+const fileteredProductPageRendering = async (req, res) => {
+  try {
+    let sortBy= req.query.sortBy;
+    if(!sortBy) sortBy = "createdAt";
+    let sortOrder= req.query.sortOrder;
+    if(!sortOrder) sortOrder = "asc";
+    console.log(sortBy, sortOrder);
+    const activeCategories = await producthelper.getAllActiveCategories();
+    const product = await producthelper.getSortedProducts(sortBy, sortOrder);
+    console.log(product);
+    res.render('user/categorywiseProducts', {
+      product,
+      user: true,
+      activeCategories,
+    });
   } catch (error) {
     console.log(error);
     res.render('error', { user: true });
@@ -733,19 +764,22 @@ const orderDetailPage = async (req, res) => {
     const {
       params: { id: orderId },
     } = req;
-   let paymentStatus="Returned";
+    let paymentStatus = 'Returned';
     await orderHelper
       .orderDetailsOfThisId(orderId)
       .then(async (orderDetails) => {
-        
-        if (orderDetails.PaymentMethod == 'Card Payment'){
-           paymentStatus= await razorPayServices.checkPaymentStatus(
+        if (orderDetails.PaymentMethod == 'Card Payment') {
+          paymentStatus = await razorPayServices.checkPaymentStatus(
             orderDetails.razorpayPaymentId
           );
-          paymentStatus=paymentStatus.status;
+          paymentStatus = paymentStatus.status;
         }
-        console.log('order page:' + orderDetails ,"PaymentStatus",paymentStatus);
-        
+        console.log(
+          'order page:' + orderDetails,
+          'PaymentStatus',
+          paymentStatus
+        );
+
         res.render('user/orderDetail', {
           user: true,
           userAccount: true,
@@ -909,6 +943,7 @@ module.exports = {
   productPageForEachItem,
   productsListPageRendering,
   productsUnderCategory,
+  fileteredProductPageRendering,
   productSearch,
   wishlistPageRendering,
   addToWishlist,

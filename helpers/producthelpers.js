@@ -9,26 +9,24 @@ var objectId = require('mongodb').ObjectId;
 const productSchema = require('../model/productModel');
 const categorySchema = require('../model/categoryModel');
 const cartSchema = require('../model/cartModel');
-const bannerSchema=require('../model/bannerModel')
+const bannerSchema = require('../model/bannerModel');
 const { response } = require('express');
 
 //Product Mangement
 const addProducts = (product) => {
-  try{
+  try {
+    return new Promise(async (resolve, reject) => {
+      console.log(product);
+      let categoryName = product.category;
+      let categoryDetail = await categorySchema.findOne({ name: categoryName });
 
-  
-  return new Promise(async (resolve, reject) => {
-    console.log(product);
-    let categoryName = product.category;
-    let categoryDetail = await categorySchema.findOne({ name: categoryName });
-
-    await productSchema.create(product).then((product) => resolve(product));
-  });
-}catch(error){
-  console.log(error);
-  throw error;
-}
-}
+      await productSchema.create(product).then((product) => resolve(product));
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 const getAllProducts = () => {
   return new Promise(async (resolve, reject) => {
@@ -149,10 +147,13 @@ const updateProduct = (productid, updatedProductDetails) => {
       if (!product) {
         throw new Error('Product not found'); // Handle product not found error
       }
-      
+
       if (updatedProductDetails.productImages) {
-        product.productImages =  [...product.productImages, ...updatedProductDetails.productImages];
-        console.log("New P",product.productImages)
+        product.productImages = [
+          ...product.productImages,
+          ...updatedProductDetails.productImages,
+        ];
+        console.log('New P', product.productImages);
       }
       if (updatedProductDetails.name) {
         product.name = updatedProductDetails.name;
@@ -178,7 +179,7 @@ const updateProduct = (productid, updatedProductDetails) => {
       if (updatedProductDetails.updatedAt) {
         product.updatedAt = updatedProductDetails.updatedAt;
       }
-      
+
       const response = await product.save();
       console.log(response);
       resolve(response);
@@ -191,24 +192,28 @@ const updateProduct = (productid, updatedProductDetails) => {
 
 //Delete Product Image
 
-const deleteImageFromDb=async(productId,publicId)=>{
-  try{
-    await productSchema.updateOne({_id:productId},
-      {
-        $pull:{
-        productImages:publicId
-      }}).then((response)=>{
+const deleteImageFromDb = async (productId, publicId) => {
+  try {
+    await productSchema
+      .updateOne(
+        { _id: productId },
+        {
+          $pull: {
+            productImages: publicId,
+          },
+        }
+      )
+      .then((response) => {
         console.log(response);
-      }).catch((error)=>{
-        console.log(error);
       })
-
-  }catch(error){
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
     cosole.log(error);
     throw error;
   }
-}
-
+};
 
 // Category Management
 const addCategory = async (category) => {
@@ -294,50 +299,78 @@ const categoryListing = (categoryId, modification) => {
 };
 
 //Products Under Category Listing and Unlisting
-const productsUnderCatStatusModification=async(categoryId,newStatus)=>{
-  try{
-    await productSchema.updateMany({category:categoryId},
-      {productStatus:newStatus});
-  }catch(error){
+const productsUnderCatStatusModification = async (categoryId, newStatus) => {
+  try {
+    await productSchema.updateMany(
+      { category: categoryId },
+      { productStatus: newStatus }
+    );
+  } catch (error) {
     throw error;
   }
+};
 
-}
+//Product sorted
+const getSortedProducts = async (sortBy, sortOrder) => {
+  try {
+    let sortOptions = {};
+
+    // Determine the sorting criteria based on the 'sortBy' parameter
+    switch (sortBy) {
+      case 'createdAt':
+        sortOptions.createdAt = sortOrder === 'asc' ? 1 : -1;
+        break;
+      case 'price':
+        sortOptions.price = sortOrder === 'asc' ? 1 : -1;
+        break;
+      default:
+        sortOptions = {}; // No sorting criteria specified, return products in natural order
+    }
+
+    // Query the database and return the sorted products
+    const products = await productSchema.find({}).sort(sortOptions).lean();
+    return products;
+  } catch (error) {
+    throw error;
+  }
+};
 
 //BANNER MANAGEMENT
 //List Of Banners With Details
 
-const bannerDetails=async()=>{
-  try{
-    const banners=await bannerSchema.find().lean();
-    console.log(banners)
+const bannerDetails = async () => {
+  try {
+    const banners = await bannerSchema.find().lean();
+    console.log(banners);
     return banners;
-
-  }catch(error){
+  } catch (error) {
     console.log(error);
     throw error;
   }
-}
+};
 
 //Banner URL and Image Id to db
 
-const bannerToDb=async(bannerDetails)=>{
-  try{
-    const{name,bannerUrl,imageUrl}=bannerDetails;
-    await bannerSchema.create({
-      name:name,
-      imageUrl:imageUrl,
-      bannerUrl:bannerUrl
-    }).then((response)=>{
-      console.log(response);
-    }).catch((error)=>{
-      console.log(error);
-      throw error;
-    })
-  }catch(error){
+const bannerToDb = async (bannerDetails) => {
+  try {
+    const { name, bannerUrl, imageUrl } = bannerDetails;
+    await bannerSchema
+      .create({
+        name: name,
+        imageUrl: imageUrl,
+        bannerUrl: bannerUrl,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        throw error;
+      });
+  } catch (error) {
     throw error;
   }
-}
+};
 
 module.exports = {
   categoryListing,
@@ -347,6 +380,7 @@ module.exports = {
   getAllCategories,
   addCategory,
   productsUnderCatStatusModification,
+  getSortedProducts,
   updateProduct,
   deleteProducts,
   getProductdetails,
@@ -356,5 +390,5 @@ module.exports = {
   addProducts,
   deleteImageFromDb,
   bannerDetails,
-  bannerToDb
+  bannerToDb,
 };
