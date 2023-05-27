@@ -16,14 +16,14 @@ const { response } = require('express');
 const addProducts = (product) => {
   try {
     return new Promise(async (resolve, reject) => {
-      console.log(product);
+      // console.log(product);
       let categoryName = product.category;
       let categoryDetail = await categorySchema.findOne({ name: categoryName });
 
       await productSchema.create(product).then((product) => resolve(product));
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 };
@@ -51,7 +51,7 @@ const getAllActiveProducts = () => {
       resolve(product);
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -65,7 +65,7 @@ const productUnderCategory = async (categoryId) => {
       .populate('category')
       .sort({ price: -1 })
       .lean();
-    console.log(products);
+    // console.log(products);
     return products;
   } catch (error) {
     throw error;
@@ -75,7 +75,7 @@ const productUnderCategory = async (categoryId) => {
 //Product Details with iD
 const getProductdetails = (productid) => {
   try {
-    console.log(productid);
+    // console.log(productid);
     return new Promise(async (resolve, reject) => {
       await productSchema
         .findOne({ _id: objectId(productid) })
@@ -86,7 +86,7 @@ const getProductdetails = (productid) => {
         });
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error');
   }
 };
@@ -142,7 +142,7 @@ const updateProduct = (productid, updatedProductDetails) => {
   try {
     return new Promise(async (resolve, reject) => {
       updatedProductDetails.updatedAt = Date.now(); // Updating the last updated time for every Submit in the edit product
-      console.log(updateProduct);
+      // console.log(updateProduct);
       const product = await productSchema.findById(productid);
       if (!product) {
         throw new Error('Product not found'); // Handle product not found error
@@ -153,7 +153,7 @@ const updateProduct = (productid, updatedProductDetails) => {
           ...product.productImages,
           ...updatedProductDetails.productImages,
         ];
-        console.log('New P', product.productImages);
+        // console.log('New P', product.productImages);
       }
       if (updatedProductDetails.name) {
         product.name = updatedProductDetails.name;
@@ -181,11 +181,11 @@ const updateProduct = (productid, updatedProductDetails) => {
       }
 
       const response = await product.save();
-      console.log(response);
+      // console.log(response);
       resolve(response);
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 };
@@ -204,13 +204,13 @@ const deleteImageFromDb = async (productId, publicId) => {
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   } catch (error) {
-    cosole.log(error);
+    // cosole.log(error);
     throw error;
   }
 };
@@ -246,7 +246,7 @@ const getAllActiveCategories = () => {
 const getAllCategories = () => {
   return new Promise(async (resolve, reject) => {
     let categories = await categorySchema.find().lean();
-    console.log(categories);
+    // console.log(categories);
     resolve(categories);
   });
 };
@@ -255,11 +255,11 @@ const getAllCategories = () => {
 
 const categoryIdFromName = async (categoryName) => {
   try {
-    console.log(categoryName.toString());
+    // console.log(categoryName.toString());
     categoryName = categoryName;
     // const categoryDetails=
     await categorySchema.find({ name: 'Winter Wear' }).then((category) => {
-      console.log(category);
+      // console.log(category);
       // console.log(categoryDetails);
     });
     // return categoryId=categoryDetails._id;
@@ -289,10 +289,10 @@ const categoryListing = (categoryId, modification) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       resolve(response);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       reject(error);
     }
   });
@@ -341,10 +341,10 @@ const getSortedProducts = async (sortBy, sortOrder) => {
 const bannerDetails = async () => {
   try {
     const banners = await bannerSchema.find().lean();
-    console.log(banners);
+    // console.log(banners);
     return banners;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 };
@@ -361,10 +361,10 @@ const bannerToDb = async (bannerDetails) => {
         bannerUrl: bannerUrl,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         throw error;
       });
   } catch (error) {

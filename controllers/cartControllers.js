@@ -26,8 +26,8 @@ const cartPageRendering = async (req, res) => {
     const discountPrice =
       (await cartHelper.discountedPriceFromCart(userId)) || 0;
     const couponsAvailable = await couponHelper.filteredCoupons(totalPrice);
-    console.log('discountPrice from Cart controllers:' + discountPrice);
-    console.log('Coupons Appliede:' + cartDetails);
+    // console.log('discountPrice from Cart controllers:' + discountPrice);
+    // console.log('Coupons Appliede:' + cartDetails);
 
     res.render('user/cart', {
       cartDetails,
@@ -38,7 +38,7 @@ const cartPageRendering = async (req, res) => {
       loggedInUser,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('user/userError', {
       user: true,
       emptyCart: true,
@@ -83,7 +83,7 @@ const addToCart = (req, res) => {
       res.status(401).json({ success: false, message: 'Unauthorized user' });
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res
       .status(500)
       .json({ success: false, message: 'Internal server error', error: error });
@@ -97,18 +97,18 @@ const removeProductFromCart = (req, res) => {
       session: { user: user },
     } = req;
     const userId = user._id.toString();
-    console.log(productId);
+    // console.log(productId);
     cartHelper
       .removeProductFromCart(userId, productId)
       .then(() => {
         res.redirect('/cart');
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         res.redirect('/cart');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -118,7 +118,7 @@ const paymentmethodtocart = async (req, res) => {
     const user = req.session.user;
     let userId = user._id;
     userId = ObjectId(userId);
-    console.log(userId);
+    // console.log(userId);
     const { selectedValue: paymentMethod } = req.body;
     await cartHelper
       .paymentModeSelectionToCart(userId, paymentMethod)
@@ -126,7 +126,7 @@ const paymentmethodtocart = async (req, res) => {
         res.status(200).send('Payment method selected successfully');
       });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).send('Payment method selection Failed');
   }
 };
@@ -150,7 +150,7 @@ const couponVerification = async (req, res) => {
     );
     //True or False
     if (couponExistence && !couponUsedByUser) {
-      console.log('Coupon valid');
+      // console.log('Coupon valid');
       const discountPrice = await cartHelper.cartDiscountedPrice(
         couponEntered,
         userId
@@ -163,7 +163,7 @@ const couponVerification = async (req, res) => {
       res.status(500).send('Coupon invalid');
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -180,11 +180,11 @@ const changeProductQuantity = (req, res) => {
     .modifyProductQuantity(cartId, productId, inc, quantity)
     .then(async (response) => {
       const newQty = await userHelper.cartProductQuantity(cartId, productId);
-      console.log('New Qty' + newQty);
+      // console.log('New Qty' + newQty);
       //  const totalPrice= await userHelper.cartTotalAmount(userId);
       // response["newQty"] = newQty;
       // response["totalPrice"] = totalPrice;
-      console.log(response);
+      // console.log(response);
       res.json({
         status: 'success',
         message: 'Cart updated successfully.',
@@ -193,7 +193,7 @@ const changeProductQuantity = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       reject();
     });
 };

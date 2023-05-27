@@ -43,7 +43,7 @@ const createOrder =  (userId) => {
     // console.log('CreateOrders helpers:' + products);
     const shippingAddressId = await cartHelper.getAddressfromCartCol(userId);
     const razorpayId=await cartDetails[0].razorpayPaymentId;
-    console.log("razorpay id from order helper",razorpayId)
+    // console.log("razorpay id from order helper",razorpayId)
 
     let order;
 
@@ -68,7 +68,7 @@ const createOrder =  (userId) => {
       };
     }
     if(razorpayId){
-      console.log(razorpayId)
+      // console.log(razorpayId)
 
       order.razorpayPaymentId=razorpayId;
     } 
@@ -76,17 +76,17 @@ const createOrder =  (userId) => {
     newOrder = new orderSchema(order);
     try {
       await newOrder.save().then((status)=>{
-        console.log("Saving Status:",status)
-        console.log('Order placed successfully!');
+        // console.log("Saving Status:",status)
+        // console.log('Order placed successfully!');
        resolve(status)
       });
       
       
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return;
   }
 })
@@ -102,9 +102,9 @@ const requestReturnOrder=async(orderId)=>{
         returnRequested:true
       } 
     } ).then((response)=>{
-      console.log(response);
+      // console.log(response);
     }).catch((error)=>{
-      console.log(error)
+      // console.log(error)
     })
 
   }catch(error){
@@ -126,11 +126,11 @@ const acceptReturn=async(orderId)=>{
           // console.log("Response From Order Retrun accept",response)
           resolve(response) ;
         }).catch((error)=>{
-          console.log(error);
+          // console.log(error);
           throw new Error("Operation failed")
         })
     }catch(error){
-        console.log(error);
+        // console.log(error);
         throw error;
     }
   }
@@ -166,10 +166,10 @@ const orderStatusModification = async (orderId, modification) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       resolve(response);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       reject(error);
     }
   });
@@ -180,7 +180,7 @@ const orderStatusModification = async (orderId, modification) => {
 const orderDetailsOfThisId = async (orderId) => {
   try {
     orderId = objectId(orderId);
-    console.log(orderId);
+    // console.log(orderId);
     const orderDetails = await orderSchema
       .findById(orderId)
       .populate('customer')

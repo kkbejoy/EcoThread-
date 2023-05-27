@@ -12,21 +12,21 @@ const stockAvailabilityChecker=(products)=>{
 
        for (const product of products){
             if(product.product.quantity<product.quantity) {
-                console.log("hello From stock availability checker-0")
+                // console.log("hello From stock availability checker-0")
                 return 0;
 
             }
-            console.log(product.product.name);
+            // console.log(product.product.name);
 
-            console.log(product.product.quantity);
-            console.log("hello From stock availability checker-1")
+            // console.log(product.product.quantity);
+            // console.log("hello From stock availability checker-1")
         }
            
             
 
         return 1;
     }catch(error){
-        console.log(error)
+        // console.log(error)
     }
 }
 
@@ -35,13 +35,13 @@ const stockReduction=async(products)=>{
     try{
     products.forEach(product => {
         let{product:productId,quantity:value}=product;
-        console.log("Stock Reduction inventory:",productId,value )
+        // console.log("Stock Reduction inventory:",productId,value )
         productId=productId.toString()
          decrementProductQuantity(productId,value);
         
     });
 }catch(error){
-    console.log(error)
+    // console.log(error)
     throw error;
 }
    return;
@@ -51,8 +51,8 @@ const stockReduction=async(products)=>{
 // Stock Addition Base Function
 const stockAddition=async(products)=>{ 
     try{ 
-        console.log("Poprducts from Inventory:",products);
-        console.log("from inventory:", products )
+        // console.log("Poprducts from Inventory:",products);
+        // console.log("from inventory:", products )
 
         products.forEach(async product=>{
             const value=product.quantity;
@@ -60,7 +60,7 @@ const stockAddition=async(products)=>{
             await incrementProductQuantity(productId,value);
         })        
         }catch(error){
-        console.log(error);
+        // console.log(error);
         throw error;
     }
    }
@@ -74,12 +74,12 @@ const decrementProductQuantity=async(productId,value)=>{
                 quantity:-value
             }
         }).then((response)=>{
-            console.log(response)
+            // console.log(response)
         }).catch((error)=>{
-            console.log(error)
+            // console.log(error)
         })
     }catch(error){
-        console.log(error);
+        // console.log(error);
         throw error;
     }
 }
@@ -94,13 +94,13 @@ const incrementProductQuantity=async(productId,value)=>{
                     quantity:value
                 }
             }).then((response)=>{
-                console.log(response)
+                // console.log(response)
             }).catch((error)=>{
-                console.log(error)
+                // console.log(error)
             })
 
     }catch(error){
-            console.log(error);
+            // console.log(error);
             throw error;
         }
 }

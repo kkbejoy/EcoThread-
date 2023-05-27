@@ -24,7 +24,7 @@ const adminLogInPageRendering = async (req, res) => {
   try {
     res.render('admin/adminlogin');
   } catch (error) {
-    console.log(error);
+    //console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -48,16 +48,16 @@ const adminLoginValidation = async (req, res) => {
         if (adminStatus) {
           req.session.adminloggedIn = true;
           req.session.admin = response.validadmin;
-          console.log('Admin in seession', req.session.admin);
+         // console.log('Admin in seession', req.session.admin);
           res.redirect('dashboard');
         }
       })
       .catch((err) => {
-        console.log('Login Failed');
+        //console.log('Login Failed');
         res.render('admin/adminlogin',{invalid:true})
       });
   } catch (error) {
-    console.log(error)
+    //console.log(error)
     res.redirect('/')
   }
 };
@@ -71,7 +71,7 @@ const dashboardRendering = async (req, res) => {
     const monthlyReturnedOrders=await reportHelper.monthlyRetunedOrder();
     const monthlyReturnedOrdersArray=monthlyReturnedOrders.map((obj) => obj.count);
     const monthlyOrdersArray = monthlyOrdersData.map((obj) => obj.count);
-    console.log('monthlyOrdersArray:', monthlyOrdersArray);
+    // console.log('monthlyOrdersArray:', monthlyOrdersArray);
     const orders = await orderHelper.orderDetails();
     const totalMonthlyRevenue = await reportHelper.totalRevenue();
     const totalActiveProductsCount =
@@ -80,7 +80,7 @@ const dashboardRendering = async (req, res) => {
     const totalMonthlyProfit = await reportHelper.MonthlyProfit();
     const paymentStatistics = await reportHelper.paymentMethodReport();
 
-    console.log('Length:', paymentStatistics);
+    // console.log('Length:', paymentStatistics);
     res.render('admin/dashboard', {
       orders,
       users,
@@ -95,7 +95,7 @@ const dashboardRendering = async (req, res) => {
       admin: true,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -108,11 +108,11 @@ const productListPageRendering = async (req, res) => {
   try {
     const productsPaginated = res.paginatedResults;
     //producthelper.getAllProducts().then((product) => {
-      console.log(productsPaginated)
+      // console.log(productsPaginated)
       res.render('admin/productsList', { productsPaginated, admin: true });
    // });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -122,18 +122,18 @@ const productSearch = async (req, res) => {
   try {
     let { search: name } = req.query;
     name = name.trim();
-    console.log('name:' + name);
+    // console.log('name:' + name);
     let product = await productSchema
       .find({ name: { $regex: new RegExp('^' + name + '.*', 'i') } })
       .limit(10)
       .lean();
-    console.log('Search Result:' + product);
+    // console.log('Search Result:' + product);
     res.render('admin/productsList', {
       admin: true,
       product,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { admin: true });
   }
 };
@@ -142,14 +142,14 @@ const productSearch = async (req, res) => {
 
 const productAdditionPageRendering = (req, res) => {
   try {
-    console.log('Hello from add Products get');
+    // console.log('Hello from add Products get');
     producthelper.getAllActiveCategories().then((categories) => {
-      console.log(categories);
-      console.log('Pointer from add product page render route');
+      // console.log(categories);
+      // console.log('Pointer from add product page render route');
       res.render('admin/addProducts', { admin: true, categories });
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -159,15 +159,15 @@ const productAdditionPageRendering = (req, res) => {
 const productAdditionToDB = (req, res) => {
   try {
     const files = req.files;
-    console.log('File name from', files);
+    // console.log('File name from', files);
     if (!files) {
       // Handle the error appropriately
-      console.log('No files were uploaded.');
+      // console.log('No files were uploaded.');
       return res.status(400).send('No files were uploaded.');
     }
-    console.log(files);
+    // console.log(files);
     const filename = files.map((file) => {
-      console.log(file.filename);
+      // console.log(file.filename);
       return file.filename;
     });
 
@@ -177,12 +177,12 @@ const productAdditionToDB = (req, res) => {
     producthelper
       .addProducts(productDetails)
       .then((insertionStatus) => {
-        console.log(insertionStatus);
+        // console.log(insertionStatus);
         res.redirect('back');
         // res.status(201).json('success');
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         res.status(500).json({ error: 'Failed to add Product' });
       });
   } catch (err) {
@@ -205,7 +205,7 @@ const productUpdationPageRendering = async (req, res) => {
       });
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -214,18 +214,18 @@ const productUpdationPageRendering = async (req, res) => {
 const productUpdationToDB = async (req, res) => {
   try {
     // console.log(files)
-    console.log('Req.File', req.files);
+    // console.log('Req.File', req.files);
     let files;
     let filename;
     if (req.files) {
       files = req.files;
-      console.log(files);
+      // console.log(files);
       filename = files.map((file) => {
-        console.log(file.filename);
+        // console.log(file.filename);
         return file.filename;
       });
     }
-    console.log('filename:', filename);
+    // console.log('filename:', filename);
 
     const {
       name,
@@ -248,17 +248,17 @@ const productUpdationToDB = async (req, res) => {
     // if(productImages) upadtedProductDetails.productImages=productImages;
     if (productStatus) upadtedProductDetails.productStatus = productStatus;
     if (filename) upadtedProductDetails.productImages = filename;
-    console.log('Product Id:' + productId);
-    console.log('upadtedProductDetails');
-    console.log(upadtedProductDetails);
+    // console.log('Product Id:' + productId);
+    // console.log('upadtedProductDetails');
+    // console.log(upadtedProductDetails);
     await producthelper
       .updateProduct(productId, upadtedProductDetails)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         res.redirect('/admin/viewproducts');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -267,15 +267,15 @@ const productUpdationToDB = async (req, res) => {
 
 const imageDeletion = async (req, res) => {
   try {
-    console.log('hello');
+    // console.log('hello');
     const { imageId: publicId, productId } = req.body;
     // const publicId="Products/product_1683788512536-736551465"
-    console.log(publicId);
+    // console.log(publicId);
     await deleteImage(publicId);
     await producthelper.deleteImageFromDb(productId, publicId);
     res.status(200).json({ message: 'Deletion Successfull' });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ message: 'Deletion Failed' });
   }
 };
@@ -287,14 +287,14 @@ const imageDeletion = async (req, res) => {
 const productDeletion = (req, res, next) => {
   try {
     let productid = req.params.id;
-    console.log(productid);
+    // console.log(productid);
 
     producthelper.deleteProducts(productid).then((response) => {
-      console.log(response);
+      // console.log(response);
       res.redirect('/admin/viewproducts');
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -304,10 +304,10 @@ const productDeletion = (req, res, next) => {
 const orderDetails = async (req, res) => {
   try {
     const orders = res.paginatedResults;
-    console.log(orders);
+    // console.log(orders);
     res.render('admin/orders', { orders, admin: true });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -319,16 +319,16 @@ const acceptRetunRequest = async (req, res) => {
     const {
       params: { id: orderId },
     } = req;
-    console.log(orderId);
+    // console.log(orderId);
     const orders = await orderHelper.orderDetailsOfThisId(orderId);
     const amount = orders.totalPrice;
     const razorpayPaymentId = orders.razorpayPaymentId;
-    console.log(
-      'Order Details to RazorPay',
-      amount,
-      razorpayPaymentId,
-      orderId
-    );
+    // console.log(
+    //   'Order Details to RazorPay',
+    //   amount,
+    //   razorpayPaymentId,
+    //   orderId
+    // );
     if (razorpayPaymentId) {
       await razorPayServices.initiateRazorPayRefund(
         razorpayPaymentId,
@@ -341,7 +341,7 @@ const acceptRetunRequest = async (req, res) => {
     await stockManagement.stockAddition(products);
     res.redirect('back');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -352,7 +352,7 @@ const orderDetailsOfThisId = async (req, res) => {
     const {
       params: { id: orderId },
     } = req;
-    console.log(orderId);
+    // console.log(orderId);
     let paymentStatus="Returned"
     await orderHelper
       .orderDetailsOfThisId(orderId)
@@ -363,7 +363,7 @@ const orderDetailsOfThisId = async (req, res) => {
          );
          paymentStatus=paymentStatus.status;
        }
-        console.log('orderDetails:' + orderDetails, "Payment Status:",paymentStatus);
+        // console.log('orderDetails:' + orderDetails, "Payment Status:",paymentStatus);
         res.render('admin/orderDetails', { admin: true, orderDetails,paymentStatus });
       })
       .catch((error) => {
@@ -372,7 +372,7 @@ const orderDetailsOfThisId = async (req, res) => {
         // res.render("admin/adminError",{admin:true});
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -391,12 +391,12 @@ const orderStatusModification = async (req, res) => {
     if (newStatus === 'Cancelled') {
       const amount = orders.totalPrice;
       const razorpayPaymentId = orders.razorpayPaymentId;
-      console.log(
-        'Order Details to RazorPay',
-        amount,
-        razorpayPaymentId,
-        orderId
-      );
+      // console.log(
+      //   'Order Details to RazorPay',
+      //   amount,
+      //   razorpayPaymentId,
+      //   orderId
+      // );
       const products = orders.products;
       await stockManagement.stockAddition(products);
       if (razorpayPaymentId) {
@@ -407,17 +407,17 @@ const orderStatusModification = async (req, res) => {
         );
       }
     }
-    console.log(newStatus);
+    // console.log(newStatus);
     await orderHelper
       .orderStatusModification(orderId, newStatus)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.status(201).json('success');
 
         // res.redirect('/admin/orders');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json('failed');
   }
 };
@@ -433,7 +433,7 @@ const salesReportPageRendering = async (req, res) => {
       : null;
     const convertedEndDate = endDate ? new Date(`${endDate}T23:59:59Z`) : null;
 
-    console.log(startDate, endDate);
+    // console.log(startDate, endDate);
     const deliveredOrders = await reportHelper.salesReport(
       convertedStartDate,
       convertedEndDate
@@ -460,7 +460,7 @@ const salesReportPageRendering = async (req, res) => {
 
     res.render('admin/salesReport', { admin: true, salesReport });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -474,7 +474,7 @@ const salesReportPrint = async (req, res) => {
       ? new Date(`${startDate}T00:00:00Z`)
       : null;
     const convertedEndDate = endDate ? new Date(`${endDate}T23:59:59Z`) : null;
-    console.log(convertedStartDate, convertedEndDate);
+    // console.log(convertedStartDate, convertedEndDate);
     const deliveredOrders = await reportHelper.salesReport(
       convertedStartDate,
       convertedEndDate
@@ -506,7 +506,7 @@ const salesReportPrint = async (req, res) => {
     const fileStream = fs.createReadStream(csvFilePath);
     fileStream.pipe(res);
   } catch (error) {
-    console.error('Error generating sales report: ', error);
+    // console.error('Error generating sales report: ', error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -515,21 +515,21 @@ const salesReportPrint = async (req, res) => {
 //Coupon Additon post method
 const couponAddition = async (req, res) => {
   try {
-    console.log('hey from admin controller');
+    // console.log('hey from admin controller');
 
-    console.log(req.body);
+    // console.log(req.body);
     const couponData = req.body;
     await couponHelper
       .couponAddition(couponData)
       .then((response) => {
-        console.log('sucess:' + response);
+        // console.log('sucess:' + response);
         res.status(201).json({ success: true });
       })
       .catch((error) => {
         res.status(500).json({ error: 'Failed to add coupon' });
       });
   } catch (error) {
-    console.log('Coupon addition Failed from controller');
+    // console.log('Coupon addition Failed from controller');
     res.status(500).json({ error: 'Failed to add coupon' });
   }
 };
@@ -540,14 +540,14 @@ const couponPageRendering = async (req, res) => {
     await couponHelper
       .couponDetailsFromDataBase()
       .then((coupons) => {
-        console.log(coupons);
+        // console.log(coupons);
         res.render('admin/coupons', { admin: true, coupons });
       })
       .catch((error) => {
         throw error;
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
      res.render("admin/adminError",{admin:true});;
   }
@@ -558,7 +558,7 @@ const couponPageRendering = async (req, res) => {
 const deleteCoupon = async (req, res) => {
   try {
     const { couponId: couponId } = req.body;
-    console.log('coupon id:' + couponId);
+    // console.log('coupon id:' + couponId);
     await couponHelper
       .deleteCoupon(couponId)
       .then((response) => {
@@ -583,7 +583,7 @@ const categoryPageRendering = async (req, res) => {
         res.render('admin/category', { admin: true, categories });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.render('admin/category', {
           admin: true,
           categories,
@@ -602,11 +602,11 @@ const newCatogoryAddition = async (req, res) => {
     producthelper
       .addCategory(req.body)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.redirect('/admin/category', { admin: true, categories });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.redirect('/admin/category');
       });
   } catch (error) {
@@ -627,18 +627,18 @@ const newCatogoryAddition = async (req, res) => {
 //Category Listing and Unlisting
 const categoryStatusAlteration = async (req, res) => {
   try {
-    console.log('Category modification');
+    // console.log('Category modification');
     let categoryId = req.params.id;
     let {newStatus:modification} = req.body;
-    console.log('Category modification',modification);
+    // console.log('Category modification',modification);
     await producthelper.productsUnderCatStatusModification(categoryId,modification);
     producthelper.categoryListing(categoryId, modification).then((response) => {
-      console.log(response);
+      // console.log(response);
       res.status(200).json({success:true,message:"Category and Products status modified"})
       // res.redirect('/admin/category');
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -652,7 +652,7 @@ const bannerPage=async(req,res)=>{
     const banners=await producthelper.bannerDetails();
     res.render("admin/banner",{admin:true,banners})
   }catch(error){
-    console.log(error);
+    // console.log(error);
     res.render("admin/adminError",{admin:true})
   }
 }
@@ -662,27 +662,27 @@ const bannerToDb=async(req,res)=>{
   try{
     const files = req.files;
     const{body:{name,url}}=req;
-    console.log('File name from', files);
+    // console.log('File name from', files);
     if (!files) {
-      console.log('No files were uploaded.');
+      // console.log('No files were uploaded.');
       return res.status(400).send('No files were uploaded.');
     }
     const bannerDetails={};
     bannerDetails.name=name;
     bannerDetails.bannerUrl=url;
     bannerDetails.imageUrl=files[0].filename;
-    console.log(bannerDetails)
+    // console.log(bannerDetails)
     await producthelper.bannerToDb(bannerDetails).then((response)=>{
       console.log(response);
       res.redirect('back')
     }).catch((error)=>{
-      console.log(error);
+      // console.log(error);
       throw error;
     })
 
 
   }catch(error){
-    console.log(error);
+    // console.log(error);
     res.render("admin/adminError",{admin:true})
   }
 }
@@ -696,7 +696,7 @@ const usersListPageRendering = async (req, res) => {
     await userHelper
       .nonDeletedUsers()
       .then((users) => {
-        console.log(users);
+        // console.log(users);
         res.render('admin/usersList', {
           admin: true,
           users,
@@ -705,7 +705,7 @@ const usersListPageRendering = async (req, res) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   } catch (error) {
      res.render("admin/adminError",{admin:true});;
@@ -722,7 +722,7 @@ const deletedUsersListPageRendering = async (req, res) => {
       adminin: true,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
      res.render("admin/adminError",{admin:true});;
   }
 };
@@ -746,7 +746,7 @@ const userDetailsUpdatePageRendering = async (req, res) => {
 const updateUserDetailsToDatatabase = async (req, res) => {
   try {
     const { id: userId } = req.params;
-    console.log('userr Id:' + userId);
+    // console.log('userr Id:' + userId);
     const { name, email, phone, dateOfBirth, access } = req.body;
     const updatedUserDetails = {};
 
@@ -756,11 +756,11 @@ const updateUserDetailsToDatatabase = async (req, res) => {
     if (dateOfBirth) updatedUserDetails.dateOfBirth = dateOfBirth;
     if (access) updatedUserDetails.access = access;
 
-    console.log(updatedUserDetails);
+    // console.log(updatedUserDetails);
     await userHelper
       .updateUserDetails(userId, updatedUserDetails)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.redirect('/admin/viewusers');
       });
   } catch (error) {
@@ -778,11 +778,11 @@ const userAccessModification = async (req, res) => {
     userHelper
       .userAccessModification(userId, accessStatus)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.redirect('/admin/viewusers');
       })
       .then((error) => {
-        console.log(error);
+        // console.log(error);
         throw new Error('Error');
       });
   } catch (error) {
@@ -798,7 +798,7 @@ const userDeletion = async (req, res) => {
       location.reload();
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error');
   }
 };
@@ -816,7 +816,7 @@ const trailPageRendering = async (req, res) => {
 
 //sample post
 const trail = async (req, res) => {
-  console.log(req.files);
+  // console.log(req.files);
   // const file = req.files.image;
 
   cloudinary.uploader.upload(
@@ -824,9 +824,9 @@ const trail = async (req, res) => {
     { folder: 'my_folder' },
     (error, result) => {
       if (error) {
-        console.error(error);
+        // console.error(error);
       } else {
-        console.log(result);
+        // console.log(result);
         // You can use the result URL or public_id to display the uploaded image on your web page
         res.send(`Uploaded image: ${result.url}`);
       }

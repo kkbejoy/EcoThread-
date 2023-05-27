@@ -20,9 +20,9 @@ const createPaymentOrder = async (req, res) => {
     } else {
       totalPrice = discountPrice;
     }
-    console.log('Total price from payment con:' + totalPrice);
+    // console.log('Total price from payment con:' + totalPrice);
     const order = await razorPayServices.createRazorPayOrder(totalPrice);
-    console.log(order);
+    // console.log(order);
     res.json(order);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -41,7 +41,7 @@ const verifyPayment = async (req, res) => {
         user: { _id: userId },
       },
     } = req;
-    console.log('Payment Response from RazorPay:', req.body);
+    // console.log('Payment Response from RazorPay:', req.body);
     await cartHelper.razorpayIdToCart(userId, razorpay_payment_id);
 
     const expectedSignature = paymentHelper.calculateSignature(
@@ -54,10 +54,10 @@ const verifyPayment = async (req, res) => {
         razorpay_payment_id
       );
 
-      console.log('payment Status:' + payment.status);
+      // console.log('payment Status:' + payment.status);
       if (payment.status === 'captured') {
         // Payment successful, perform necessary operations here
-        console.log('Payment Captured');
+        // console.log('Payment Captured');
 
         const cart = await cartHelper.getCartDetails(userId);
         const products = cart[0].products;
@@ -66,7 +66,7 @@ const verifyPayment = async (req, res) => {
           products
         );
         if (stockStatus === 0) {
-          console.log('Stock =0');
+          // console.log('Stock =0');
           res.status(500).send('Product Unavailable');
           return;
         }
@@ -74,7 +74,7 @@ const verifyPayment = async (req, res) => {
         //Creating Orders
         await orderHelper.createOrder(userId).then(async(status)=>{
           const products=status.products;
-          console.log(products);
+          // console.log(products);
           await stockManagement.stockReduction(products);
         });
 
@@ -84,19 +84,19 @@ const verifyPayment = async (req, res) => {
         //Deleting Cart
         await cartHelper.deleteCart(userId);
         res.json({ success: true });
-        console.log('From payment controller');
+        // console.log('From payment controller');
       } else {
         // Payment failed, handle accordingly
-        console.log('Payment Failed else case');
+        // console.log('Payment Failed else case');
         res.status(400).send('Payment failed');
       }
     } else {
       // Signature mismatch, possible fraudulent transaction
-      console.log('Payment Failed 2nd else case');
+      // console.log('Payment Failed 2nd else case');
       res.status(400).send('Fraudulent transaction');
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).send('Internal server error');
   }
 };

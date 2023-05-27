@@ -66,11 +66,11 @@ const signInPost = async (req, res) => {
       .then((response) => {
         req.session.loggedIn = true;
         req.session.user = response.validuser;
-        console.log(req.session.user);
+        // console.log(req.session.user);
         res.redirect('/');
       })
       .catch((error) => {
-        console.log('Login failed');
+        // console.log('Login failed');
         res.render('user/userlogin', { loginerr: true, user: true });
       });
   } catch (error) {
@@ -90,19 +90,19 @@ const userSignUpPageRendering = (req, res) => {
 //user SignUp page post
 const signUpPost = (req, res, next) => {
   try {
-    console.log('Hello from signup con');
+    // console.log('Hello from signup con');
     // const {name,email,password,phone}=req.body;
-    console.log(req.body);
+    // console.log(req.body);
     userHelper
       .Signup(req.body)
       .then((status) => {
-        console.log('Status', status);
+        // console.log('Status', status);
         res.status(201).json({ success: true, registered: true });
         //res.render('user/usersignup', { registered: true, user: true });
       })
       .catch((error) => {
         let existingUser = error.status;
-        console.log('Error', error);
+        // console.log('Error', error);
         res.status(500).json({ error: existingUser });
         //res.render('user/usersignup', { existingUser, user: true });
       });
@@ -129,11 +129,11 @@ const userForgotPassword = (req, res, next) => {
     userHelper
       .passwordReset(email, newPassword)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.render('user/userlogin', { user: true, success: true }); // success message has to be displayed in the login page
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.render('user/forgotPassword', { fail: true });
       });
   } catch (error) {
@@ -155,17 +155,17 @@ const updateUserDetails = async (req, res) => {
     if (email) userUpdatedDetails.email = email;
     if (phone) userUpdatedDetails.phone = phone;
 
-    console.log(userUpdatedDetails);
+    // console.log(userUpdatedDetails);
     userId = ObjectId(userId);
-    console.log(userId);
+    // console.log(userId);
     await userHelper
       .updateUserDetails(userId, userUpdatedDetails)
       .then((response) => {
-        console.log('Res from con ' + response);
+        // console.log('Res from con ' + response);
         res.status(200).json({ message: 'Address updated successfully.' });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         res.status(500).json({ message: 'Failed to update Address' });
         throw new Error('Error updating user details');
       });
@@ -213,8 +213,8 @@ const postOtpLogin = (req, res) => {
       })
       .catch((err) => {
         req.session.otpLoginErr = 'Invalid phone number';
-        console.log(err);
-        res.redirect('/otplogin');
+        // console.log(err);
+        res.redirect('/otplogIn');
       });
   } catch (error) {
     res.render('error', { user: true });
@@ -249,7 +249,7 @@ const postOtpVerify = async (req, res) => {
           req.session.user = user;
           res.redirect('/');
         } else {
-          console.log('hey2');
+          // console.log('hey2');
           req.session.otpErr = ' OTP does not match';
           res.render('user/otpVerify', {
             otpStatus: req.session.otpStatus,
@@ -259,11 +259,11 @@ const postOtpVerify = async (req, res) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         res.redirect('/login');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -277,7 +277,7 @@ const productsListPageRendering = async (req, res) => {
     const activeCategories = await producthelper.getAllActiveCategories();
 
     const productsPaginated = res.paginatedResults;
-    console.log('Paginated result:', productsPaginated);
+    // console.log('Paginated result:', productsPaginated);
     if (req.session.user) {
       const {
         session: { user: user },
@@ -300,7 +300,7 @@ const productsListPageRendering = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -316,7 +316,7 @@ const productsUnderCategory = async (req, res) => {
     await producthelper
       .productUnderCategory(categoryId)
       .then((product) => {
-        console.log('Products', product);
+        // console.log('Products', product);
         res.render('user/categorywiseProducts', {
           product,
           user: true,
@@ -324,10 +324,10 @@ const productsUnderCategory = async (req, res) => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -340,17 +340,17 @@ const fileteredProductPageRendering = async (req, res) => {
     if(!sortBy) sortBy = "createdAt";
     let sortOrder= req.query.sortOrder;
     if(!sortOrder) sortOrder = "asc";
-    console.log(sortBy, sortOrder);
+    // console.log(sortBy, sortOrder);
     const activeCategories = await producthelper.getAllActiveCategories();
     const product = await producthelper.getSortedProducts(sortBy, sortOrder);
-    console.log(product);
+    // console.log(product);
     res.render('user/categorywiseProducts', {
       product,
       user: true,
       activeCategories,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -374,7 +374,7 @@ const productPageForEachItem = async (req, res) => {
           loggedInUser,
           similarProducts,
         });
-        console.log(product);
+        // console.log(product);
       });
     } else {
       const { id: productId } = req.params;
@@ -384,7 +384,7 @@ const productPageForEachItem = async (req, res) => {
           product,
           similarProducts,
         });
-        console.log(product);
+        // console.log(product);
       });
     }
   } catch (error) {
@@ -399,14 +399,14 @@ const productSearch = async (req, res) => {
   try {
     let { search: name } = req.query;
     name = name.trim();
-    console.log('name:' + name);
+    // console.log('name:' + name);
     const user = req.session.user;
     let searchResult = await productSchema
       .find({ name: { $regex: new RegExp('^' + name + '.*', 'i') } })
       .limit(10)
       .lean();
     let activeCategories = await producthelper.getAllActiveCategories();
-    console.log('Search Result:' + searchResult);
+    // console.log('Search Result:' + searchResult);
     res.render('user/productSearchResult', {
       user: true,
       searchResult,
@@ -431,7 +431,7 @@ const wishlistPageRendering = async (req, res) => {
 
     res.render('user/wishlist', { user: true, wishlist, loggedInUser });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -445,7 +445,7 @@ const addToWishlist = async (req, res) => {
       },
       body: { productId: productId },
     } = req;
-    console.log('Add to Wishlist ', userId);
+    // console.log('Add to Wishlist ', userId);
     await userHelper
       .addToWishlist(productId, userId)
       .then((response) => {
@@ -455,7 +455,7 @@ const addToWishlist = async (req, res) => {
         res.status(500).send('Add to wishlist failed');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send('Operation Failed');
   }
 };
@@ -473,21 +473,21 @@ const removeFromWishlist = async (req, res) => {
       },
       body: { productId: productId },
     } = req;
-    console.log('Hello from user Con delete wishlist', productId, userId);
+    // console.log('Hello from user Con delete wishlist', productId, userId);
     await userHelper
       .removeFromWishlist(productId, userId)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         res.status(200).send('Removed');
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         res.status(500).send('Unable to Remove');
 
         // throw new Error("Error removing wishlist")
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send('Unable to Remove');
   }
 };
@@ -517,7 +517,7 @@ const checkOutPage = async (req, res) => {
     });
   } catch (error) {
     //  res.render('/user/userError', { message: 'Order already Placed' });
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -529,24 +529,24 @@ const checkOutPost = async (req, res) => {
     let userId = user._id;
     userId = ObjectId(userId);
 
-    console.log(userId);
+    // console.log(userId);
     let { selectedValue: addressId } = req.body;
-    console.log(addressId);
+    // console.log(addressId);
     await userHelper
       .addShippingAddressIdToCart(userId, addressId)
       .then(() => {
-        console.log('address id added to cart');
+        // console.log('address id added to cart');
         res.status(200).send({ message: 'Addredd Selected successfully' });
         // res.redirect('back');
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.status(500).send({ message: 'Addredd Selected failed' });
 
         // res.redirect('/checkout');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -560,15 +560,15 @@ const addNewAddress = async (req, res) => {
       },
       body: address,
     } = req;
-    console.log(userId);
-    console.log(req.body);
+    // console.log(userId);
+    // console.log(req.body);
 
     address.userId = userId;
-    console.log(address);
+    // console.log(address);
     await userHelper
       .addNewAddress(address)
       .then((address) => {
-        console.log('address id added to cart: ' + address);
+        // console.log('address id added to cart: ' + address);
         res.redirect('back');
         // return res.send({
         //   success: true,
@@ -576,7 +576,7 @@ const addNewAddress = async (req, res) => {
         // });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.redirect('back');
 
         // return res
@@ -584,7 +584,7 @@ const addNewAddress = async (req, res) => {
         //   .json({ success: false, message: 'Failed to add address' });
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res
       .status(500)
       .json({ success: false, message: 'Failed to add address' });
@@ -608,7 +608,7 @@ const editAddressPageRendering = async (req, res) => {
       addressId,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -617,13 +617,13 @@ const editAddressPageRendering = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const { id: addressId } = req.params;
-    console.log(addressId);
+    // console.log(addressId);
     await userHelper
       .deleteAddress(addressId)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         return res.json({
           success: true,
           message: 'Address Deleted successfully',
@@ -633,7 +633,7 @@ const deleteAddress = async (req, res) => {
         throw new Error('Error');
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res
       .status(500)
       .json({ success: false, message: 'Failed to delete address' });
@@ -645,7 +645,7 @@ const deleteAddress = async (req, res) => {
 const updateAddress = async (req, res) => {
   try {
     const { id: addressId } = req.params;
-    console.log('req.body:' + JSON.stringify(req.body));
+    // console.log('req.body:' + JSON.stringify(req.body));
     const {
       name,
       houseNo,
@@ -671,19 +671,19 @@ const updateAddress = async (req, res) => {
     if (pinCode) updatedFields.pinCode = pinCode;
     if (phone) updatedFields.phone = phone;
     if (email) updatedFields.email = email;
-    console.log(addressId);
+    // console.log(addressId);
     await userHelper
       .updateAddress(addressId, updatedFields)
       .then((address) => {
-        console.log('address:' + address);
+        // console.log('address:' + address);
         res.status(200).json({ message: 'Address updated successfully.' });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         res.status(500).json({ error: 'Failed to update address.' });
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -694,15 +694,15 @@ const addAddressFromDatabase = async (req, res) => {
     let userId = user._id;
     userId = ObjectId(userId);
 
-    console.log(userId);
+    // console.log(userId);
     let address = req.body;
     address.userId = userId;
     await userHelper.addAddressFromCheckOut(address).then((addressId) => {
-      console.log('address doc created with id ' + addressId);
+      // console.log('address doc created with id ' + addressId);
       res.redirect('/checkout');
     });
   } catch (error) {
-    console.log(errror);
+    // console.log(errror);
     res.render('error', { user: true });
   }
 };
@@ -724,7 +724,7 @@ const userProfilePageRendering = async (req, res) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.render('error');
   }
 };
@@ -738,7 +738,7 @@ const orderPage = async (req, res) => {
     await userHelper
       .orderDetails(userId)
       .then((orderDetails) => {
-        console.log('order page');
+        // console.log('order page');
         res.render('user/orders', {
           user: true,
           userAccount: true,
@@ -747,7 +747,7 @@ const orderPage = async (req, res) => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         throw new Error('Order Page is currently unavailable');
       });
   } catch (error) {
@@ -774,11 +774,11 @@ const orderDetailPage = async (req, res) => {
           );
           paymentStatus = paymentStatus.status;
         }
-        console.log(
-          'order page:' + orderDetails,
-          'PaymentStatus',
-          paymentStatus
-        );
+        // console.log(
+        //   'order page:' + orderDetails,
+        //   'PaymentStatus',
+        //   paymentStatus
+        // );
 
         res.render('user/orderDetail', {
           user: true,
@@ -789,7 +789,7 @@ const orderDetailPage = async (req, res) => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         throw new Error('Order Page is currently unavailable');
       });
   } catch (error) {
@@ -804,11 +804,11 @@ const returnRequest = async (req, res) => {
     const {
       params: { id: orderId },
     } = req;
-    console.log(orderId);
+    // console.log(orderId);
     await orderHelper.requestReturnOrder(orderId);
     res.redirect('back');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -824,7 +824,7 @@ const savedAddressesPageRendering = async (req, res) => {
     await userHelper
       .getAddressfromAddressCollection(userId)
       .then((addresses) => {
-        console.log('Saved Addresses:', addresses);
+        // console.log('Saved Addresses:', addresses);
         res.render('user/savedAddress', {
           user: true,
           userAccount: true,
@@ -833,7 +833,7 @@ const savedAddressesPageRendering = async (req, res) => {
         });
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error', { user: true });
   }
 };
@@ -858,13 +858,13 @@ const createOrder = async (req, res) => {
   await orderHelper
     .createOrder(userId)
     .then((status) => {
-      console.log('Order Status:', status);
+      // console.log('Order Status:', status);
       userHelper.deleteCart(userId).then(() => {
         res.redirect('/orders');
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
     });
 };
 
@@ -877,12 +877,12 @@ const orderCancelation = async (req, res) => {
     const orders = await orderHelper.orderDetailsOfThisId(orderId);
     const amount = orders.totalPrice;
     const razorpayPaymentId = orders.razorpayPaymentId;
-    console.log(
-      'Order Details to RazorPay',
-      amount,
-      razorpayPaymentId,
-      orderId
-    );
+    // console.log(
+    //   'Order Details to RazorPay',
+    //   amount,
+    //   razorpayPaymentId,
+    //   orderId
+    // );
     if (razorpayPaymentId) {
       await razorPayServices.initiateRazorPayRefund(
         razorpayPaymentId,
@@ -896,7 +896,7 @@ const orderCancelation = async (req, res) => {
       res.redirect('back');
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -921,7 +921,7 @@ const trailPageRendering = async (req, res) => {
     // // const nonDeletedUsers=await userHelper.nonDeletedUsers();
     // console.log('trail page renderin');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.render('error');
   }
 };
