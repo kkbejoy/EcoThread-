@@ -123,7 +123,7 @@
                         </div>
                         <div class="product__item__text">
                             <h6>{{this.name}}</h6>
-                            <a href="/product/{{this._id}}" class="add-cart">+ Add To Cart</a>
+                            <a href="#" class="add-cart btn" data-id="{{product._id}}">+ Add To Cart</a>
                             <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
@@ -514,7 +514,16 @@
     </section>
     <!-- Latest Blog Section End -->
 
-
+    {{!-- Add to Cart Modal --}}
+    <div id="cart-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Item has been added to the cart!</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Search Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">

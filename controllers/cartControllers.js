@@ -58,7 +58,8 @@ const addToCart = (req, res) => {
         user: { _id: userId },
       },
     } = req;
-    const { params: productId } = req;
+    const { params:{id: productId } }= req;
+    console.log("ProductId",productId)
     if (userId) {
       userHelper
         .addToCart(userId, productId)

@@ -5,6 +5,7 @@
       event.preventDefault();
       console.log("Ajax")
       const itemId = $(this).data("id");
+      console.log(itemId)
       $.ajax({
         type: "GET",
         url: "cart/addtocart/" + itemId,
@@ -14,8 +15,8 @@
           //alert("Item has been added to the cart!");
         },
         error: function (xhr, status, error) {
-         window.location.href = '/login';
-          //alert("Adding to cart Failed")
+         
+          alert("Adding to cart Failed")
           console.error(xhr.responseText);
         }
       });

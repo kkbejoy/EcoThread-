@@ -83,11 +83,14 @@ const getProductdetails = (productid) => {
         .lean()
         .then((product) => {
           resolve(product);
+        }).catch((error)=>{
+          throw new Error(error);
         });
     });
   } catch (error) {
-    // console.log(error);
-    res.render('error');
+    console.log(error);
+      throw error;
+    // res.render('error');
   }
 };
 
